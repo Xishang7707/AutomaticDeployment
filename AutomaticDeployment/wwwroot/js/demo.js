@@ -27,7 +27,7 @@
         carousel.render({
             elem: '#dev_step'
             , width: '75%' //设置容器宽度
-            , height: '500px'
+            , height: '80%'
             , arrow: 'always' //始终显示箭头
             , indicator: 'none'
             , autoplay: false

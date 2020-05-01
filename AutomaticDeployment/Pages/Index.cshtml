@@ -6,19 +6,23 @@
 <script src="/lib/steps/steps.js"></script>
 <script src="/js/demo.js"></script>
 
-<body>
-    <div class="layui-card">
-        <div class="layui-card-header">
+<body class="layui-layout-body">
+    <div class="layui-layout layui-layout-admin">
+        <div class="layui-header">
             <div id="dev_steps"></div>
         </div>
-        <div class="layui-card-body step_wapper">
+        <div class="layui-body step_wapper">
             <div class="layui-carousel step_item_wapper" lay-filter="dev_step" id="dev_step">
                 <div carousel-item>
                     <div>
                         <div class="layui-card">
                             <div class="layui-card-header">说明</div>
                             <div class="layui-card">
-                                <h1>无责</h1>
+                                <ol>
+                                    <li style="color:#FF5722">请不要执行rm -rf /</li>
+                                    <li style="color:#FFB800">执行命令先确保服务器安装了命令</li>
+                                    <li style="color:#FFB800">发布不包括环境依赖的安装</li>
+                                </ol>
                             </div>
                         </div>
                     </div>
