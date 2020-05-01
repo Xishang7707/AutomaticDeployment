@@ -12,7 +12,9 @@
             done && done(o);
         },
         error: o => {
-            err && err(o);
+            if (o.responseJSON)
+                err && err(o.responseJSON);
+            else err && err({ status: false, msg: '服务器请求异常' });
         }
     })
 }
@@ -27,7 +29,9 @@ function get({ url, async = true, data, done, err }) {
             done && done(o);
         },
         error: o => {
-            err && err(o);
+            if (o.responseJSON)
+                err && err(o.responseJSON);
+            else err && err({ status: false, msg: '服务器请求异常' });
         }
     })
 }

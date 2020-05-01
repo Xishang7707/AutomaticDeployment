@@ -1,4 +1,6 @@
-﻿using Model.Out;
+﻿using Model.Extend;
+using Model.Out;
+using Model.Ssh;
 using Renci.SshNet;
 using System;
 using System.Collections.Generic;
@@ -33,9 +35,9 @@ namespace Common
         /// 连接
         /// </summary>
         /// <returns></returns>
-        public Result Connect()
+        public SshResult Connect()
         {
-            Result result = new Result();
+            SshResult result = new SshResult();
             try
             {
                 if (sshClient == null || !sshClient.IsConnected)
@@ -57,17 +59,26 @@ namespace Common
         /// </summary>
         /// <param name="shell"></param>
         /// <returns></returns>
-        public Result Exec(string shell)
+        public ExecResult Exec(string shell)
         {
-            Result res = Connect();
+            ExecResult res = Connect().Cast<ExecResult>();
             if (!res.result)
             {
                 return res;
             }
+            res.result = false;
 
-            using var cmd = sshClient.CreateCommand(shell);
+            using (var cmd = sshClient.CreateCommand(shell))
+            {
+                res.msg = cmd.Execute();
+
+                if (cmd.ExitStatus != 0)
+                {
+                    res.msg = cmd.Error;
+                    return res;
+                }
+            }
             res.result = true;
-            res.msg = cmd.Execute();
             return res;
         }
 

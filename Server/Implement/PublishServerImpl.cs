@@ -2,6 +2,7 @@
 using Model;
 using Model.In;
 using Model.Out;
+using Model.Ssh;
 using Server.Interface;
 using System;
 using System.Collections.Generic;
@@ -202,12 +203,13 @@ namespace Server.Implement
                 return info;
             }
 
-            Result execResult = info.sshHelper.Exec(info.PublishData.publish.publish_after_command);
+            ExecResult execResult = info.sshHelper.Exec(string.Join("&&", GetCommon.GetCommands(info.PublishData.publish.publish_before_command)));
             if (!execResult.result)
             {
                 info.msg = execResult.msg;
                 return info;
             }
+
             info.result = true;
             return info;
         }
@@ -257,7 +259,7 @@ namespace Server.Implement
                 return info;
             }
 
-            Result execResult = info.sshHelper.Exec(info.PublishData.publish.publish_after_command);
+            ExecResult execResult = info.sshHelper.Exec(string.Join("&&", GetCommon.GetCommands(info.PublishData.publish.publish_after_command)));
             if (!execResult.result)
             {
                 info.msg = execResult.msg;

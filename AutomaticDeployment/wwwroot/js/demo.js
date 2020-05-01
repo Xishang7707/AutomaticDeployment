@@ -162,8 +162,8 @@ function verify_step_project(data) {
 function get_step_publish() {
     var data = {
         publish_path: $('#step_publish input[name=publish_path]').val(),
-        publish_before_command: $('#step_publish input[name=publish_before_command]').val(),
-        publish_after_command: $('#step_publish input[name=publish_after_command]').val()
+        publish_before_command: $('#step_publish textarea[name=publish_before_command]').val(),
+        publish_after_command: $('#step_publish textarea[name=publish_after_command]').val()
     };
     return data;
 }
@@ -221,7 +221,7 @@ function publish() {
             },
             err: o => {
                 layer.closeAll();
-                layer.msg(o);
+                layer.msg(o.msg);
             }
         })
     }, function (index) {

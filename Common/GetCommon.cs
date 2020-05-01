@@ -74,5 +74,15 @@ namespace Common
             }
             return list.ToArray();
         }
+
+        /// <summary>
+        /// 获取命令/分行
+        /// </summary>
+        /// <param name="str"></param>
+        /// <returns></returns>
+        public static string[] GetCommands(string str)
+        {
+            return str.Split('\n').Where(w => !string.IsNullOrWhiteSpace(w)).ToArray();
+        }
     }
 }
