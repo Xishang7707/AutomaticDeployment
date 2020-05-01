@@ -13,6 +13,12 @@ namespace Server
             if (typeof(T) == typeof(IDemoServer))
                 return new DemoServerImpl() as T;
 
+            if (typeof(T) == typeof(IUploadServer))
+                return new UploadServerImpl() as T;
+
+            if (typeof(T) == typeof(IPublishServer))
+                return new PublishServerImpl() as T;
+
             return null;
         }
     }

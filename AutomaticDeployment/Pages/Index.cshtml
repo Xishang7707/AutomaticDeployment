@@ -1,7 +1,111 @@
 ﻿@page
 @model IndexModel
-<link href="~/lib/steps/steps.css" rel="stylesheet" />
-<script src="~/lib/steps/steps.js"></script>
-<body>
 
+<link href="/lib/steps/steps.css" rel="stylesheet" />
+<link href="/css/demo.css" rel="stylesheet" />
+<script src="/lib/steps/steps.js"></script>
+<script src="/js/demo.js"></script>
+
+<body>
+    <div class="layui-card">
+        <div class="layui-card-header">
+            <div id="dev_steps"></div>
+        </div>
+        <div class="layui-card-body step_wapper">
+            <div class="layui-carousel step_item_wapper" lay-filter="dev_step" id="dev_step">
+                <div carousel-item>
+                    <div>
+                        <div class="layui-card">
+                            <div class="layui-card-header">说明</div>
+                            <div class="layui-card">
+                                <h1>无责</h1>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="layui-card">
+                            <div class="layui-card-header">服务器配置</div>
+                            <div class="layui-card-body">
+                                <form class="layui-form" action="" id="step_server">
+                                    <div class="layui-form-item">
+                                        <label class="layui-form-label">IP地址</label>
+                                        <div class="layui-input-block">
+                                            <input type="text" name="server_ip" value="192.168.99.101" maxlength="20" required lay-verify="required" placeholder="服务器ip(必填)" autocomplete="off" class="layui-input">
+                                        </div>
+                                    </div>
+                                    <div class="layui-form-item">
+                                        <label class="layui-form-label">端口</label>
+                                        <div class="layui-input-block">
+                                            <input type="text" name="server_port" maxlength="20" required lay-verify="required" placeholder="服务器端口(必填)" autocomplete="off" class="layui-input" value="22">
+                                        </div>
+                                    </div>
+                                    <div class="layui-form-item">
+                                        <label class="layui-form-label">账号</label>
+                                        <div class="layui-input-block">
+                                            <input type="text" name="server_account" value="root" maxlength="20" required lay-verify="required" placeholder="服务器账号(必填)" autocomplete="off" class="layui-input">
+                                        </div>
+                                    </div>
+                                    <div class="layui-form-item">
+                                        <label class="layui-form-label">密码</label>
+                                        <div class="layui-input-block">
+                                            <input type="password" name="server_password" value="123456" maxlength="20" required lay-verify="required" placeholder="服务器密码(必填)" autocomplete="off" class="layui-input">
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="layui-card">
+                            <div class="layui-card-header">项目配置</div>
+                            <div class="layui-card-body">
+                                <form class="layui-form" action="" id="step_project">
+                                    <div class="layui-form-item">
+                                        <label class="layui-form-label">发布文件</label>
+                                        <div class="layui-input-block">
+                                            <input type="hidden" name="file_id" value="" />
+                                            <button type="button" class="layui-btn" id="project_file">
+                                                <i class="layui-icon">&#xe67c;</i>项目文件
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="layui-card">
+                            <div class="layui-card-header">发布配置</div>
+                            <div class="layui-card-body">
+                                <form class="layui-form" action="" id="step_publish">
+                                    <div class="layui-form-item">
+                                        <label class="layui-form-label">发布路径</label>
+                                        <div class="layui-input-block">
+                                            <input type="text" name="publish_path" required lay-verify="required" placeholder="项目在服务器上发布的目录(必填)" autocomplete="off" class="layui-input">
+                                        </div>
+                                    </div>
+                                    <div class="layui-form-item">
+                                        <label class="layui-form-label">发布前命令</label>
+                                        <div class="layui-input-block">
+                                            <textarea name="publish_before_command" placeholder="发布前执行的命令(如启动项目),每个命令占一行" class="layui-textarea"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="layui-form-item">
+                                        <label class="layui-form-label">发布后命令</label>
+                                        <div class="layui-input-block">
+                                            <textarea name="publish_after_command" placeholder="发布后执行的命令(如解压缩包、启动项目),每个命令占一行" class="layui-textarea"></textarea>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="layui-btn-container">
+                <button type="button" class="layui-btn btn_step" id="btn_step_sub">上一步</button>
+                <button type="button" class="layui-btn btn_step" id="btn_step_add">下一步</button>
+            </div>
+        </div>
+    </div>
 </body>

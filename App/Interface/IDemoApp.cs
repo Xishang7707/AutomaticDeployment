@@ -1,8 +1,5 @@
-﻿using App.Model.Data;
-using App.Model.Result;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using Model.In;
+using Model.Out;
 
 namespace App.Interface
 {
@@ -13,6 +10,6 @@ namespace App.Interface
         /// </summary>
         /// <param name="appData"></param>
         /// <returns></returns>
-        public AppResult<string> Publish(AppData appData);
+        public Result Publish(In appData);
     }
 }

@@ -1,19 +1,15 @@
-﻿using Server.Interface;
-using Server.Model.Data;
-using Server.Model.Result;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using Model.In;
+using Model.Out;
+using Server.Interface;
 
 namespace Server.Implement
 {
     internal class DemoServerImpl : IDemoServer
     {
-        public ServerResult<string> Publish(ServerData serverData)
+        public Result Publish(In serverData)
         {
-            return new ServerResult<string>
+            return new Result
             {
-                Data = "发布"
             };
         }
     }

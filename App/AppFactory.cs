@@ -12,6 +12,10 @@ namespace App
         {
             if (typeof(T) == typeof(IDemoApp))
                 return new DemoAppImpl() as T;
+            if (typeof(T) == typeof(IUploadApp))
+                return new UploadAppImpl() as T;
+            if (typeof(T) == typeof(IPublishApp))
+                return new PublishAppImpl() as T;
             return null;
         }
     }

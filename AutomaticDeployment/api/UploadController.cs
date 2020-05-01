@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using App;
 using App.Interface;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Model.In;
 
@@ -12,18 +13,18 @@ using Model.In;
 namespace AutomaticDeployment.api
 {
     [Route("api/[controller]")]
-    public class DemoController : Controller
+    public class UploadController : Controller
     {
         /// <summary>
-        /// 模拟发布
+        /// 上传文件
         /// </summary>
-        /// <param name="demoPublishIn"></param>
+        /// <param name="uploadIn"></param>
         /// <returns></returns>
-        [HttpPost("publishdemo")]
-        public IActionResult PublishDemo([FromBody]DemoPublishIn demoPublishIn)
+        [HttpPost("uploaddemo")]
+        public async Task<IActionResult> UploadDemo([FromForm]IFormCollection form)
         {
-            IPublishApp publishApp = AppFactory.Get<IPublishApp>();
-            return publishApp.PublishDemo(demoPublishIn);
+            IUploadApp uploadApp = AppFactory.Get<IUploadApp>();
+            return await uploadApp.UploadDemo(new UploadIn { Files = form.Files });
         }
     }
 }

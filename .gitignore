@@ -2,7 +2,7 @@
 # 此 .gitignore 文件已由 Microsoft(R) Visual Studio 自动创建。
 ################################################################################
 
-/App/bin/Debug/netcoreapp3.1
+/App/bin
 /App/obj
 /AutomaticDeployment/.vs
 /AutomaticDeployment/bin
@@ -11,3 +11,8 @@
 /DAO/obj
 /Server/bin
 /Server/obj
+/AutomaticDeployment/workspace/upload
+/Common/bin
+/Common/obj
+/Model/bin
+/Model/obj

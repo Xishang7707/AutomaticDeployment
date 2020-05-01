@@ -1,8 +1,5 @@
-﻿using Server.Model.Data;
-using Server.Model.Result;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using Model.In;
+using Model.Out;
 
 namespace Server.Interface
 {
@@ -13,6 +10,6 @@ namespace Server.Interface
         /// </summary>
         /// <param name="serverData"></param>
         /// <returns></returns>
-        ServerResult<string> Publish(ServerData serverData);
+        Result Publish(In serverData);
     }
 }

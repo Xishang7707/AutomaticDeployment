@@ -1,11 +1,8 @@
 ﻿using App.Interface;
-using App.Model.Data;
-using App.Model.Result;
+using Model.In;
+using Model.Out;
 using Server;
 using Server.Interface;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace App.Implement
 {
@@ -14,14 +11,10 @@ namespace App.Implement
     /// </summary>
     internal class DemoAppImpl : IDemoApp
     {
-        public AppResult<string> Publish(AppData appData)
+        public Result Publish(In appData)
         {
             IDemoServer server = ServerFactory.Get<IDemoServer>();
-            var result = server.Publish(null);
-            return new AppResult<string>
-            {
-                Data = result.Data
-            };
+            return server.Publish(appData);
         }
     }
 }
