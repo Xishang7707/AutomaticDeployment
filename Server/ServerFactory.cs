@@ -1,4 +1,5 @@
 ﻿using Server.Implement;
+using Server.Implement.QuickProject;
 using Server.Interface;
 using System;
 using System.Collections.Generic;
@@ -18,6 +19,9 @@ namespace Server
 
             if (typeof(T) == typeof(IPublishServer))
                 return new PublishServerImpl() as T;
+
+            if (typeof(T) == typeof(IQuickProjectServer))
+                return new QuickProjectServerImpl() as T;
 
             return null;
         }

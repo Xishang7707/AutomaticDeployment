@@ -22,7 +22,7 @@ namespace DAO
             string sql = @"INSERT INTO t_service(name,conn_ip,conn_port,conn_mode,conn_user,conn_password,ssh_key,secret_key,work_spacepath,platform_type,add_time)
                                         VALUES(@name,@conn_ip,@conn_port,@conn_mode,@conn_user,@conn_password,@ssh_key,@secret_key,@work_spacepath,@platform_type,@add_time);select last_insert_rowid();";
 
-            return await sqlHelper.Exec(sql, model);
+            return await sqlHelper.ExecAsync(sql, model);
         }
 
         /// <summary>

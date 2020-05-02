@@ -25,6 +25,11 @@ namespace Model.Db
         public string proj_guid { get; set; }
 
         /// <summary>
+        /// 项目类型
+        /// </summary>
+        public int proj_type { get; set; }
+
+        /// <summary>
         /// 最后一次发布时间
         /// </summary>
         public string last_publish_time { get; set; }
@@ -42,6 +47,11 @@ namespace Model.Db
         /// <summary>
         /// 代码工具
         /// </summary>
-        public string code_mode { get; set; }
+        public int code_mode { get; set; }
+
+        /// <summary>
+        /// 描述
+        /// </summary>
+        public string remark { get; set; }
     }
 }

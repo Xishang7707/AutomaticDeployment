@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 
@@ -15,6 +16,7 @@ namespace Common
         /// </summary>
         /// <param name="str">字符串</param>
         /// <param name="make">混合</param>
+        /// <param name="mode">模式</param>
         /// <returns></returns>
         public static string MakeMD5(string str, string make = "")
         {
@@ -31,6 +33,22 @@ namespace Common
         public static string MakeGUID(string fmt = "N")
         {
             return Guid.NewGuid().ToString(fmt);
+        }
+
+        /// <summary>
+        /// salt
+        /// </summary>
+        /// <param name="obj">混合内容</param>
+        /// <returns></returns>
+        public static string MakeSalt(params string[] obj)
+        {
+            string[] v = new string[] { };
+            foreach (var item in obj)
+            {
+                v.Append(MakeMD5(item, MakeGUID("N")));
+            }
+
+            return MakeMD5(MakeGUID(), string.Join("-", v));
         }
 
         /// <summary>

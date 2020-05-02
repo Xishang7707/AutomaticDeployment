@@ -40,7 +40,7 @@ namespace Server.Implement
                 result.msg = Tip.TIP_5;
                 return result;
             }
-            if (!RegexCommon.IP(demoPublishIn.server.server_ip))
+            if (!VerifyCommon.IP(demoPublishIn.server.server_ip))
             {
                 result.msg = Tip.TIP_6;
                 return result;

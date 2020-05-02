@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Model.In.Demo;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -12,12 +13,12 @@ namespace Model.In
         /// <summary>
         /// 服务器
         /// </summary>
-        public ServerIn server { get; set; }
+        public DemoServerIn server { get; set; }
 
         /// <summary>
         /// 项目
         /// </summary>
-        public ProjectIn project { get; set; }
+        public DemoProjectIn project { get; set; }
 
         /// <summary>
         /// 发布

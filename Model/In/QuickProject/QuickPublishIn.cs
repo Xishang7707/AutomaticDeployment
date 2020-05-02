@@ -2,13 +2,12 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Model.In
+namespace Model.In.QuickProject
 {
     /// <summary>
-    /// 项目
+    /// 快速项目 发布信息
     /// </summary>
-    public class ProjectIn
+    public class QuickPublishIn : PublishIn
     {
-
     }
 }

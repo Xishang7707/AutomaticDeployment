@@ -1,0 +1,26 @@
+﻿.layui-card-header {
+    height: inherit;
+}
+
+
+.step_wapper {
+    text-align: center;
+    left: 0;
+    bottom: 0;
+}
+
+.step_item_wapper {
+    display: inline-block;
+}
+
+.btn_step {
+    display: none;
+}
+
+.layui-carousel > [carousel-item] > * {
+    background-color: #fff;
+}
+
+.layui-layout-admin .layui-header {
+    background-color: #ffff;
+}

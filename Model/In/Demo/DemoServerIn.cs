@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Model.In
+namespace Model.In.Demo
 {
     /// <summary>
-    /// 项目
+    /// demo服务器信息
     /// </summary>
-    public class ProjectIn
+    public class DemoServerIn : ServerIn
     {
 
     }

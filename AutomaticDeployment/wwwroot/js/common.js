@@ -35,3 +35,7 @@ function get({ url, async = true, data, done, err }) {
         }
     })
 }
+
+function get_selected(sor) {
+    return $(sor).siblings('div.layui-form-select').find('dl dd.layui-this').attr('lay-value');
+}

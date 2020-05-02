@@ -54,12 +54,22 @@ namespace Model.Db
         /// <summary>
         /// 发布目录
         /// </summary>
-        public int publish_path { get; set; }
+        public string publish_path { get; set; }
 
         /// <summary>
         /// 服务器系统类型
         /// </summary>
         public int platform_type { get; set; }
+
+        /// <summary>
+        /// 发布前命令
+        /// </summary>
+        public string publish_before_cmd { get; set; }
+
+        /// <summary>
+        /// 发布后命令
+        /// </summary>
+        public string publish_after_cmd { get; set; }
 
         /// <summary>
         /// 更新时间

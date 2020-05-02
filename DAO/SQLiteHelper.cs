@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Data.SqlClient;
+﻿using System.Collections.Generic;
 using System.Data.SQLite;
-using Model.Out;
 using System.Threading.Tasks;
 using System.Data.Common;
 using Dapper;
@@ -34,12 +30,24 @@ namespace DAO
         }
 
         /// <summary>
+        /// 断开
+        /// </summary>
+        /// <returns></returns>
+        public void Close()
+        {
+            if (conn != null && conn.State != System.Data.ConnectionState.Closed)
+            {
+                conn.CloseAsync();
+            }
+        }
+
+        /// <summary>
         /// 开启事务
         /// </summary>
         /// <returns></returns>
         public async Task BeginTransactionAsync()
         {
-            await Connect();
+            await ConnectAsync();
             tran = await conn.BeginTransactionAsync();
         }
 
@@ -59,7 +67,8 @@ namespace DAO
         /// <returns></returns>
         public async Task RollbackAsync()
         {
-            await tran.RollbackAsync();
+            if (tran != null)
+                await tran.RollbackAsync();
             tran = null;
         }
 
@@ -94,7 +103,7 @@ namespace DAO
         /// <param name="sql"></param>
         /// <param name="param"></param>
         /// <returns></returns>
-        public async Task<T> Exec<T>(string sql, object param)
+        public async Task<T> ExecAsync<T>(string sql, object param)
         {
             return await conn.ExecuteScalarAsync<T>(sql, param, tran);
         }
@@ -105,7 +114,7 @@ namespace DAO
         /// <param name="sql"></param>
         /// <param name="param"></param>
         /// <returns></returns>
-        public async Task<int> Exec(string sql, object param)
+        public async Task<int> ExecAsync(string sql, object param)
         {
             return await conn.ExecuteAsync(sql, param, tran);
         }

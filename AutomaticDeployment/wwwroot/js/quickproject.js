@@ -1,17 +1,20 @@
 ﻿$(function () {
-    layui.use(['carousel', 'upload'], function () {
+    layui.use(['carousel', 'upload', 'form'], function () {
         var carousel = layui.carousel;
         var upload = layui.upload;
+        var form = layui.form;
 
         var developer_config = {
             server: {
+                server_platform: '',
                 server_ip: '',
                 server_port: '',
                 server_account: '',
                 server_password: ''
             },
             project: {
-                file_id: ''
+                project_name: '',
+                project_remark: ''
             },
             publish: {
                 publish_path: '',
@@ -21,7 +24,6 @@
         };
 
         var step_el = init_dev_steps();
-        var step_total = 4;
 
         //建造实例
         carousel.render({
@@ -31,24 +33,6 @@
             , arrow: 'always' //始终显示箭头
             , indicator: 'none'
             , autoplay: false
-            //,anim: 'updown' //切换动画方式
-        });
-
-        upload.render({
-            elem: '#project_file' //绑定元素
-            , url: 'api/upload/uploaddemo' //上传接口
-            , accept: 'file'
-            , choose: function (obj) {
-                $('#step_project input[name=file_id]').val('');
-            }
-            , done: function (res) {
-                $('#step_project input[name=file_id]').val(res.id);
-                //上传完毕回调
-                layer.msg(res.msg);
-            }
-            , error: function () {
-                layer.msg('上传失败');
-            }
         });
 
         var sub_step_el = $('#dev_step > button[lay-type="sub"]');
@@ -63,16 +47,16 @@
 
         btn_step_sub.click(() => { sub_step_el.click(); });
         btn_step_add.click(() => {
-            var index = step_el.getActive(); if (index + 1 == step_total) return publish(); if (check_step(index)) add_step_el.click();
+            var index = step_el.getActive(); if (index + 1 == step_config.length) return publish(); if (check_step(index)) add_step_el.click();
         });
 
-        carousel.on('change(dev_step)', function (obj) { //test1来源于对应HTML容器的 lay-filter="test1" 属性值
+        carousel.on('change(dev_step)', function (obj) {
             step_el.setActive(obj.index);
             if (obj.index == 0) {
                 btn_step_sub.hide();
             }
-            else if (obj.index + 1 == step_total) {
-                btn_step_add.text('发布');
+            else if (obj.index + 1 == step_config.length) {
+                btn_step_add.text('添加项目');
             }
             else {
                 btn_step_sub.show();
@@ -83,16 +67,17 @@
     });
 });
 
+var step_config = [
+    { title: "说明", description: "", },
+    { title: "项目", description: "", verify: verify_step_project, verify_data: get_step_project },
+    { title: "服务器", description: "", verify: verify_step_server, verify_data: get_step_server },
+    { title: "发布信息", description: "", verify: verify_step_publish, verify_data: get_step_publish }
+];
 
 function init_dev_steps() {
     return steps({
         el: "#dev_steps",
-        data: [
-            { title: "说明", description: "" },
-            { title: "服务器配置", description: "" },
-            { title: "项目配置", description: "" },
-            { title: "发布", description: "" }
-        ],
+        data: step_config,
         active: 0,
         center: true,
         sides: "start-single",
@@ -102,6 +87,7 @@ function init_dev_steps() {
 
 function get_step_server() {
     var data = {
+        server_platform: get_selected('#step_server select[name=server_platform]'),
         server_ip: $('#step_server input[name=server_ip]').val(),
         server_port: $('#step_server input[name=server_port]').val(),
         server_account: $('#step_server input[name=server_account]').val(),
@@ -111,6 +97,10 @@ function get_step_server() {
 }
 
 function verify_step_server(data) {
+    if (!data['server_platform']) {
+        layer.msg('请选择平台');
+        return false;
+    }
     if (!data['server_ip']) {
         layer.msg('请填写服务器ip');
         return false;
@@ -142,15 +132,21 @@ function verify_step_server(data) {
 
 function get_step_project() {
     var data = {
-        file_id: $('#step_project input[name=file_id]').val()
+        project_name: $('#step_project input[name=project_name]').val(),
+        project_remark: $('#step_project textarea[name=project_remark]').val()
     };
     return data;
 }
 
 function verify_step_project(data) {
 
-    if (!data['file_id']) {
-        layer.msg('请上传发布文件');
+    if (!data['project_name']) {
+        layer.msg('请填写项目名称');
+        return false;
+    }
+
+    if (data['project_remark'].length > 200) {
+        layer.msg('项目描述最多200个字符');
         return false;
     }
 
@@ -177,16 +173,11 @@ function verify_step_publish(data) {
 }
 
 function check_step(index) {
-    switch (index) {
-        case 1:
-            return verify_step_server(get_step_server());
-        case 2:
-            return verify_step_project(get_step_project());
-        case 3:
-            return verify_step_publish(get_step_publish());
-        default:
-            return true;
-    }
+    if (!(step_config[index].verify && step_config[index].verify_data))
+        return true;
+
+    return step_config[index].verify && step_config[index].verify_data && step_config[index].verify(step_config[index].verify_data());
+
 }
 
 function publish() {
@@ -205,24 +196,17 @@ function publish() {
         return false;
     }
 
-    layer.confirm('确认发布？', {
-        btn: ['发布', '取消'] //可以无限个按钮
-    }, function (index, layero) {
-        layer.close(index);
-        layer.load();
-        post({
-            url: 'api/demo/publishdemo',
-            data: data,
-            done: o => {
-                layer.closeAll();
-                layer.msg(o.msg);
-            },
-            err: o => {
-                layer.closeAll();
-                layer.msg(o.msg);
-            }
-        })
-    }, function (index) {
-        layer.close(index);
+    layer.load();
+    post({
+        url: 'api/quickproject/addproject',
+        data: data,
+        done: o => {
+            layer.closeAll();
+            layer.msg(o.msg);
+        },
+        err: o => {
+            layer.closeAll();
+            layer.msg(o.msg);
+        }
     });
 }

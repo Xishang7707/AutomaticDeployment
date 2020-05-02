@@ -88,5 +88,41 @@ namespace Model
         /// 发布成功
         /// </summary>
         public static string TIP_16 { get; } = "发布成功";
+
+        /// <summary>
+        /// 服务器登录账号最多20个字符
+        /// </summary>
+        public static string TIP_17 { get; } = "服务器登录账号最多20个字符";
+
+        /// <summary>
+        /// 服务器登录密码最多20个字符
+        /// </summary>
+        public static string TIP_18 { get; } = "服务器登录账号最多18个字符";
+
+        /// <summary>
+        /// 项目名称最多20个字符
+        /// </summary>
+        public static string TIP_19 { get; } = "项目名称最多20个字符";
+
+        /// <summary>
+        /// 项目添加失败
+        /// </summary>
+        public static string TIP_20 { get; } = "项目添加失败";
+
+        /// <summary>
+        /// 项目添加成功
+        /// </summary>
+        public static string TIP_21 { get; } = "项目添加成功";
+
+        /// <summary>
+        /// 服务器平台类型不存在
+        /// </summary>
+        public static string TIP_22 { get; } = "服务器平台类型不存在";
+
+        /// <summary>
+        /// 服务器处理异常
+        /// </summary>
+        public static string TIP_23 { get; } = "服务器处理异常";
+
     }
 }

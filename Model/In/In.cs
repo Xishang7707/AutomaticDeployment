@@ -11,4 +11,15 @@ namespace Model.In
     {
 
     }
+
+    /// <summary>
+    /// 参数数据
+    /// </summary>
+    public class In<T>
+    {
+        /// <summary>
+        /// 数据
+        /// </summary>
+        public T Data { get; set; }
+    }
 }
