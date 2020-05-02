@@ -5,7 +5,7 @@ using System.Text;
 namespace Model.Db
 {
     /// <summary>
-    /// 项目
+    /// 项目【总表】
     /// </summary>
     public class t_project
     {
