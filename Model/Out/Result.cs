@@ -28,4 +28,9 @@ namespace Model.Out
             await resp.WriteAsync(JsonConvert.SerializeObject(this));
         }
     }
+
+    public class Result<T> : Result
+    {
+        public T data { get; set; }
+    }
 }

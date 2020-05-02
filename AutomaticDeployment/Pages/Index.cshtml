@@ -1,116 +1,43 @@
 ﻿@page
 @model IndexModel
 @{
-    ViewData["Title"] = "流水项目";
+    ViewData["Title"] = "项目部署";
 }
-<link href="/lib/steps/steps.css" rel="stylesheet" />
-<link href="/css/demo.css" rel="stylesheet" />
-<script src="/lib/steps/steps.js"></script>
-<script src="/js/demo.js"></script>
+<link href="~/css/index.css" rel="stylesheet" />
+<script src="~/js/index.js"></script>
 
 <body class="layui-layout-body">
     <div class="layui-layout layui-layout-admin">
         <div class="layui-header">
-            <div id="dev_steps"></div>
+            <div class="layui-logo">项目部署</div>
+            <ul class="layui-nav layui-layout-left" lay-filter="top-nav">
+                <li class="layui-nav-item">
+                    <a href="javascript:;" page-link="quickproject/index" nav-page="quickproject" lay-id="quickproject">快速发布</a>
+                </li>
+                <li class="layui-nav-item">
+                    <a href="javascript:;" page-link="demo/index" nav-page="demo" lay-id="demo">[演示]流水项目</a>
+                </li>
+            </ul>
+            @*<ul class="layui-nav layui-layout-right">
+                    <li class="layui-nav-item">
+                        <a href="javascript:;">
+                            <img src="http://t.cn/RCzsdCq" class="layui-nav-img">
+                            <span id="info_real_name"></span>
+                        </a>
+                        <dl class="layui-nav-child">
+                            <dd><a href="javascript:;">基本资料</a></dd>
+                            <dd><a href="javascript:;">安全设置</a></dd>
+                        </dl>
+                    </li>
+                    <li class="layui-nav-item"><a href="javascript:;" id="login-out">退出</a></li>
+                </ul>*@
         </div>
-        <div class="layui-body step_wapper">
-            <div class="layui-carousel step_item_wapper" lay-filter="dev_step" id="dev_step">
-                <div carousel-item>
-                    <div>
-                        <div class="layui-card">
-                            <div class="layui-card-header">说明</div>
-                            <div class="layui-card">
-                                <ol>
-                                    <li style="color:#FF5722">请不要执行rm -rf /</li>
-                                    <li style="color:#FFB800">执行命令先确保服务器安装了命令</li>
-                                    <li style="color:#FFB800">发布不包括环境依赖的安装</li>
-                                </ol>
-                            </div>
-                        </div>
-                    </div>
-                    <div>
-                        <div class="layui-card">
-                            <div class="layui-card-header">服务器配置</div>
-                            <div class="layui-card-body">
-                                <form class="layui-form" action="" id="step_server">
-                                    <div class="layui-form-item">
-                                        <label class="layui-form-label">IP地址</label>
-                                        <div class="layui-input-block">
-                                            <input type="text" name="server_ip" value="192.168.99.101" maxlength="20" required lay-verify="required" placeholder="服务器ip(必填)" autocomplete="off" class="layui-input">
-                                        </div>
-                                    </div>
-                                    <div class="layui-form-item">
-                                        <label class="layui-form-label">端口</label>
-                                        <div class="layui-input-block">
-                                            <input type="text" name="server_port" maxlength="20" required lay-verify="required" placeholder="服务器端口(必填)" autocomplete="off" class="layui-input" value="22">
-                                        </div>
-                                    </div>
-                                    <div class="layui-form-item">
-                                        <label class="layui-form-label">账号</label>
-                                        <div class="layui-input-block">
-                                            <input type="text" name="server_account" value="root" maxlength="20" required lay-verify="required" placeholder="服务器账号(必填)" autocomplete="off" class="layui-input">
-                                        </div>
-                                    </div>
-                                    <div class="layui-form-item">
-                                        <label class="layui-form-label">密码</label>
-                                        <div class="layui-input-block">
-                                            <input type="password" name="server_password" value="123456" maxlength="20" required lay-verify="required" placeholder="服务器密码(必填)" autocomplete="off" class="layui-input">
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                    <div>
-                        <div class="layui-card">
-                            <div class="layui-card-header">项目配置</div>
-                            <div class="layui-card-body">
-                                <form class="layui-form" action="" id="step_project">
-                                    <div class="layui-form-item">
-                                        <label class="layui-form-label">发布文件</label>
-                                        <div class="layui-input-block">
-                                            <input type="hidden" name="file_id" value="" />
-                                            <button type="button" class="layui-btn" id="project_file">
-                                                <i class="layui-icon">&#xe67c;</i>项目文件
-                                            </button>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                    <div>
-                        <div class="layui-card">
-                            <div class="layui-card-header">发布配置</div>
-                            <div class="layui-card-body">
-                                <form class="layui-form" action="" id="step_publish">
-                                    <div class="layui-form-item">
-                                        <label class="layui-form-label">发布路径</label>
-                                        <div class="layui-input-block">
-                                            <input type="text" name="publish_path" required lay-verify="required" placeholder="项目在服务器上发布的目录(必填)" autocomplete="off" class="layui-input">
-                                        </div>
-                                    </div>
-                                    <div class="layui-form-item">
-                                        <label class="layui-form-label">发布前命令</label>
-                                        <div class="layui-input-block">
-                                            <textarea name="publish_before_command" placeholder="发布前执行的命令(如启动项目),每个命令占一行" class="layui-textarea"></textarea>
-                                        </div>
-                                    </div>
-                                    <div class="layui-form-item">
-                                        <label class="layui-form-label">发布后命令</label>
-                                        <div class="layui-input-block">
-                                            <textarea name="publish_after_command" placeholder="发布后执行的命令(如解压缩包、启动项目),每个命令占一行" class="layui-textarea"></textarea>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
+        <div class="layui-body" style="left:0;bottom:0;">
+            <div class="layui-tab layui-tab-brief" lay-allowClose="true" lay-filter="main-tab">
+                <ul class="layui-tab-title">
+                </ul>
+                <div class="layui-tab-content">
                 </div>
-            </div>
-            <div class="layui-btn-container">
-                <button type="button" class="layui-btn btn_step" id="btn_step_sub">上一步</button>
-                <button type="button" class="layui-btn btn_step" id="btn_step_add">下一步</button>
             </div>
         </div>
     </div>

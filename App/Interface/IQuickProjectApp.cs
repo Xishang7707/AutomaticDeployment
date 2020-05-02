@@ -19,5 +19,12 @@ namespace App.Interface
         /// <param name="inData"></param>
         /// <returns></returns>
         Task<Result> AddProjectAsync(In<AddQuickProjectIn> inData);
+
+        /// <summary>
+        /// 获取项目列表
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        Task<Result> GetProjectListAsync(In data);
     }
 }

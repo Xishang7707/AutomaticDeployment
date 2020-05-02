@@ -19,5 +19,12 @@ namespace Server.Interface
         /// <param name="inData"></param>
         /// <returns></returns>
         Task<Result> AddQuickProjectAsync(In<AddQuickProjectIn> inData);
+
+        /// <summary>
+        /// 项目列表
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        Task<Result> QuickProjectListAsync(In data);
     }
 }

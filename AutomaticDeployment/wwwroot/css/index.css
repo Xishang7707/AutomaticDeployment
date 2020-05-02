@@ -1,0 +1,7 @@
+﻿.layui-body > .layui-tab > .layui-tab-content > .layui-tab-item, .wrapper-tab-content {
+    position: fixed;
+    top: 111px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}

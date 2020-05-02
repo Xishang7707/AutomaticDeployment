@@ -81,6 +81,7 @@ namespace DAO
         /// <returns></returns>
         public async Task<List<T>> QueryListAsync<T>(string sql, object param = null)
         {
+            await ConnectAsync();
             return (await conn.QueryAsync<T>(sql, param, tran)).ToList();
         }
 
@@ -93,6 +94,7 @@ namespace DAO
         /// <returns></returns>
         public async Task<T> QueryAsync<T>(string sql, object param = null)
         {
+            await ConnectAsync();
             return await conn.QueryFirstOrDefaultAsync<T>(sql, param, tran);
         }
 
@@ -105,6 +107,7 @@ namespace DAO
         /// <returns></returns>
         public async Task<T> ExecAsync<T>(string sql, object param)
         {
+            await ConnectAsync();
             return await conn.ExecuteScalarAsync<T>(sql, param, tran);
         }
 
@@ -116,6 +119,7 @@ namespace DAO
         /// <returns></returns>
         public async Task<int> ExecAsync(string sql, object param)
         {
+            await ConnectAsync();
             return await conn.ExecuteAsync(sql, param, tran);
         }
     }

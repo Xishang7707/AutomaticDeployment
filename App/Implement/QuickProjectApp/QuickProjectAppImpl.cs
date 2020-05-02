@@ -21,5 +21,11 @@ namespace App.Implement.QuickProjectApp
             IQuickProjectServer server = ServerFactory.Get<IQuickProjectServer>();
             return await server.AddQuickProjectAsync(inData);
         }
+
+        public async Task<Result> GetProjectListAsync(In data)
+        {
+            IQuickProjectServer server = ServerFactory.Get<IQuickProjectServer>();
+            return await server.QuickProjectListAsync(data);
+        }
     }
 }

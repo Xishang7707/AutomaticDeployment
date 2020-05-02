@@ -21,5 +21,14 @@ namespace AutomaticDeployment.api
         {
             return new In<T> { Data = model };
         }
+
+        /// <summary>
+        /// 包装请求
+        /// </summary>
+        /// <returns></returns>
+        public In PackRequest()
+        {
+            return new In { };
+        }
     }
 }

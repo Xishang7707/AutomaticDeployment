@@ -4,6 +4,7 @@ using Model.Db;
 using Model.Db.Enum;
 using Model.In.QuickProject;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace DAO.QuickProject
@@ -69,6 +70,17 @@ namespace DAO.QuickProject
             result.proj_guid = model.proj_guid;
             result.result = true;
             return result;
+        }
+
+        /// <summary>
+        /// 获取项目列表
+        /// </summary>
+        /// <param name="dbHelper"></param>
+        /// <returns></returns>
+        public static async Task<List<t_project>> GetProjectList(SQLiteHelper dbHelper)
+        {
+            string sql = @"SELECT name,proj_guid,last_publish_time,add_time,remark FROM t_project WHERE proj_type=@proj_type;";
+            return await dbHelper.QueryListAsync<t_project>(sql, new { proj_type = (int)EProjectType.Quick });
         }
     }
 }

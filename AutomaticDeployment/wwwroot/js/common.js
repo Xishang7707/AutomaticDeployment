@@ -39,3 +39,23 @@ function get({ url, async = true, data, done, err }) {
 function get_selected(sor) {
     return $(sor).siblings('div.layui-form-select').find('dl dd.layui-this').attr('lay-value');
 }
+
+/**
+ * 获取顶层window
+ */
+function get_top_window() {
+    var p = window.parent;
+    while (p != p.window.parent) {
+        p = p.window.parent;
+    } return p;
+}
+
+function getQuery(variable) {
+    var query = window.location.search.substring(1);
+    var vars = query.split("&");
+    for (var i = 0; i < vars.length; i++) {
+        var pair = vars[i].split("=");
+        if (pair[0] == variable) { return pair[1]; }
+    }
+    return '';
+}

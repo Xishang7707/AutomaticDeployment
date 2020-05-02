@@ -25,5 +25,16 @@ namespace AutomaticDeployment.api
             IQuickProjectApp app = AppFactory.Get<IQuickProjectApp>();
             return await app.AddProjectAsync(PackRequest(model));
         }
+
+        /// <summary>
+        /// 获取项目列表
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("getprojectlist")]
+        public async Task<IActionResult> GetProjectList()
+        {
+            IQuickProjectApp app = AppFactory.Get<IQuickProjectApp>();
+            return await app.GetProjectListAsync(PackRequest());
+        }
     }
 }

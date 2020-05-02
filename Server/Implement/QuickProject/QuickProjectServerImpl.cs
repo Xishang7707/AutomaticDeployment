@@ -1,4 +1,5 @@
 ﻿using Common;
+using Common.Extend;
 using DAO;
 using DAO.QuickProject;
 using Model;
@@ -8,9 +9,11 @@ using Model.Db.Enum;
 using Model.In;
 using Model.In.QuickProject;
 using Model.Out;
+using Model.Out.QuickProject;
 using Server.Interface;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -162,6 +165,51 @@ namespace Server.Implement.QuickProject
                 result.msg = Tip.TIP_20;
                 return result;
             }
+        }
+
+        public async Task<Result> QuickProjectListAsync(In data)
+        {
+            List<ProjectListResult> resultList = new List<ProjectListResult>();
+            Result<List<ProjectListResult>> result = new Result<List<ProjectListResult>> { result = true, data = resultList };
+
+            SQLiteHelper dbHelper = new SQLiteHelper();
+
+            List<t_project> projList = await ProjectDao.GetProjectList(dbHelper);
+            List<t_quick_project> quickList = new List<t_quick_project>();
+            if (projList.Count > 0)
+            {
+                quickList = await QuickProjectDao.GetProjectList(dbHelper, projList.Select(s => s.proj_guid).ToArray());
+            }
+
+            foreach (var item in projList)
+            {
+                t_quick_project quickItem = quickList.First(f => f.proj_guid == item.proj_guid);
+
+                resultList.Add(new ProjectListResult
+                {
+                    project = new ProjectResult
+                    {
+                        project_uid = item.proj_guid,
+                        project_name = item.name,
+                        project_remark = item.remark
+                    },
+                    server = new ServerResult
+                    {
+                        server_account = quickItem.conn_user,
+                        server_ip = quickItem.conn_ip,
+                        server_connect_mode = ((EOSConnectMode)quickItem.conn_mode).GetDesc()
+                    },
+                    publish = new PublishResult
+                    {
+                        publish_path = quickItem.publish_path,
+                        publish_before_command = quickItem.publish_before_cmd,
+                        publish_after_command = quickItem.publish_after_cmd,
+                        publish_time = !DateTime.TryParse(item.last_publish_time, out DateTime publishVal) ? "暂未发布" : publishVal.ToString("yyyy-MM-dd HH:mm:dd")
+                    }
+                });
+            }
+
+            return result;
         }
     }
 }
