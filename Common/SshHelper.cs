@@ -71,7 +71,6 @@ namespace Common
             using (var cmd = sshClient.CreateCommand(shell))
             {
                 res.msg = cmd.Execute();
-
                 if (cmd.ExitStatus != 0)
                 {
                     res.msg = cmd.Error;

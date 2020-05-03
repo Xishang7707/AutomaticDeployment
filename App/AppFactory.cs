@@ -1,4 +1,5 @@
 ﻿using App.Implement;
+using App.Implement.AutoPublishApp;
 using App.Implement.QuickProjectApp;
 using App.Interface;
 using System;
@@ -22,6 +23,9 @@ namespace App
 
             if (typeof(T) == typeof(IQuickProjectApp))
                 return new QuickProjectAppImpl() as T;
+
+            if (typeof(T) == typeof(IAutoPublishApp))
+                return new AutoPublishAppImpl() as T;
 
             return null;
         }

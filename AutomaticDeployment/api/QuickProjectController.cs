@@ -4,7 +4,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using App;
 using App.Interface;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Model.In.PublishFlow;
 using Model.In.QuickProject;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -35,6 +37,18 @@ namespace AutomaticDeployment.api
         {
             IQuickProjectApp app = AppFactory.Get<IQuickProjectApp>();
             return await app.GetProjectListAsync(PackRequest());
+        }
+
+        /// <summary>
+        /// 发布
+        /// </summary>
+        /// <param name="form"></param>
+        /// <returns></returns>
+        [HttpPost("publish")]
+        public async Task<IActionResult> Publish([FromBody]PublishQuickProject form)
+        {
+            IQuickProjectApp app = AppFactory.Get<IQuickProjectApp>();
+            return await app.Publish(PackRequest(form));
         }
     }
 }

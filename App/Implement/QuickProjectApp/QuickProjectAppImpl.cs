@@ -1,5 +1,6 @@
 ﻿using App.Interface;
 using Model.In;
+using Model.In.PublishFlow;
 using Model.In.QuickProject;
 using Model.Out;
 using Server;
@@ -26,6 +27,12 @@ namespace App.Implement.QuickProjectApp
         {
             IQuickProjectServer server = ServerFactory.Get<IQuickProjectServer>();
             return await server.QuickProjectListAsync(data);
+        }
+
+        public async Task<Result> Publish(In<PublishQuickProject> inData)
+        {
+            IQuickProjectServer server = ServerFactory.Get<IQuickProjectServer>();
+            return await server.Publish(inData);
         }
     }
 }

@@ -24,6 +24,10 @@ namespace AutomaticDeployment
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseUrls(conf.GetValue<string>("app_port"));
+                    webBuilder.ConfigureKestrel((context, options) =>
+                    {
+                        options.Limits.MaxRequestBodySize = long.MaxValue;
+                    });
                     webBuilder.UseStartup<Startup>();
                 });
         }

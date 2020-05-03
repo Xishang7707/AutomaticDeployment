@@ -1,5 +1,6 @@
 ﻿using App.Interface;
 using Model.In;
+using Model.In.Upload;
 using Model.Out;
 using Server;
 using Server.Interface;
@@ -13,6 +14,11 @@ namespace App.Implement
     internal class UploadAppImpl : IUploadApp
     {
         private IUploadServer uploadServer = ServerFactory.Get<IUploadServer>();
+
+        public async Task<UploadResult> PublishUpload(PublishUploadIn uploadServerData)
+        {
+            return await uploadServer.PublishUpload(uploadServerData);
+        }
 
         public async Task<UploadResult> UploadDemo(UploadIn uploadAppData)
         {

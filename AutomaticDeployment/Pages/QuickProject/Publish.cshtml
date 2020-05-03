@@ -1,0 +1,65 @@
+﻿@page
+@model AutomaticDeployment.Pages.QuickProject.PublishModel
+@{
+    ViewData["Title"] = "发布项目";
+}
+<link href="~/css/quickproject/publish.css" rel="stylesheet" />
+<script src="~/js/common.js"></script>
+<script src="~/js/verify.js"></script>
+<script src="~/js/quickproject/publish.js"></script>
+<body style="padding:3px;">
+    <div class="layui-card">
+        <div class="layui-card-header">
+            <div class="layui-row">
+                <div class="layui-col-xs3">
+                    项目名称： <span id="project_name"></span>
+                </div>
+                <div class="layui-col-xs3">
+                    服务器IP： <span id="server_ip"></span>
+                </div>
+                <div class="layui-col-xs3">
+                    服务器账号： <span id="server_account"></span>
+                </div>
+                <div class="layui-col-xs3">
+                    发布时间： <span id="publish_time"></span>
+                </div>
+            </div>
+            <div class="layui-row">
+                <div class="layui-col-xs4">
+                    发布路径： <span id="publish_path"></span>
+                </div>
+                <div class="layui-col-xs4">
+                    发布前命令： <span id="publish_before_command"></span>
+                </div>
+                <div class="layui-col-xs4">
+                    发布后命令： <span id="publish_after_command"></span>
+                </div>
+            </div>
+            <div class="layui-row">
+                <div class="layui-col-xs12">
+                    备注： <span id="project_remark"></span>
+                </div>
+            </div>
+        </div>
+        <div class="layui-card-body" id="project-body">
+            <div class="layui-row">
+                <div class="layui-col-xs3">
+                    <div class="layui-upload">
+                        <input type="hidden" name="file_id" value="" />
+                        <button type="button" class="layui-btn" id="project_file">
+                            <i class="layui-icon">&#xe67c;</i>发布(压缩文件)
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <br />
+            <div class="layui-row">
+                <div class="layui-col-xs6">
+                    <div class="layui-progress layui-progress-big" lay-filter="progress-file-upload" lay-showPercent="yes">
+                        <div class="layui-progress-bar layui-bg-green" lay-percent="0%"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>

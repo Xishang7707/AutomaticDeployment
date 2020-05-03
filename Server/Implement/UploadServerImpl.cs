@@ -1,7 +1,9 @@
 ﻿using Common;
 using Microsoft.AspNetCore.Http;
 using Model;
+using Model.Extend;
 using Model.In;
+using Model.In.Upload;
 using Model.Out;
 using Server.Interface;
 using System;
@@ -47,7 +49,7 @@ namespace Server.Implement
             string fileSuffix = GetCommon.GetFileSuffix(file.FileName);
             string fileName = MakeCommon.MakeFileName();
 
-            string path = Path.GetFullPath(ServerCommon.GetUploadPath(fileName + fileSuffix));
+            string path = Path.GetFullPath(ServerCommon.GetPublishUploadPath(fileName + fileSuffix));
             if (!Directory.Exists(ServerConfig.UploadDirectory))
             {
                 Directory.CreateDirectory(ServerConfig.UploadDirectory);
@@ -63,6 +65,56 @@ namespace Server.Implement
                 msg = Tip.TIP_3,
                 result = true
             };
+        }
+
+        /// <summary>
+        /// 发布文件上传验证
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        private Result VerifyPublishUpload(PublishUploadIn data)
+        {
+            Result result = new Result();
+            if (data == null)
+            {
+                result.msg = Tip.TIP_1;
+                return result;
+            }
+
+            if (string.IsNullOrWhiteSpace(data.project_uid))
+            {
+                result.msg = Tip.TIP_24;
+                return result;
+            }
+
+            if (data.files == null || data.files.Count == 0)
+            {
+                result.msg = Tip.TIP_2;
+                return result;
+            }
+
+            result.result = true;
+            return result;
+        }
+
+        public async Task<UploadResult> PublishUpload(PublishUploadIn uploadServerData)
+        {
+            UploadResult result = VerifyPublishUpload(uploadServerData)?.Cast<UploadResult>();
+            if (!result.result)
+            {
+                return result;
+            }
+            IFormFile file = uploadServerData.files[0];
+            string path = Path.GetFullPath(ServerCommon.GetPublishUploadPath(uploadServerData.project_uid));
+            if (!Directory.Exists(path))
+            {
+                Directory.CreateDirectory(path);
+            }
+            string filepath = ServerCommon.GetPublishUploadPath(uploadServerData.project_uid, file.FileName);
+            using FileStream fs = new FileStream(filepath, FileMode.Create);
+            await file.CopyToAsync(fs);
+            result.id = file.FileName;
+            return result;
         }
     }
 }

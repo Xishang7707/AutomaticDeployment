@@ -124,5 +124,30 @@ namespace Model
         /// </summary>
         public static string TIP_23 { get; } = "服务器处理异常";
 
+        /// <summary>
+        /// 项目不存在
+        /// </summary>
+        public static string TIP_24 { get; } = "项目不存在";
+
+        /// <summary>
+        /// 请上传发布文件
+        /// </summary>
+        public static string TIP_25 { get; } = "请上传发布文件";
+
+        /// <summary>
+        /// 发布失败
+        /// </summary>
+        public static string TIP_26 { get; } = "发布失败";
+
+        /// <summary>
+        /// 请求成功 请等待系统调度发布
+        /// </summary>
+        public static string TIP_27 { get; } = "请求成功 请等待系统调度发布";
+
+        /// <summary>
+        /// 上传的发布文件被改动
+        /// </summary>
+        public static string TIP_28 { get; } = "上传的发布文件被改动";
+
     }
 }

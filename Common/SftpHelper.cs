@@ -69,6 +69,7 @@ namespace Common
             {
                 return res;
             }
+            res.result = false;
             if (!File.Exists(filePath))
             {
                 res.msg = Tip.TIP_15;
@@ -78,8 +79,8 @@ namespace Common
             {
                 CreateDirectory(targetPath);
             }
-            using (FileStream fs = File.Open(filePath, FileMode.Open))
-                sftpClient.UploadFile(fs, GetCommon.GetFileSplicing(targetPath, fileName));
+            using FileStream fs = File.Open(filePath, FileMode.Open);
+            sftpClient.UploadFile(fs, GetCommon.GetFileSplicing(targetPath, fileName));
             res.result = true;
             return res;
         }

@@ -1,4 +1,5 @@
 ﻿using Common;
+using Common.Extend;
 using Model.Dao.QuickProject;
 using Model.Db;
 using Model.Db.Enum;
@@ -53,7 +54,7 @@ namespace DAO.QuickProject
         {
             t_project model = new t_project
             {
-                add_time = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss:ms"),
+                add_time = DateTime.Now.GetSQLTime(),
                 code_mode = (int)ECodeMode.File,
                 name = data.project_name,
                 remark = data.project_remark,
@@ -81,6 +82,18 @@ namespace DAO.QuickProject
         {
             string sql = @"SELECT name,proj_guid,last_publish_time,add_time,remark FROM t_project WHERE proj_type=@proj_type;";
             return await dbHelper.QueryListAsync<t_project>(sql, new { proj_type = (int)EProjectType.Quick });
+        }
+
+        /// <summary>
+        /// 项目是否存在
+        /// </summary>
+        /// <param name="dbHelper"></param>
+        /// <param name="proj_guid">项目guid</param>
+        /// <returns></returns>
+        public static async Task<bool> IsExist(SQLiteHelper dbHelper, string proj_guid)
+        {
+            string sql = @"SELECT id FROM t_project WHERE proj_guid=@proj_guid";
+            return (await dbHelper.QueryAsync<int>(sql, new { proj_guid = proj_guid })) > 0;
         }
     }
 }

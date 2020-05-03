@@ -19,7 +19,7 @@ namespace AutomaticDeployment.api
         /// <returns></returns>
         public In<T> PackRequest<T>(T model)
         {
-            return new In<T> { Data = model };
+            return new In<T> { data = model };
         }
 
         /// <summary>

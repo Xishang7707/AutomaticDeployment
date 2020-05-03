@@ -1,9 +1,8 @@
 ﻿using Server.Implement;
+using Server.Implement.AutoPublish;
+using Server.Implement.PublishFlow;
 using Server.Implement.QuickProject;
 using Server.Interface;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Server
 {
@@ -22,6 +21,12 @@ namespace Server
 
             if (typeof(T) == typeof(IQuickProjectServer))
                 return new QuickProjectServerImpl() as T;
+
+            if (typeof(T) == typeof(IPublishFlowServer))
+                return new PublishFlowServerImpl() as T;
+
+            if (typeof(T) == typeof(IAutoPublishServer))
+                return new AutoPublishServerImpl() as T;
 
             return null;
         }

@@ -54,7 +54,7 @@ namespace Model.Db
         /// <summary>
         /// 工作目录
         /// </summary>
-        public int work_spacepath { get; set; }
+        public string work_spacepath { get; set; }
 
         /// <summary>
         /// 服务器系统类型

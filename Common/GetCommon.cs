@@ -1,6 +1,7 @@
 ﻿using Model.Db.Enum;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 
@@ -84,6 +85,33 @@ namespace Common
         public static string[] GetCommands(string str)
         {
             return str.Split('\n').Where(w => !string.IsNullOrWhiteSpace(w)).ToArray();
+        }
+
+        /// <summary>
+        /// 时间转换
+        /// </summary>
+        /// <param name="t"></param>
+        /// <param name="s"></param>
+        /// <param name="v"></param>
+        /// <returns></returns>
+        public static bool GetCastTime(string s, out DateTime v)
+        {
+            v = new DateTime();
+            if (string.IsNullOrWhiteSpace(s))
+            {
+                return false;
+            }
+            DateTimeFormatInfo dtFormat = new DateTimeFormatInfo();
+            dtFormat.FullDateTimePattern = "yyyy-MM-dd HH:mm:ss";
+            try
+            {
+                v = Convert.ToDateTime(s, dtFormat);
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+            return true;
         }
     }
 }

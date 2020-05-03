@@ -7,6 +7,7 @@ using Model.Dao.QuickProject;
 using Model.Db;
 using Model.Db.Enum;
 using Model.In;
+using Model.In.PublishFlow;
 using Model.In.QuickProject;
 using Model.Out;
 using Model.Out.QuickProject;
@@ -126,7 +127,7 @@ namespace Server.Implement.QuickProject
 
         public async Task<Result> AddQuickProjectAsync(In<AddQuickProjectIn> inData)
         {
-            Result result = VerifyAddQuickProject(inData.Data);
+            Result result = VerifyAddQuickProject(inData.data);
             if (!result.result)
             {
                 return result;
@@ -138,14 +139,14 @@ namespace Server.Implement.QuickProject
             {
                 await dbHelper.BeginTransactionAsync();
 
-                AddProjectDaoResult addProjectDaoResult = await ProjectDao.AddProjectModelAsync(dbHelper, inData.Data.project);
+                AddProjectDaoResult addProjectDaoResult = await ProjectDao.AddProjectModelAsync(dbHelper, inData.data.project);
                 if (!addProjectDaoResult.result)
                 {
                     await dbHelper.RollbackAsync();
                     result.msg = Tip.TIP_20;
                     return result;
                 }
-                result.result = await QuickProjectDao.AddQuickProjectModelAsync(dbHelper, inData.Data, addProjectDaoResult.proj_guid);
+                result.result = await QuickProjectDao.AddQuickProjectModelAsync(dbHelper, inData.data, addProjectDaoResult.proj_guid);
                 if (!result.result)
                 {
                     await dbHelper.RollbackAsync();
@@ -191,7 +192,8 @@ namespace Server.Implement.QuickProject
                     {
                         project_uid = item.proj_guid,
                         project_name = item.name,
-                        project_remark = item.remark
+                        project_remark = item.remark,
+                        
                     },
                     server = new ServerResult
                     {
@@ -204,11 +206,55 @@ namespace Server.Implement.QuickProject
                         publish_path = quickItem.publish_path,
                         publish_before_command = quickItem.publish_before_cmd,
                         publish_after_command = quickItem.publish_after_cmd,
-                        publish_time = !DateTime.TryParse(item.last_publish_time, out DateTime publishVal) ? "暂未发布" : publishVal.ToString("yyyy-MM-dd HH:mm:dd")
+                        publish_time = !GetCommon.GetCastTime(item.last_publish_time, out DateTime publishVal) ? "暂未发布" : publishVal.ToString("yyyy-MM-dd HH:mm:dd")
                     }
                 });
             }
 
+            return result;
+        }
+
+        /// <summary>
+        /// 验证发布数据
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        private async Task<Result> VerifyPublish(PublishQuickProject data)
+        {
+            Result result = new Result();
+            if (data == null)
+            {
+                result.msg = Tip.TIP_1;
+                return result;
+            }
+            SQLiteHelper dbHelper = new SQLiteHelper();
+            if (string.IsNullOrWhiteSpace(data.project_uid) || !await ProjectDao.IsExist(dbHelper, data.project_uid))
+            {
+                result.msg = Tip.TIP_24;
+                return result;
+            }
+            if (data.files == null || data.files.Count == 0)
+            {
+                result.msg = Tip.TIP_25;
+                return result;
+            }
+            result.result = true;
+            return result;
+        }
+
+        public async Task<Result> Publish(In<PublishQuickProject> inData)
+        {
+            Result result = await VerifyPublish(inData.data);
+            IPublishFlowServer publishFlowServer = ServerFactory.Get<IPublishFlowServer>();
+            result = await publishFlowServer.PublishAsync(inData);
+            if (!result.result)
+            {
+                return result;
+            }
+
+            //发布数据添加完成 通知服务发布
+            IAutoPublishServer autoPublishServer = ServerFactory.Get<IAutoPublishServer>();
+            autoPublishServer.Notice();
             return result;
         }
     }

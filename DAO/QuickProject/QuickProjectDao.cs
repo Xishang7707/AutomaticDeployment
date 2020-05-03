@@ -108,7 +108,7 @@ namespace DAO.QuickProject
         /// <returns></returns>
         public static async Task<List<t_quick_project>> GetProjectList(SQLiteHelper dbHelper, string[] proj_guids)
         {
-            string sql = @"SELECT proj_guid,conn_ip,conn_mode,publish_path,platform_type,publish_before_cmd,publish_after_cmd FROM t_quick_project WHERE proj_guid in @proj_guids;";
+            string sql = @"SELECT proj_guid,conn_ip,conn_user,conn_mode,publish_path,platform_type,publish_before_cmd,publish_after_cmd FROM t_quick_project WHERE proj_guid in @proj_guids;";
             return await dbHelper.QueryListAsync<t_quick_project>(sql, new { proj_guids = proj_guids });
         }
     }

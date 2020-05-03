@@ -1,4 +1,5 @@
 ﻿using Model.In;
+using Model.In.PublishFlow;
 using Model.In.QuickProject;
 using Model.Out;
 using System;
@@ -26,5 +27,12 @@ namespace App.Interface
         /// <param name="data"></param>
         /// <returns></returns>
         Task<Result> GetProjectListAsync(In data);
+
+        /// <summary>
+        /// 发布
+        /// </summary>
+        /// <param name="inData"></param>
+        /// <returns></returns>
+        Task<Result> Publish(In<PublishQuickProject> inData);
     }
 }

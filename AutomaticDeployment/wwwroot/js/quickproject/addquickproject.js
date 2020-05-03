@@ -198,7 +198,7 @@ function publish() {
 
     layer.load();
     post({
-        url: 'api/quickproject/addproject',
+        url: '../api/quickproject/addproject',
         data: data,
         done: o => {
             layer.closeAll();

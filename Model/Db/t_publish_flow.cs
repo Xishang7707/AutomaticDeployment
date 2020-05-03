@@ -5,9 +5,9 @@ using System.Text;
 namespace Model.Db
 {
     /// <summary>
-    /// 项目【总表】
+    /// 发布流
     /// </summary>
-    public class t_project
+    public class t_publish_flow
     {
         /// <summary>
         /// 主键
@@ -15,12 +15,7 @@ namespace Model.Db
         public int id { get; set; }
 
         /// <summary>
-        /// 项目名称
-        /// </summary>
-        public string name { get; set; }
-
-        /// <summary>
-        /// 标识
+        /// 项目标识
         /// </summary>
         public string proj_guid { get; set; }
 
@@ -30,14 +25,14 @@ namespace Model.Db
         public int proj_type { get; set; }
 
         /// <summary>
-        /// 最后一次发布时间
+        /// 发布状态
         /// </summary>
-        public string last_publish_time { get; set; }
+        public int publish_status { get; set; }
 
         /// <summary>
-        /// 最后一次发布状态
+        /// 发布时间
         /// </summary>
-        public string last_publish_status { get; set; }
+        public string publish_time { get; set; }
 
         /// <summary>
         /// 添加时间
@@ -45,18 +40,28 @@ namespace Model.Db
         public string add_time { get; set; }
 
         /// <summary>
-        /// 代码来源
+        /// 服务器信息
         /// </summary>
-        public string code_source { get; set; }
+        public string server_info { get; set; }
 
         /// <summary>
-        /// 代码工具
+        /// 项目信息
         /// </summary>
-        public int code_mode { get; set; }
+        public string proj_info { get; set; }
 
         /// <summary>
-        /// 描述
+        /// 发布信息
         /// </summary>
-        public string remark { get; set; }
+        public string publish_info { get; set; }
+
+        /// <summary>
+        /// 状态 可进行发布状态
+        /// </summary>
+        public int status { get; set; }
+
+        /// <summary>
+        /// 扩展信息
+        /// </summary>
+        public string extern_info { get; set; }
     }
 }

@@ -20,6 +20,6 @@ namespace Model.In
         /// <summary>
         /// 数据
         /// </summary>
-        public T Data { get; set; }
+        public T data { get; set; }
     }
 }

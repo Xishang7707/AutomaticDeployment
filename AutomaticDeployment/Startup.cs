@@ -2,9 +2,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using App;
+using App.Interface;
 using AutomaticDeployment.Middleware;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -25,6 +28,10 @@ namespace AutomaticDeployment
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddRazorPages();
+            services.Configure<FormOptions>(o =>
+            {
+                o.MultipartBodyLengthLimit = long.MaxValue;
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -55,6 +62,9 @@ namespace AutomaticDeployment
                 endpoints.MapControllers();
                 endpoints.MapRazorPages();
             });
+
+            IAutoPublishApp autoPublishApp = AppFactory.Get<IAutoPublishApp>();
+            autoPublishApp.Start();
         }
     }
 }

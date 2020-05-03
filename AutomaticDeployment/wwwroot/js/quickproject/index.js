@@ -9,7 +9,7 @@
             url: '../api/quickproject/getprojectlist',
             done: o => {
                 render_project_table(o['data']);
-                bind_publish(upload, o['data']);
+                bind_publish(o['data']);
             },
             err: o => {
                 w.layer.msg(o.msg);
@@ -30,6 +30,17 @@ function open_addproject() {
     }
 }
 
+/**
+ * 发布项目
+ * */
+function open_publish(id, name) {
+    var w = get_top_window();
+    if (w.open_tab) {
+        w.open_tab(`发布[${name}]`, 'quickproject/publish?project_uid=' + id, 'quickpublish#' + id);
+    } else {
+        w.open('publish?project_uid=' + id, '_blank');
+    }
+}
 
 function render_project_table(o) {
     var dom = ``;
@@ -55,35 +66,45 @@ function render_project_table(o) {
                             <p>${item['project']['project_remark']}</p>
                         </td>
                         <td>
-                            <button type="button" class="layui-btn btn-publish" id='${item['project']['proj_guid']}'>
+                            <button type="button" class="layui-btn btn-publish" id='btn-publish-${item['project']['project_uid']}'>
                                 <i class="layui-icon">&#xe67c;</i>发布
                             </button>
                         </td>
                     </tr>`;
         dom += temp;
     }
-
     $('#project-body tbody').html($(dom));
 }
 
-function bind_publish(upload, o) {
+//function bind_publish(upload, o) {
+//    for (var k in o) {
+//        var item = o[k];
+//        bind_publish(item['project']['proj_guid']);
+//        upload.render({
+//            elem: '#' + item['project']['proj_guid']
+//            , url: 'api/quickproject/publish'
+//            , accept: 'file'
+//            , choose: function (obj) {
+
+//            }
+//            , done: function (res) {
+//                //上传完毕回调
+//                layer.msg(res.msg);
+//            }
+//            , error: function () {
+//                layer.msg('发布失败');
+//            }
+//        });
+//    }
+//}
+
+function bind_publish(o) {
     for (var k in o) {
         var item = o[k];
-        bind_publish(item['project']['proj_guid']);
-        upload.render({
-            elem: '#' + item['project']['proj_guid']
-            , url: 'api/quickproject/publish'
-            , accept: 'file'
-            , choose: function (obj) {
-
-            }
-            , done: function (res) {
-                //上传完毕回调
-                layer.msg(res.msg);
-            }
-            , error: function () {
-                layer.msg('发布失败');
-            }
-        });
+        ((id, name) => {
+            $(`#btn-publish-${id}`).click(() => {
+                open_publish(id, name);
+            });
+        })(item['project']['project_uid'], item['project']['project_name']);
     }
 }
