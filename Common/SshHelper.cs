@@ -23,6 +23,8 @@ namespace Common
         /// </summary>
         private SshClient sshClient;
 
+        public SshHelper() { }
+
         public SshHelper(string host, int port, string user, string pwd)
         {
             this.host = host;
@@ -55,6 +57,33 @@ namespace Common
         }
 
         /// <summary>
+        /// 连接
+        /// </summary>
+        /// <param name="host">主机</param>
+        /// <param name="port">端口</param>
+        /// <param name="user">用户名</param>
+        /// <param name="pwd">密码</param>
+        /// <returns></returns>
+        public SshResult Connect(string host, int port, string user, string pwd)
+        {
+            SshResult result = new SshResult();
+            try
+            {
+                if (sshClient == null || !sshClient.IsConnected)
+                {
+                    sshClient = new SshClient(host, port, user, pwd);
+                    sshClient.Connect();
+                }
+                result.result = true;
+            }
+            catch (Exception e)
+            {
+                result.msg = e.Message;
+            }
+            return result;
+        }
+
+        /// <summary>
         /// 执行脚本
         /// </summary>
         /// <param name="shell"></param>
@@ -68,7 +97,7 @@ namespace Common
             }
             res.result = false;
 
-            using (var cmd = sshClient.CreateCommand(shell))
+            using (var cmd = sshClient.CreateCommand(shell, Encoding.UTF8))
             {
                 res.msg = cmd.Execute();
                 if (cmd.ExitStatus != 0)

@@ -4,6 +4,7 @@ using DAO.AutoPublish;
 using Model;
 using Model.Db;
 using Model.Db.Enum;
+using Model.Extend;
 using Model.In.PublishFlow;
 using Model.Out;
 using Model.Ssh;
@@ -332,14 +333,9 @@ namespace Server.Implement.AutoPublish
             public t_publish publish_info { get; set; }
 
             /// <summary>
-            /// ssh连接
+            /// 操作系统服务
             /// </summary>
-            public SshHelper sshHelper { get; set; }
-
-            /// <summary>
-            /// sftp连接
-            /// </summary>
-            public SftpHelper sftpHelper { get; set; }
+            public IOSManageServer osManagerServer { get; set; }
 
             public WorkInfo() { }
             public WorkInfo(t_publish_flow model)
@@ -372,25 +368,29 @@ namespace Server.Implement.AutoPublish
         private Result ConnectService(WorkInfo<List<FileModePublish>> info)
         {
             string decPassword = ConcealCommon.DecryptDES(info.service_info.conn_password);
-            //连接ssh
-            SshHelper sshHelper = new SshHelper(info.service_info.conn_ip, info.service_info.conn_port, info.service_info.conn_user, decPassword);
-            Result result = sshHelper.Connect();
+            info.osManagerServer = ServerFactory.GetOSPlatform((EOSPlatform)info.service_info.platform_type);
+            Result result = info.osManagerServer.Connect(new Model.In.OSManage.UserConnectIn
+            {
+                host = info.service_info.conn_ip,
+                port = info.service_info.conn_port,
+                user = info.service_info.conn_user,
+                password = decPassword
+            });
             if (!result.result)
             {
                 return result;
             }
 
-            //连接sftp
-            SftpHelper sftpHelper = new SftpHelper(info.service_info.conn_ip, info.service_info.conn_port, info.service_info.conn_user, decPassword);
-            result = sftpHelper.Connect();
-            if (!result.result)
+            //切换到工作目录
+            if (!string.IsNullOrWhiteSpace(info.service_info.work_spacepath))
             {
-                return result;
+                result = info.osManagerServer.ChangeWorkspace(info.service_info.work_spacepath);
+                if (!result.result)
+                {
+                    return result;
+                }
             }
 
-            info.sshHelper = sshHelper;
-            info.sftpHelper = sftpHelper;
-            result.result = true;
             return result;
         }
 
@@ -408,7 +408,7 @@ namespace Server.Implement.AutoPublish
                 return result;
             }
 
-            ExecResult execResult = info.sshHelper.Exec(string.Join("&&", GetCommon.GetCommands(info.publish_info.publish_before_cmd)));
+            ExecResult execResult = info.osManagerServer.Exec(info.publish_info.publish_before_cmd).Cast<ExecResult>();
             if (!execResult.result)
             {
                 result.msg = execResult.msg;
@@ -437,7 +437,7 @@ namespace Server.Implement.AutoPublish
             {
                 string filePath = ServerCommon.GetPublishUploadPath(info.proj_info.proj_guid, item.file_id);
 
-                result = info.sftpHelper.Upload(filePath, info.service_info.work_spacepath, item.file_id);
+                result = info.osManagerServer.Upload(filePath, info.service_info.work_spacepath, item.file_id);
                 if (!result.result)
                 {
                     return result;
@@ -462,7 +462,7 @@ namespace Server.Implement.AutoPublish
                 return result;
             }
 
-            ExecResult execResult = info.sshHelper.Exec(string.Join("&&", GetCommon.GetCommands(info.publish_info.publish_after_cmd)));
+            ExecResult execResult = info.osManagerServer.Exec(info.publish_info.publish_after_cmd).Cast<ExecResult>();
             if (!execResult.result)
             {
                 result.msg = execResult.msg;
@@ -483,7 +483,7 @@ namespace Server.Implement.AutoPublish
             Result result = new Result();
             foreach (var item in info.extend_info)
             {
-                result = info.sshHelper.Exec($@"cd {info.service_info.work_spacepath}&&unzip {item.file_id}");
+                result = info.osManagerServer.UnZip(item.file_id);
                 if (!result.result)
                 {
                     return result;

@@ -24,6 +24,8 @@ namespace Common
         /// </summary>
         private SftpClient sftpClient;
 
+        public SftpHelper() { }
+
         public SftpHelper(string host, int port, string user, string pwd)
         {
             this.host = host;
@@ -37,6 +39,33 @@ namespace Common
         /// </summary>
         /// <returns></returns>
         public Result Connect()
+        {
+            Result result = new Result();
+            try
+            {
+                if (sftpClient == null || !sftpClient.IsConnected)
+                {
+                    sftpClient = new SftpClient(host, port, user, pwd);
+                    sftpClient.Connect();
+                }
+                result.result = true;
+            }
+            catch (Exception e)
+            {
+                result.msg = e.Message;
+            }
+            return result;
+        }
+
+        /// <summary>
+        /// 连接
+        /// </summary>
+        /// <param name="host">主机</param>
+        /// <param name="port">端口</param>
+        /// <param name="user">用户</param>
+        /// <param name="pwd">密码</param>
+        /// <returns></returns>
+        public Result Connect(string host, int port, string user, string pwd)
         {
             Result result = new Result();
             try
@@ -75,7 +104,7 @@ namespace Common
                 res.msg = Tip.TIP_15;
                 return res;
             }
-            if (!sftpClient.Exists(targetPath))
+            if (!IsExistDirectory(targetPath))
             {
                 CreateDirectory(targetPath);
             }
@@ -117,6 +146,16 @@ namespace Common
                 }
             }
             return res;
+        }
+
+        /// <summary>
+        /// 目录是否存在
+        /// </summary>
+        /// <param name="path">路径</param>
+        /// <returns></returns>
+        public bool IsExistDirectory(string path)
+        {
+            return sftpClient.Exists(path);
         }
     }
 }
