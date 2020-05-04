@@ -165,6 +165,12 @@ namespace Server.Implement.AutoPublish
             {
                 return result;
             }
+            //解压
+            result = ExecUnZip(info);
+            if (!result.result)
+            {
+                return result;
+            }
             //发布后命令
             result = ExecAfterCommand(info);
             if (!result.result)
@@ -463,6 +469,26 @@ namespace Server.Implement.AutoPublish
                 return result;
             }
 
+            result.result = true;
+            return result;
+        }
+
+        /// <summary>
+        /// 解压缩文件
+        /// </summary>
+        /// <param name="info"></param>
+        /// <returns></returns>
+        private Result ExecUnZip(WorkInfo<List<FileModePublish>> info)
+        {
+            Result result = new Result();
+            foreach (var item in info.extend_info)
+            {
+                result = info.sshHelper.Exec($@"cd {info.service_info.work_spacepath}&&unzip {item.file_id}");
+                if (!result.result)
+                {
+                    return result;
+                }
+            }
             result.result = true;
             return result;
         }

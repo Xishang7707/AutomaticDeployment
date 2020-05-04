@@ -1,5 +1,5 @@
 ﻿$(function () {
-    layui.use(['upload','element'], function () {
+    layui.use(['upload', 'element'], function () {
         var $ = layui.jquery
             , upload = layui.upload
             , element = layui.element;
@@ -10,6 +10,7 @@
             elem: '#project_file' //绑定元素
             , url: '../api/upload/upload' //上传接口
             , accept: 'file'
+            , exts: 'zip'
             , data: {
                 project_uid: project_uid
             }
