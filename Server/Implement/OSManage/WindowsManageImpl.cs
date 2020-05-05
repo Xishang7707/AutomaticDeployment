@@ -11,7 +11,7 @@ namespace Server.Implement.OSManage
     /// <summary>
     /// Windows管理
     /// </summary>
-    public class WindowsManageImpl : IOSManageServer
+    internal class WindowsManageImpl : IOSManageServer
     {
         public Result ChangeWorkspace(string path)
         {

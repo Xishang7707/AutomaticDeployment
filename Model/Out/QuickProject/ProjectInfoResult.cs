@@ -7,7 +7,7 @@ namespace Model.Out.QuickProject
     /// <summary>
     /// 项目列表
     /// </summary>
-    public class ProjectListResult
+    public class ProjectInfoResult
     {
         /// <summary>
         /// 项目信息

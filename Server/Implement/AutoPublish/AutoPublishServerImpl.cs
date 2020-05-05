@@ -40,6 +40,11 @@ namespace Server.Implement.AutoPublish
         /// </summary>
         private ManualResetEvent manualResetEvent { get; }
 
+        /// <summary>
+        /// 日志服务
+        /// </summary>
+        private IPublishLogServer publishLogServer { get; }
+
         public AutoPublishServerImpl()
         {
             if (Instance != null)
@@ -49,6 +54,7 @@ namespace Server.Implement.AutoPublish
             Instance = this;
             dbHelper = new SQLiteHelper();
             manualResetEvent = new ManualResetEvent(true);
+            publishLogServer = ServerFactory.GetPublisLog();
         }
 
         public void Notice()
@@ -87,7 +93,7 @@ namespace Server.Implement.AutoPublish
         /// <returns></returns>
         private async Task StartWorkInternal()
         {
-            TimeSpan taskTimeOut = TimeSpan.FromDays(5);//5分钟后取消
+            TimeSpan taskTimeOut = TimeSpan.FromMinutes(5);//5分钟后取消
             await Task.Run(async () =>
             {
                 while (true)
@@ -149,36 +155,41 @@ namespace Server.Implement.AutoPublish
         {
             WorkInfo<List<FileModePublish>> info = new WorkInfo<List<FileModePublish>>(model);
             Result result = ConnectService(info);
-
+            publishLogServer.LogAsync(new Model.In.PublishLog.LogInfo { proj_guid = info.proj_info.proj_guid, publish_id = info.flow_id, publish_info = result.msg });
             if (!result.result)
             {
                 return result;
             }
             //发布前命令
             result = ExecBeforeCommand(info);
+            publishLogServer.LogAsync(new Model.In.PublishLog.LogInfo { proj_guid = info.proj_info.proj_guid, publish_id = info.flow_id, publish_info = result.msg });
             if (!result.result)
             {
                 return result;
             }
             //上传文件
             result = PublishToService(info);
+            publishLogServer.LogAsync(new Model.In.PublishLog.LogInfo { proj_guid = info.proj_info.proj_guid, publish_id = info.flow_id, publish_info = result.msg });
             if (!result.result)
             {
                 return result;
             }
             //解压
             result = ExecUnZip(info);
+            publishLogServer.LogAsync(new Model.In.PublishLog.LogInfo { proj_guid = info.proj_info.proj_guid, publish_id = info.flow_id, publish_info = result.msg });
             if (!result.result)
             {
                 return result;
             }
             //发布后命令
             result = ExecAfterCommand(info);
+            publishLogServer.LogAsync(new Model.In.PublishLog.LogInfo { proj_guid = info.proj_info.proj_guid, publish_id = info.flow_id, publish_info = result.msg });
             if (!result.result)
             {
                 return result;
             }
-
+            info.osManagerServer.Close();
+            publishLogServer.LogAsync(new Model.In.PublishLog.LogInfo { proj_guid = info.proj_info.proj_guid, publish_id = info.flow_id, publish_info = result.msg });
             return result;
         }
 
@@ -193,7 +204,7 @@ namespace Server.Implement.AutoPublish
             Timer timer = new Timer(o =>
             {
                 act?.Invoke();
-            }, null, (int)span.TotalMilliseconds + 1000, Timeout.Infinite);
+            }, null, (int)span.TotalMilliseconds, 0);
             return timer;
         }
 
@@ -284,6 +295,7 @@ namespace Server.Implement.AutoPublish
         /// <returns></returns>
         private async Task<bool> PublishStart(string proj_guid, int flow_id)
         {
+            publishLogServer.LogAsync(new Model.In.PublishLog.LogInfo { proj_guid = proj_guid, publish_id = flow_id, publish_info = "开始发布" });
             SQLiteHelper dbHelper = new SQLiteHelper();
             try
             {
@@ -331,6 +343,11 @@ namespace Server.Implement.AutoPublish
             /// 发布信息
             /// </summary>
             public t_publish publish_info { get; set; }
+
+            /// <summary>
+            /// 发布流标识
+            /// </summary>
+            public int flow_id { get; set; }
 
             /// <summary>
             /// 操作系统服务

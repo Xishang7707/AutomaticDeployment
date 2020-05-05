@@ -4,6 +4,7 @@
     ViewData["Title"] = "发布项目";
 }
 <link href="~/css/quickproject/publish.css" rel="stylesheet" />
+<script src="~/lib/signalr/dist/browser/signalr.js"></script>
 <script src="~/js/common.js"></script>
 <script src="~/js/verify.js"></script>
 <script src="~/js/quickproject/publish.js"></script>
@@ -36,7 +37,10 @@
                 </div>
             </div>
             <div class="layui-row">
-                <div class="layui-col-xs12">
+                <div class="layui-col-xs3">
+                    发布状态： <span id="publish_status"></span>
+                </div>
+                <div class="layui-col-xs9">
                     备注： <span id="project_remark"></span>
                 </div>
             </div>
@@ -58,6 +62,12 @@
                     <div class="layui-progress layui-progress-big" lay-filter="progress-file-upload" lay-showPercent="yes">
                         <div class="layui-progress-bar layui-bg-green" lay-percent="0%"></div>
                     </div>
+                </div>
+            </div>
+            <div class="layui-row">
+                <div class="layui-col-xs12">
+                    <ul id="publish_log">
+                    </ul>
                 </div>
             </div>
         </div>

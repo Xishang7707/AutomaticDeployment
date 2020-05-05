@@ -5,12 +5,23 @@
             , element = layui.element;
 
         var project_uid = getQuery('project_uid');
+        if (!project_uid)
+            return;
+
+        let host = '../publishlog?connectionId=' + project_uid;
+        let hubConnection = new signalR.HubConnectionBuilder()
+            .withUrl(host)
+            .build();
+        recv_publish_log(hubConnection);
+        hubConnection.start();
+        get_project(project_uid);
 
         upload.render({
             elem: '#project_file' //绑定元素
             , url: '../api/upload/upload' //上传接口
             , accept: 'file'
             , exts: 'zip'
+            , acceptMime: 'application/zip'
             , data: {
                 project_uid: project_uid
             }
@@ -20,6 +31,7 @@
             }
             , before: o => {
                 element.progress('progress-file-upload', '0%');
+                $('#publish_log').children().remove();
             }
             , progress: function (n, elem) {
                 element.progress('progress-file-upload', n + '%');
@@ -41,6 +53,12 @@
         });
     })
 });
+
+function recv_publish_log(conn) {
+    conn.on("log", function (data) {
+        $('#publish_log').append(`<li>${data}</li>`);
+    });
+}
 
 function publish(project_uid, files) {
     post({
@@ -68,4 +86,28 @@ function btn_publish_progress() {
 
 function btn_publish_failed() {
     $('#project_file').html(`<i class="layui-icon">&#xe67c;</i>上传失败`);
+}
+
+function get_project(id) {
+    get({
+        url: '../api/quickproject/getproject?project_uid=' + id,
+        done: o => {
+            render_project(o.data);
+        },
+        err: o => {
+            layer.msg(o.msg);
+        }
+    })
+}
+
+function render_project(data) {
+    $('#project_name').text(data['project']['project_name']);
+    $('#server_ip').text(data['server']['server_ip']);
+    $('#server_account').text(data['server']['server_account']);
+    $('#publish_time').text(data['publish']['publish_time']);
+    $('#publish_path').text(data['publish']['publish_path']);
+    $('#publish_before_command').text(data['publish']['publish_before_command']);
+    $('#publish_after_command').text(data['publish']['publish_after_command']);
+    $('#publish_status').text(data['publish']['publish_status']);
+    $('#project_remark').text(data['project']['project_remark']);
 }

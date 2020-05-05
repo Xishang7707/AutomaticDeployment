@@ -23,6 +23,12 @@ namespace App.Implement.QuickProjectApp
             return await server.AddQuickProjectAsync(inData);
         }
 
+        public async Task<Result> GetProjectAsync(In<string> inData)
+        {
+            IQuickProjectServer server = ServerFactory.Get<IQuickProjectServer>();
+            return await server.GetProjectAsync(inData);
+        }
+
         public async Task<Result> GetProjectListAsync(In data)
         {
             IQuickProjectServer server = ServerFactory.Get<IQuickProjectServer>();
@@ -34,5 +40,6 @@ namespace App.Implement.QuickProjectApp
             IQuickProjectServer server = ServerFactory.Get<IQuickProjectServer>();
             return await server.Publish(inData);
         }
+
     }
 }

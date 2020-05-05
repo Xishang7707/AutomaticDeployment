@@ -1,8 +1,10 @@
-﻿using Model.Db.Enum;
+﻿using Microsoft.AspNetCore.SignalR;
+using Model.Db.Enum;
 using Server.Implement;
 using Server.Implement.AutoPublish;
 using Server.Implement.OSManage;
 using Server.Implement.PublishFlow;
+using Server.Implement.PublishLog;
 using Server.Implement.QuickProject;
 using Server.Interface;
 
@@ -39,6 +41,15 @@ namespace Server
                 return GetOSPlatform((EOSPlatform)v[0]) as T;
             }
 
+            if (typeof(T) == typeof(IPublishLogServer))
+            {
+                if (v.Length != 0 && !(v[0] is IHubContext<PublishLogHub>))
+                {
+                    return null;
+                }
+                return GetPublisLog((IHubContext<PublishLogHub>)v[0]) as T;
+            }
+
             return null;
         }
 
@@ -58,6 +69,15 @@ namespace Server
                 default:
                     return null;
             }
+        }
+
+        public static IPublishLogServer GetPublisLog(IHubContext<PublishLogHub> hubContext = null)
+        {
+            if (hubContext == null)
+            {
+                return new PublishLogImpl();
+            }
+            return new PublishLogImpl(hubContext);
         }
     }
 }

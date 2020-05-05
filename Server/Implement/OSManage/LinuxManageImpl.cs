@@ -14,7 +14,7 @@ namespace Server.Implement.OSManage
     /// <summary>
     /// Linux管理
     /// </summary>
-    public class LinuxManageImpl : IOSManageServer
+    internal class LinuxManageImpl : IOSManageServer
     {
         /// <summary>
         /// 数据信息
@@ -114,7 +114,7 @@ namespace Server.Implement.OSManage
         string Command_unzip(string path)
         {
             string cd = string.IsNullOrWhiteSpace(osInfo.workspace) ? "" : Command_cd(osInfo.workspace) + "&&";
-            return $"{cd}unzip -O GBK {path}";
+            return $"{cd}unzip -o -O GBK {path}";
         }
 
         #endregion

@@ -80,7 +80,7 @@ namespace DAO.QuickProject
         /// <returns></returns>
         public static async Task<List<t_project>> GetProjectList(SQLiteHelper dbHelper)
         {
-            string sql = @"SELECT name,proj_guid,last_publish_time,add_time,remark FROM t_project WHERE proj_type=@proj_type;";
+            string sql = @"SELECT name,proj_guid,last_publish_time,last_publish_status,add_time,remark FROM t_project WHERE proj_type=@proj_type;";
             return await dbHelper.QueryListAsync<t_project>(sql, new { proj_type = (int)EProjectType.Quick });
         }
 
@@ -95,5 +95,18 @@ namespace DAO.QuickProject
             string sql = @"SELECT id FROM t_project WHERE proj_guid=@proj_guid";
             return (await dbHelper.QueryAsync<int>(sql, new { proj_guid = proj_guid })) > 0;
         }
+
+        /// <summary>
+        /// 获取项目
+        /// </summary>
+        /// <param name="dbHelper"></param>
+        /// <param name="proj_guid">项目guid</param>
+        /// <returns></returns>
+        public static async Task<t_project> GetProject(SQLiteHelper dbHelper, string proj_guid)
+        {
+            string sql = @"SELECT name,proj_guid,last_publish_time,last_publish_status,add_time,remark FROM t_project WHERE proj_guid=@proj_guid AND proj_type=@proj_type;";
+            return await dbHelper.QueryAsync<t_project>(sql, new { proj_type = (int)EProjectType.Quick, proj_guid = proj_guid });
+        }
+
     }
 }

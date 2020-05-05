@@ -28,5 +28,10 @@ namespace Model.Out.QuickProject
         /// 最新发布时间
         /// </summary>
         public string publish_time { get; set; }
+
+        /// <summary>
+        /// 最新发布状态
+        /// </summary>
+        public string publish_status { get; set; }
     }
 }

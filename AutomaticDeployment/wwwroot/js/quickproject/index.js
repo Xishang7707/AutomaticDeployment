@@ -61,6 +61,7 @@ function render_project_table(o) {
                             <p>发布前命令：${item['publish']['publish_before_command']}</p>
                             <p>发布后命令：${item['publish']['publish_after_command']}</p>
                             <p>发布时间：${item['publish']['publish_time']}</p>
+                            <p>发布状态：${item['publish']['publish_status']}</p>
                         </td>
                         <td>
                             <p>${item['project']['project_remark']}</p>

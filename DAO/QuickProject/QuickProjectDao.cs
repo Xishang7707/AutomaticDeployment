@@ -111,5 +111,17 @@ namespace DAO.QuickProject
             string sql = @"SELECT proj_guid,conn_ip,conn_user,conn_mode,publish_path,platform_type,publish_before_cmd,publish_after_cmd FROM t_quick_project WHERE proj_guid in @proj_guids;";
             return await dbHelper.QueryListAsync<t_quick_project>(sql, new { proj_guids = proj_guids });
         }
+
+        /// <summary>
+        /// 获取项目配置信息
+        /// </summary>
+        /// <param name="dbHelper"></param>
+        /// <param name="proj_guid">项目guid</param>
+        /// <returns></returns>
+        public static async Task<t_quick_project> GetProject(SQLiteHelper dbHelper, string proj_guid)
+        {
+            string sql = @"SELECT proj_guid,conn_ip,conn_user,conn_mode,publish_path,platform_type,publish_before_cmd,publish_after_cmd FROM t_quick_project WHERE proj_guid=@proj_guid;";
+            return await dbHelper.QueryAsync<t_quick_project>(sql, new { proj_guid = proj_guid });
+        }
     }
 }

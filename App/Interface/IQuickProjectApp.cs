@@ -34,5 +34,12 @@ namespace App.Interface
         /// <param name="inData"></param>
         /// <returns></returns>
         Task<Result> Publish(In<PublishQuickProject> inData);
+
+        /// <summary>
+        /// 获取项目信息
+        /// </summary>
+        /// <param name="inData"></param>
+        /// <returns></returns>
+        Task<Result> GetProjectAsync(In<string> inData);
     }
 }

@@ -37,7 +37,7 @@ namespace Model.Db
         /// <summary>
         /// 最后一次发布状态
         /// </summary>
-        public string last_publish_status { get; set; }
+        public int last_publish_status { get; set; }
 
         /// <summary>
         /// 添加时间

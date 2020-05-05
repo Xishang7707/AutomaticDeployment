@@ -9,9 +9,12 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Server.Implement.PublishLog;
+using Server.Interface;
 
 namespace AutomaticDeployment
 {
@@ -32,10 +35,11 @@ namespace AutomaticDeployment
             {
                 o.MultipartBodyLengthLimit = long.MaxValue;
             });
+            services.AddSignalR();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IHubContext<PublishLogHub> publishLogHub)
         {
             if (env.IsDevelopment())
             {
@@ -59,9 +63,12 @@ namespace AutomaticDeployment
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapHub<PublishLogHub>("/publishlog");
                 endpoints.MapControllers();
                 endpoints.MapRazorPages();
             });
+
+            IPublishLogApp publishLogApp = AppFactory.Get<IPublishLogApp>(publishLogHub);
 
             IAutoPublishApp autoPublishApp = AppFactory.Get<IAutoPublishApp>();
             autoPublishApp.Start();

@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace Server.Implement.PublishFlow
 {
-    public class PublishFlowServerImpl : IPublishFlowServer
+    internal class PublishFlowServerImpl : IPublishFlowServer
     {
         /// <summary>
         /// 验证快速发布数据

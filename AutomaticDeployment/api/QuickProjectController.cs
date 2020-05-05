@@ -50,5 +50,17 @@ namespace AutomaticDeployment.api
             IQuickProjectApp app = AppFactory.Get<IQuickProjectApp>();
             return await app.Publish(PackRequest(form));
         }
+
+        /// <summary>
+        /// 获取项目信息
+        /// </summary>
+        /// <param name="project_uid">项目guid</param>
+        /// <returns></returns>
+        [HttpGet("getproject")]
+        public async Task<IActionResult> GetProject([FromQuery]string project_uid)
+        {
+            IQuickProjectApp app = AppFactory.Get<IQuickProjectApp>();
+            return await app.GetProjectAsync(PackRequest(project_uid));
+        }
     }
 }

@@ -170,8 +170,8 @@ namespace Server.Implement.QuickProject
 
         public async Task<Result> QuickProjectListAsync(In data)
         {
-            List<ProjectListResult> resultList = new List<ProjectListResult>();
-            Result<List<ProjectListResult>> result = new Result<List<ProjectListResult>> { result = true, data = resultList };
+            List<ProjectInfoResult> resultList = new List<ProjectInfoResult>();
+            Result<List<ProjectInfoResult>> result = new Result<List<ProjectInfoResult>> { result = true, data = resultList };
 
             SQLiteHelper dbHelper = new SQLiteHelper();
 
@@ -186,14 +186,14 @@ namespace Server.Implement.QuickProject
             {
                 t_quick_project quickItem = quickList.First(f => f.proj_guid == item.proj_guid);
 
-                resultList.Add(new ProjectListResult
+                resultList.Add(new ProjectInfoResult
                 {
                     project = new ProjectResult
                     {
                         project_uid = item.proj_guid,
                         project_name = item.name,
                         project_remark = item.remark,
-                        
+
                     },
                     server = new ServerResult
                     {
@@ -206,7 +206,8 @@ namespace Server.Implement.QuickProject
                         publish_path = quickItem.publish_path,
                         publish_before_command = quickItem.publish_before_cmd,
                         publish_after_command = quickItem.publish_after_cmd,
-                        publish_time = !GetCommon.GetCastTime(item.last_publish_time, out DateTime publishVal) ? "暂未发布" : publishVal.ToString("yyyy-MM-dd HH:mm:dd")
+                        publish_time = !GetCommon.GetCastTime(item.last_publish_time, out DateTime publishVal) ? "暂未发布" : publishVal.ToString("yyyy-MM-dd HH:mm:dd"),
+                        publish_status = !GetCommon.GetCastTime(item.last_publish_time, out DateTime publishVal2) ? "暂未发布" : ((EPublishStatus)item.last_publish_status).GetDesc()
                     }
                 });
             }
@@ -256,6 +257,75 @@ namespace Server.Implement.QuickProject
             IAutoPublishServer autoPublishServer = ServerFactory.Get<IAutoPublishServer>();
             autoPublishServer.Notice();
             return result;
+        }
+
+        /// <summary>
+        /// 获取项目验证
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        private Result VerifyGetProject(string data)
+        {
+            Result result = new Result();
+            if (string.IsNullOrWhiteSpace(data))
+            {
+                result.msg = Tip.TIP_24;
+                return result;
+            }
+            result.result = true;
+            return result;
+        }
+
+        public async Task<Result> GetProjectAsync(In<string> inData)
+        {
+            Result result = VerifyGetProject(inData.data);
+            if (!result.result)
+            {
+                return result;
+            }
+
+            result.result = false;
+
+            SQLiteHelper dbHelper = new SQLiteHelper();
+
+            t_project proj = await ProjectDao.GetProject(dbHelper, inData.data);
+            if (proj == null)
+            {
+                result.msg = Tip.TIP_24;
+                return result;
+            }
+
+            t_quick_project quickProj = await QuickProjectDao.GetProject(dbHelper, inData.data);
+            ProjectInfoResult info = new ProjectInfoResult
+            {
+                project = new ProjectResult
+                {
+                    project_uid = proj.proj_guid,
+                    project_name = proj.name,
+                    project_remark = proj.remark,
+
+                },
+                server = new ServerResult
+                {
+                    server_account = quickProj.conn_user,
+                    server_ip = quickProj.conn_ip,
+                    server_connect_mode = ((EOSConnectMode)quickProj.conn_mode).GetDesc()
+                },
+                publish = new PublishResult
+                {
+                    publish_path = quickProj.publish_path,
+                    publish_before_command = quickProj.publish_before_cmd,
+                    publish_after_command = quickProj.publish_after_cmd,
+                    publish_time = !GetCommon.GetCastTime(proj.last_publish_time, out DateTime publishVal) ? "暂未发布" : publishVal.ToString("yyyy-MM-dd HH:mm:dd"),
+                    publish_status = !GetCommon.GetCastTime(proj.last_publish_time, out DateTime publishVal2) ? "暂未发布" : ((EPublishStatus)proj.last_publish_status).GetDesc()
+                }
+            };
+
+            return new Result<ProjectInfoResult>
+            {
+                data = info,
+                result = true
+            };
         }
     }
 }
