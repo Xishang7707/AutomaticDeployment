@@ -2,6 +2,7 @@
 using DAO;
 using DAO.PublishLog;
 using Microsoft.AspNetCore.SignalR;
+using Model.Db.Enum;
 using Model.In.PublishLog;
 using Newtonsoft.Json;
 using Server.Interface;
@@ -71,7 +72,22 @@ namespace Server.Implement.PublishLog
         /// <param name="info"></param>
         private async void SendInfoAsync(LogInfo info)
         {
-            await Instance.hubContext.Clients.Client(info.proj_guid).SendAsync("log", info);
+            await Instance.hubContext.Clients.Group(GetPublishGroup(info.proj_guid)).SendAsync("log", info);
+        }
+
+        public void LogAsync(string proj_guid, int publish_id, string info)
+        {
+            SendInfoAsync(new LogInfo { proj_guid = proj_guid, publish_id = publish_id, publish_info = info });
+        }
+
+        public async void SendToPublishResultAsync(string proj_guid, int flow_id, EPublishStatus status)
+        {
+            await Instance.hubContext.Clients.Group(GetPublishGroup(proj_guid)).SendAsync("result", new LogInfo { proj_guid = proj_guid, publish_id = flow_id, publish_info = status.GetDesc() });
+        }
+
+        public string GetPublishGroup(string proj_guid)
+        {
+            return $"publish-{proj_guid}";
         }
     }
 }

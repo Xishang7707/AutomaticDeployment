@@ -112,16 +112,8 @@ namespace Server.Implement.AutoPublish
                     {
                         try
                         {
-                            //开始发布
-                            bool startFlag = await PublishStart(publishFlow.proj_guid, publishFlow.id);
-                            if (!startFlag)
-                            {
-                                timer?.Dispose();
-                                return;
-                            }
-
                             //进行中
-                            Result result = DoWorkFile(publishFlow);
+                            Result result = await DoWorkFile(publishFlow);
 
                             //发布结果
                             if (result.result)
@@ -151,45 +143,72 @@ namespace Server.Implement.AutoPublish
         /// 工作 --文件发布
         /// </summary>
         /// <param name="model"></param>
-        private Result DoWorkFile(t_publish_flow model)
+        private async Task<Result> DoWorkFile(t_publish_flow model)
         {
             WorkInfo<List<FileModePublish>> info = new WorkInfo<List<FileModePublish>>(model);
-            Result result = ConnectService(info);
-            publishLogServer.LogAsync(new Model.In.PublishLog.LogInfo { proj_guid = info.proj_info.proj_guid, publish_id = info.flow_id, publish_info = result.msg });
+            Result result = await DoWorkBeforeExec(info);
             if (!result.result)
             {
                 return result;
             }
-            //发布前命令
-            result = ExecBeforeCommand(info);
-            publishLogServer.LogAsync(new Model.In.PublishLog.LogInfo { proj_guid = info.proj_info.proj_guid, publish_id = info.flow_id, publish_info = result.msg });
+            result = DoWorkFileFlow(info, ConnectService, ExecBeforeCommand, PublishToService, ExecUnZip, ExecAfterCommand, DoWorkAfterExec);
+
+            return result;
+        }
+
+        /// <summary>
+        /// 工作流 -回调列表形式进行
+        /// </summary>
+        /// <param name="info">发布信息</param>
+        /// <param name="flows">步骤流</param>
+        /// <returns></returns>
+        private Result DoWorkFileFlow(WorkInfo<List<FileModePublish>> info, params Func<WorkInfo<List<FileModePublish>>, Result>[] flows)
+        {
+            Result result = new Result { result = true, msg = Tip.TIP_16 };
+            foreach (var item in flows)
+            {
+                result = item(info);
+                publishLogServer.LogAsync(info.proj_info.proj_guid, info.flow_id, result.msg);
+                if (!result.result)
+                {
+                    return result;
+                }
+            }
+            return result;
+        }
+
+        /// <summary>
+        /// 发布前
+        /// </summary>
+        /// <param name="info"></param>
+        /// <returns></returns>
+        private async Task<Result> DoWorkBeforeExec(WorkInfo<List<FileModePublish>> info)
+        {
+            Result result = new Result
+            {
+                result = await PublishStart(info.proj_info.proj_guid, info.flow_id)
+            };
             if (!result.result)
             {
-                return result;
+                result.msg = Tip.TIP_26;
             }
-            //上传文件
-            result = PublishToService(info);
-            publishLogServer.LogAsync(new Model.In.PublishLog.LogInfo { proj_guid = info.proj_info.proj_guid, publish_id = info.flow_id, publish_info = result.msg });
-            if (!result.result)
-            {
-                return result;
-            }
-            //解压
-            result = ExecUnZip(info);
-            publishLogServer.LogAsync(new Model.In.PublishLog.LogInfo { proj_guid = info.proj_info.proj_guid, publish_id = info.flow_id, publish_info = result.msg });
-            if (!result.result)
-            {
-                return result;
-            }
-            //发布后命令
-            result = ExecAfterCommand(info);
-            publishLogServer.LogAsync(new Model.In.PublishLog.LogInfo { proj_guid = info.proj_info.proj_guid, publish_id = info.flow_id, publish_info = result.msg });
-            if (!result.result)
-            {
-                return result;
-            }
+            publishLogServer.SendToPublishResultAsync(info.proj_info.proj_guid, info.flow_id, EPublishStatus.Progress);
+            return result;
+        }
+
+        /// <summary>
+        /// 发布后
+        /// </summary>
+        /// <param name="info"></param>
+        /// <returns></returns>
+        private Result DoWorkAfterExec(WorkInfo<List<FileModePublish>> info)
+        {
             info.osManagerServer.Close();
-            publishLogServer.LogAsync(new Model.In.PublishLog.LogInfo { proj_guid = info.proj_info.proj_guid, publish_id = info.flow_id, publish_info = result.msg });
+            Result result = new Result
+            {
+                result = true,
+                msg = Tip.TIP_16
+            };
             return result;
         }
 
@@ -251,6 +270,7 @@ namespace Server.Implement.AutoPublish
                 dbHelper.Close();
             }
             dbHelper.Close();
+            publishLogServer.SendToPublishResultAsync(proj_guid, flow_id, EPublishStatus.Failed);
         }
 
         /// <summary>
@@ -285,6 +305,7 @@ namespace Server.Implement.AutoPublish
                 dbHelper.Close();
             }
             dbHelper.Close();
+            publishLogServer.SendToPublishResultAsync(proj_guid, flow_id, EPublishStatus.Success);
         }
 
         /// <summary>
@@ -357,6 +378,7 @@ namespace Server.Implement.AutoPublish
             public WorkInfo() { }
             public WorkInfo(t_publish_flow model)
             {
+                flow_id = model.id;
                 proj_info = JsonConvert.DeserializeObject<t_project>(model.proj_info);
                 service_info = JsonConvert.DeserializeObject<t_service>(model.server_info);
                 publish_info = JsonConvert.DeserializeObject<t_publish>(model.publish_info);

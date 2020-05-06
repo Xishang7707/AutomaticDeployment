@@ -8,14 +8,18 @@
         if (!project_uid)
             return;
 
-        let host = '../publishlog?connectionId=' + project_uid;
+        let host = '../publishlog';
         let hubConnection = new signalR.HubConnectionBuilder()
             .withUrl(host)
             .build();
         recv_publish_log(hubConnection);
-        hubConnection.start();
-        get_project(project_uid);
+        recv_publish_result(hubConnection, project_uid);
 
+        hubConnection.start().then(() => {
+            hubConnection.send("publish", project_uid);
+        });
+
+        get_project(project_uid);
         upload.render({
             elem: '#project_file' //绑定元素
             , url: '../api/upload/upload' //上传接口
@@ -56,7 +60,14 @@
 
 function recv_publish_log(conn) {
     conn.on("log", function (data) {
-        $('#publish_log').append(`<li>${data}</li>`);
+        $('#publish_log').append($(`<li>`).text(data['publish_info']));
+    });
+}
+
+function recv_publish_result(conn, id) {
+    conn.on("result", function (data) {
+        layer.msg(data['publish_info']);
+        get_project(id);
     });
 }
 
