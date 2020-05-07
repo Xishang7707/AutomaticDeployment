@@ -67,7 +67,7 @@ namespace Common
         /// <returns></returns>
         public Result Connect(string host, int port, string user, string pwd)
         {
-            Result result = new Result();
+            Result result = new Result { msg = Tip.TIP_30 };
             try
             {
                 if (sftpClient == null || !sftpClient.IsConnected)
@@ -75,6 +75,7 @@ namespace Common
                     sftpClient = new SftpClient(host, port, user, pwd);
                     sftpClient.Connect();
                 }
+                result.msg = Tip.TIP_29;
                 result.result = true;
             }
             catch (Exception e)

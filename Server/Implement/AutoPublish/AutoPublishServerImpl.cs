@@ -448,12 +448,11 @@ namespace Server.Implement.AutoPublish
             }
 
             ExecResult execResult = info.osManagerServer.Exec(info.publish_info.publish_before_cmd).Cast<ExecResult>();
+            result.msg = execResult.msg;
             if (!execResult.result)
             {
-                result.msg = execResult.msg;
                 return result;
             }
-
             result.result = true;
             return result;
         }
@@ -502,6 +501,7 @@ namespace Server.Implement.AutoPublish
             }
 
             ExecResult execResult = info.osManagerServer.Exec(info.publish_info.publish_after_cmd).Cast<ExecResult>();
+            result.msg = execResult.msg;
             if (!execResult.result)
             {
                 result.msg = execResult.msg;

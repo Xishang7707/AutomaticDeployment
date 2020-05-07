@@ -149,5 +149,14 @@ namespace Model
         /// </summary>
         public static string TIP_28 { get; } = "上传的发布文件被改动";
 
+        /// <summary>
+        /// 服务器连接成功
+        /// </summary>
+        public static string TIP_29 { get; } = "服务器连接成功";
+
+        /// <summary>
+        /// 服务器连接失败
+        /// </summary>
+        public static string TIP_30 { get; } = "服务器连接失败";
     }
 }

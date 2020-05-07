@@ -60,6 +60,7 @@ namespace Server.Implement.OSManage
 
             //连接sftp
             result = sftpHelper.Connect(conn.host, conn.port, conn.user, conn.password);
+
             return result;
         }
 

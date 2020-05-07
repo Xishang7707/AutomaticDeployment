@@ -56,7 +56,7 @@ namespace Server.Implement.PublishLog
 
         public async void LogAsync(LogInfo info)
         {
-            await PublishLogDao.InsertAsync(Instance.dbHelper, new Model.Db.t_publish_log
+            bool flag = await PublishLogDao.InsertAsync(Instance.dbHelper, new Model.Db.t_publish_log
             {
                 proj_guid = info.proj_guid,
                 publish_id = info.publish_id,
@@ -77,7 +77,7 @@ namespace Server.Implement.PublishLog
 
         public void LogAsync(string proj_guid, int publish_id, string info)
         {
-            SendInfoAsync(new LogInfo { proj_guid = proj_guid, publish_id = publish_id, publish_info = info });
+            LogAsync(new LogInfo { proj_guid = proj_guid, publish_id = publish_id, publish_info = info });
         }
 
         public async void SendToPublishResultAsync(string proj_guid, int flow_id, EPublishStatus status)
