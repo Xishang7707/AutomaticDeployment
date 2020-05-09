@@ -16,3 +16,5 @@
 /Common/obj
 /Model/bin
 /Model/obj
+/WindowClient/AutoDevWinClient/.vs/AutoDevWinServer/v16
+/WindowClient/AutoDevWinClient/Debug

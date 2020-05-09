@@ -1,0 +1,120 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="资源文件">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="main">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="network">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="network\client">
+      <UniqueIdentifier>{0622d8da-362e-4de3-bea9-e5d7271c3a79}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="file">
+      <UniqueIdentifier>{666239af-0ca1-4614-866c-af654ee28282}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="command">
+      <UniqueIdentifier>{882f497c-6084-415a-9f88-257e3a9248cd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="network\client\interface">
+      <UniqueIdentifier>{9922ea94-9113-449f-b001-ceb1d050f55d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="network\client\implement">
+      <UniqueIdentifier>{f339a13e-a9fc-4d3f-87e4-03268c404f6a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="network\client\in">
+      <UniqueIdentifier>{75d5ccf9-1551-48c1-ac9f-98ad0ee094b5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="network\client\out">
+      <UniqueIdentifier>{a499690a-cf09-44fe-b052-52d860721168}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="network\clientmanager">
+      <UniqueIdentifier>{678657fd-76ce-45fe-b6fe-dd61bf485cee}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="network\clientmanager\interface">
+      <UniqueIdentifier>{6e315d65-968f-4d1f-93eb-976097bb17d7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="network\clientmanager\implement">
+      <UniqueIdentifier>{56cbc993-420d-4371-9af7-fe1c08838f4e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="network\clientmanager\in">
+      <UniqueIdentifier>{c11dba01-4324-4a72-b6a4-af0513e8533e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="network\clientmanager\out">
+      <UniqueIdentifier>{3893a703-4542-47e3-b622-31bd611d2f6f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="network\client\h">
+      <UniqueIdentifier>{5eef5f8e-77a3-409f-bfe1-e570686f2fb3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="network\clientmanager\h">
+      <UniqueIdentifier>{bb201ae9-4fa1-49a7-a3d8-13e0ac213a75}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="network\service">
+      <UniqueIdentifier>{a3fc2e7e-d0dd-4287-8df5-3e41c877c3e3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="network\service\interface">
+      <UniqueIdentifier>{51e8073a-9cce-4788-ae61-9676a15cf284}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="network\service\implement">
+      <UniqueIdentifier>{f67f8782-c12c-428e-ba9e-0bab53b571f4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="network\service\in">
+      <UniqueIdentifier>{9dd1eb5c-4566-4522-a2fc-8acdb6245947}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="network\service\out">
+      <UniqueIdentifier>{be29c1ec-f6c5-448d-b94d-f1e1c7203c3d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="network\service\h">
+      <UniqueIdentifier>{2703f8f4-e214-4160-97a6-36e4d42650aa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="in">
+      <UniqueIdentifier>{c4d1558a-7822-40e5-b76c-0fef15496f70}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="out">
+      <UniqueIdentifier>{462c1b3a-aae5-44c5-a21c-424c2259f37a}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="autodevclient.cpp">
+      <Filter>main</Filter>
+    </ClCompile>
+    <ClCompile Include="client_impl.cpp">
+      <Filter>network\client\implement</Filter>
+    </ClCompile>
+    <ClCompile Include="clientmanager_impl.cpp">
+      <Filter>network\clientmanager\implement</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="i_client.h">
+      <Filter>network\client\interface</Filter>
+    </ClInclude>
+    <ClInclude Include="i_clientmanager.h">
+      <Filter>network\clientmanager\interface</Filter>
+    </ClInclude>
+    <ClInclude Include="client_impl.h">
+      <Filter>network\client\h</Filter>
+    </ClInclude>
+    <ClInclude Include="clientmanager_impl.h">
+      <Filter>network\clientmanager\h</Filter>
+    </ClInclude>
+    <ClInclude Include="i_service.h">
+      <Filter>network\service\interface</Filter>
+    </ClInclude>
+    <ClInclude Include="in.h">
+      <Filter>in</Filter>
+    </ClInclude>
+    <ClInclude Include="result.h">
+      <Filter>out</Filter>
+    </ClInclude>
+    <ClInclude Include="appfactory.h">
+      <Filter>network</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
