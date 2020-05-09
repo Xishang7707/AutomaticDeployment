@@ -158,5 +158,20 @@ namespace Model
         /// 服务器连接失败
         /// </summary>
         public static string TIP_30 { get; } = "服务器连接失败";
+
+        /// <summary>
+        /// 无数据库文件执行
+        /// </summary>
+        public static string TIP_31 { get; } = "无数据库文件执行 不连接数据库";
+
+        /// <summary>
+        /// 无数据库文件执行
+        /// </summary>
+        public static string TIP_32 { get; } = "无数据库文件执行";
+
+        /// <summary>
+        /// 数据库文件不存在
+        /// </summary>
+        public static string TIP_33 { get; } = "数据库文件不存在";
     }
 }

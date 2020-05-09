@@ -6,12 +6,14 @@ using Model.Db;
 using Model.Db.Enum;
 using Model.Extend;
 using Model.In.PublishFlow;
+using Model.In.SqlManage;
 using Model.Out;
 using Model.Ssh;
 using Newtonsoft.Json;
 using Server.Interface;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -151,7 +153,7 @@ namespace Server.Implement.AutoPublish
             {
                 return result;
             }
-            result = DoWorkFileFlow(info, ConnectService, ExecBeforeCommand, PublishToService, ExecUnZip, ExecAfterCommand, DoWorkAfterExec);
+            result = DoWorkFileFlow(info, ConnectService, ExecBeforeCommand, PublishToService, ExecUnZip, ExecAfterCommand, ConnectSQL, ExecSql, DoWorkAfterExec);
 
             return result;
         }
@@ -204,6 +206,7 @@ namespace Server.Implement.AutoPublish
         private Result DoWorkAfterExec(WorkInfo<List<FileModePublish>> info)
         {
             info.osManagerServer.Close();
+            info.sqlManageServer.Close();
             Result result = new Result
             {
                 result = true,
@@ -375,6 +378,11 @@ namespace Server.Implement.AutoPublish
             /// </summary>
             public IOSManageServer osManagerServer { get; set; }
 
+            /// <summary>
+            /// 数据库服务
+            /// </summary>
+            public ISqlManageServer sqlManageServer { get; set; }
+
             public WorkInfo() { }
             public WorkInfo(t_publish_flow model)
             {
@@ -466,12 +474,18 @@ namespace Server.Implement.AutoPublish
         {
             Result result = new Result();
 
-            if (info.extend_info == null || info.extend_info.Count == 0)
+            if (info.extend_info == null)
             {
                 result.msg = Tip.TIP_12;
                 return result;
             }
-            foreach (var item in info.extend_info)
+            List<FileModePublish> list = info.extend_info.Where(w => VerifyCommon.FileType(w.file_id, EFileType.ZIP)).ToList();
+            if (list.Count == 0)
+            {
+                result.msg = Tip.TIP_12;
+                return result;
+            }
+            foreach (var item in list)
             {
                 string filePath = ServerCommon.GetPublishUploadPath(info.proj_info.proj_guid, item.file_id);
 
@@ -524,6 +538,54 @@ namespace Server.Implement.AutoPublish
             {
                 result = info.osManagerServer.UnZip(item.file_id);
                 if (!result.result)
+                {
+                    return result;
+                }
+            }
+            result.result = true;
+            return result;
+        }
+
+        /// <summary>
+        /// 连接到数据库
+        /// </summary>
+        /// <param name="info"></param>
+        /// <returns></returns>
+        private Result ConnectSQL(WorkInfo<List<FileModePublish>> info)
+        {
+            Result result = new Result();
+            if (info.extend_info == null || info.extend_info.Where(w => VerifyCommon.FileType(w.file_id, EFileType.SQL)).Count() == 0)
+            {
+                result.msg = Tip.TIP_31;
+                result.result = true;
+                return result;
+            }
+            info.sqlManageServer = ServerFactory.Get<ISqlManageServer>(EDatabaseType.MSSQL);
+            return info.sqlManageServer.Connect(new UserConnectIn());
+        }
+
+        /// <summary>
+        /// 执行数据库文件
+        /// </summary>
+        /// <param name="info"></param>
+        /// <returns></returns>
+        private Result ExecSql(WorkInfo<List<FileModePublish>> info)
+        {
+            Result result = new Result();
+            List<FileModePublish> fileList = info.extend_info.Where(w => VerifyCommon.FileType(w.file_id, EFileType.SQL)).ToList();
+            if (fileList.Count() == 0)
+            {
+                result.msg = Tip.TIP_32;
+                result.result = true;
+                return result;
+            }
+
+            //执行脚本
+            foreach (var item in fileList)
+            {
+                Result res = info.sqlManageServer.ExecFileAsync(ServerCommon.GetPublishUploadPath(info.proj_info.proj_guid, item.file_id)).Result;
+                result.msg += res;
+                if (!res.result)
                 {
                     return result;
                 }

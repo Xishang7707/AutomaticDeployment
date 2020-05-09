@@ -6,6 +6,7 @@ using Server.Implement.OSManage;
 using Server.Implement.PublishFlow;
 using Server.Implement.PublishLog;
 using Server.Implement.QuickProject;
+using Server.Implement.SqlManage;
 using Server.Interface;
 
 namespace Server
@@ -50,6 +51,15 @@ namespace Server
                 return GetPublisLog((IHubContext<PublishLogHub>)v[0]) as T;
             }
 
+            if (typeof(T) == typeof(ISqlManageServer))
+            {
+                if (v.Length == 0 || !(v[0] is EDatabaseType))
+                {
+                    return null;
+                }
+                return GetSqlManage((EDatabaseType)v[0]) as T;
+            }
+
             return null;
         }
 
@@ -60,15 +70,12 @@ namespace Server
         /// <returns></returns>
         public static IOSManageServer GetOSPlatform(EOSPlatform os)
         {
-            switch (os)
+            return os switch
             {
-                case EOSPlatform.Linux:
-                    return new LinuxManageImpl();
-                case EOSPlatform.Windows:
-                    return new WindowsManageImpl();
-                default:
-                    return null;
-            }
+                EOSPlatform.Linux => new LinuxManageImpl(),
+                EOSPlatform.Windows => new WindowsManageImpl(),
+                _ => null,
+            };
         }
 
         public static IPublishLogServer GetPublisLog(IHubContext<PublishLogHub> hubContext = null)
@@ -78,6 +85,16 @@ namespace Server
                 return new PublishLogImpl();
             }
             return new PublishLogImpl(hubContext);
+        }
+
+        public static ISqlManageServer GetSqlManage(EDatabaseType type)
+        {
+            return type switch
+            {
+                EDatabaseType.MSSQL => new MssqlManageServerImpl(),
+                EDatabaseType.MYSQL => null,
+                _ => null
+            };
         }
     }
 }

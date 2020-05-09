@@ -63,5 +63,34 @@ namespace Common
         /// <param name="plat"></param>
         /// <returns></returns>
         public static bool OSPlatform(string plat) => !string.IsNullOrWhiteSpace(plat) && int.TryParse(plat, out int tmpVal) && Enum.IsDefined(typeof(EOSPlatform), tmpVal);
+
+        /// <summary>
+        /// 验证类型类型
+        /// </summary>
+        /// <param name="fileName">文件名</param>
+        /// <param name="type">类型</param>
+        /// <returns></returns>
+        public static bool FileType(string fileName, EFileType type)
+        {
+            if (string.IsNullOrWhiteSpace(fileName))
+            {
+                return false;
+            }
+            int index = fileName.LastIndexOf('.');
+            if (index == -1 || index + 1 == fileName.Length)
+            {
+                return false;
+            }
+
+            string ex = fileName.Substring(index);
+            return type switch
+            {
+                EFileType.ZIP => ex.ToLower() == ".zip",
+                EFileType.RAR => ex.ToLower() == ".rar",
+                EFileType._7Z => ex.ToLower() == ".7z",
+                EFileType.SQL => ex.ToLower() == ".sql",
+                _ => false,
+            };
+        }
     }
 }
