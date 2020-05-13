@@ -1,15 +1,13 @@
 ﻿$(function () {
     $('#btn_open_addproject').click(open_addproject);
     var w = get_top_window();
-    layui.use(['carousel', 'upload'], function () {
-        var carousel = layui.carousel;
-        var upload = layui.upload;
-
+    layui.use([], function () {
         get({
             url: '../api/quickproject/getprojectlist',
             done: o => {
                 render_project_table(o['data']);
                 bind_publish(o['data']);
+                bind_edit_project(o['data']);
             },
             err: o => {
                 w.layer.msg(o.msg);
@@ -42,6 +40,18 @@ function open_publish(id, name) {
     }
 }
 
+/**
+ * 编辑项目
+ * */
+function open_edit(id, name) {
+    var w = get_top_window();
+    if (w.open_tab) {
+        w.open_tab(`修改[${name}]`, 'quickproject/editquickproject?project_uid=' + id, 'quickpublish#' + id);
+    } else {
+        w.open('editquickproject?project_uid=' + id, '_blank');
+    }
+}
+
 function render_project_table(o) {
     var dom = ``;
     for (var k in o) {
@@ -69,6 +79,9 @@ function render_project_table(o) {
                         <td>
                             <button type="button" class="layui-btn btn-publish" id='btn-publish-${item['project']['project_uid']}'>
                                 <i class="layui-icon">&#xe67c;</i>发布
+                            </button>
+                            <button type="button" class="layui-btn btn-edit-project" id='btn-edit-${item['project']['project_uid']}'>
+                                编辑
                             </button>
                         </td>
                     </tr>`;
@@ -105,6 +118,17 @@ function bind_publish(o) {
         ((id, name) => {
             $(`#btn-publish-${id}`).click(() => {
                 open_publish(id, name);
+            });
+        })(item['project']['project_uid'], item['project']['project_name']);
+    }
+}
+
+function bind_edit_project(o) {
+    for (var k in o) {
+        var item = o[k];
+        ((id, name) => {
+            $(`#btn-edit-${id}`).click(() => {
+                open_edit(id, name);
             });
         })(item['project']['project_uid'], item['project']['project_name']);
     }

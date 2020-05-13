@@ -41,5 +41,12 @@ namespace App.Interface
         /// <param name="inData"></param>
         /// <returns></returns>
         Task<Result> GetProjectAsync(In<string> inData);
+
+        /// <summary>
+        /// 编辑项目
+        /// </summary>
+        /// <param name="inData"></param>
+        /// <returns></returns>
+        Task<Result> EditProject(In<EditQuickProjectIn> inData);
     }
 }

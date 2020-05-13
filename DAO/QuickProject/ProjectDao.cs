@@ -108,5 +108,17 @@ namespace DAO.QuickProject
             return await dbHelper.QueryAsync<t_project>(sql, new { proj_type = (int)EProjectType.Quick, proj_guid = proj_guid });
         }
 
+        /// <summary>
+        /// 更新项目数据
+        /// </summary>
+        /// <param name="dbHelper"></param>
+        /// <param name="proj_guid">项目guid</param>
+        /// <returns></returns>
+        public static async Task<bool> EditProject(SQLiteHelper dbHelper, QuickProjectIn data)
+        {
+            string sql = @"UPDATE t_project set name=@name,remark=@remark WHERE proj_guid=@proj_guid AND proj_type=@proj_type;";
+            return await dbHelper.ExecAsync(sql, new { proj_type = (int)EProjectType.Quick, proj_guid = data.project_guid, name = data.project_name, remark = data.project_remark }) > 0;
+        }
+
     }
 }

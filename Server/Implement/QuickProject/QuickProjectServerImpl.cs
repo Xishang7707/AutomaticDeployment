@@ -302,14 +302,15 @@ namespace Server.Implement.QuickProject
                 {
                     project_uid = proj.proj_guid,
                     project_name = proj.name,
-                    project_remark = proj.remark,
-
+                    project_remark = proj.remark
                 },
                 server = new ServerResult
                 {
                     server_account = quickProj.conn_user,
                     server_ip = quickProj.conn_ip,
-                    server_connect_mode = ((EOSConnectMode)quickProj.conn_mode).GetDesc()
+                    server_connect_mode = ((EOSConnectMode)quickProj.conn_mode).GetDesc(),
+                    server_password = string.IsNullOrWhiteSpace(quickProj.conn_password) ? "" : GetCommon.GetHidePassword(),
+                    server_port = quickProj.conn_port.ToString()
                 },
                 publish = new PublishResult
                 {
@@ -317,7 +318,7 @@ namespace Server.Implement.QuickProject
                     publish_before_command = quickProj.publish_before_cmd,
                     publish_after_command = quickProj.publish_after_cmd,
                     publish_time = !GetCommon.GetCastTime(proj.last_publish_time, out DateTime publishVal) ? "暂未发布" : publishVal.ToString("yyyy-MM-dd HH:mm:dd"),
-                    publish_status = !GetCommon.GetCastTime(proj.last_publish_time, out DateTime publishVal2) ? "暂未发布" : ((EPublishStatus)proj.last_publish_status).GetDesc()
+                    publish_status = !GetCommon.GetCastTime(proj.last_publish_time, out _) ? "暂未发布" : ((EPublishStatus)proj.last_publish_status).GetDesc()
                 }
             };
 
@@ -326,6 +327,163 @@ namespace Server.Implement.QuickProject
                 data = info,
                 result = true
             };
+        }
+
+        /// <summary>
+        /// 验证编辑数据
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        private async Task<Result> VerifyEditQuickProject(EditQuickProjectIn data)
+        {
+            Result result = new Result();
+            if (data == null)
+            {
+                result.msg = Tip.TIP_1;
+                return result;
+            }
+            //验证服务器信息
+            if (data.server == null)
+            {
+                result.msg = Tip.TIP_4;
+                return result;
+            }
+            if (!VerifyCommon.OSPlatform(data.server.server_platform))
+            {
+                result.msg = Tip.TIP_22;
+                return result;
+            }
+            if (string.IsNullOrWhiteSpace(data.server.server_ip))
+            {
+                result.msg = Tip.TIP_5;
+                return result;
+            }
+            if (!VerifyCommon.IP(data.server.server_ip))
+            {
+                result.msg = Tip.TIP_6;
+                return result;
+            }
+            if (string.IsNullOrWhiteSpace(data.server.server_port))
+            {
+                result.msg = Tip.TIP_7;
+                return result;
+            }
+            if (!VerifyCommon.Port(data.server.server_port))
+            {
+                result.msg = Tip.TIP_8;
+                return result;
+            }
+            if (string.IsNullOrWhiteSpace(data.server.server_account))
+            {
+                result.msg = Tip.TIP_9;
+                return result;
+            }
+            if (!VerifyCommon.ServiceAccountLength(data.server.server_account))
+            {
+                result.msg = Tip.TIP_17;
+                return result;
+            }
+            if (string.IsNullOrWhiteSpace(data.server.server_password))
+            {
+                result.msg = Tip.TIP_10;
+                return result;
+            }
+            if (!VerifyCommon.ServiceAccountLength(data.server.server_password))
+            {
+                result.msg = Tip.TIP_18;
+                return result;
+            }
+            //验证项目信息
+            if (data.project == null)
+            {
+                result.msg = Tip.TIP_11;
+                return result;
+            }
+            if (string.IsNullOrWhiteSpace(data.project.project_name))
+            {
+                result.msg = Tip.TIP_12;
+                return result;
+            }
+            if (!VerifyCommon.ProjectNameLength(data.project.project_name))
+            {
+                result.msg = Tip.TIP_19;
+                return result;
+            }
+            //发布信息验证
+            if (data.publish == null)
+            {
+                result.msg = Tip.TIP_13;
+                return result;
+            }
+            if (string.IsNullOrWhiteSpace(data.publish.publish_path))
+            {
+                result.msg = Tip.TIP_14;
+                return result;
+            }
+            if (!VerifyCommon.PublishProjectPathLength(data.publish.publish_path))
+            {
+                result.msg = Tip.TIP_13;
+                return result;
+            }
+            //验证项目是否存在
+            if (string.IsNullOrWhiteSpace(data.project?.project_guid?.Trim()))
+            {
+                result.msg = Tip.TIP_24;
+                return result;
+            }
+            data.project.project_guid = data.project.project_guid.Trim();
+            SQLiteHelper db = new SQLiteHelper();
+            bool project_exist_flag = await ProjectDao.IsExist(db, data.project.project_guid);
+            db.Close();
+            if (!project_exist_flag)
+            {
+                result.msg = Tip.TIP_24;
+                return result;
+            }
+            result.result = true;
+            return result;
+        }
+
+        public async Task<Result> EditProject(In<EditQuickProjectIn> inData)
+        {
+            Result result = await VerifyEditQuickProject(inData.data);
+            if (!result.result)
+            {
+                return result;
+            }
+
+            SQLiteHelper dbHelper = new SQLiteHelper();
+            try
+            {
+                await dbHelper.BeginTransactionAsync();
+                result.result = await ProjectDao.EditProject(dbHelper, inData.data.project);
+                if (!result.result)
+                {
+                    await dbHelper.RollbackAsync();
+                    result.msg = Tip.TIP_35;
+                    return result;
+                }
+
+                result.result = await QuickProjectDao.EditQuickProjectModelAsync(dbHelper, inData.data);
+                if (!result.result)
+                {
+                    await dbHelper.RollbackAsync();
+                    result.msg = Tip.TIP_35;
+                    return result;
+                }
+
+                await dbHelper.CommitAsync();
+                dbHelper.Close();
+                result.msg = Tip.TIP_34;
+                return result;
+            }
+            catch (Exception e)
+            {
+                await dbHelper.RollbackAsync();
+                dbHelper.Close();
+                result.msg = Tip.TIP_35;
+                return result;
+            }
         }
     }
 }

@@ -101,6 +101,42 @@ namespace DAO.QuickProject
         }
 
         /// <summary>
+        /// 更新项目数据
+        /// </summary>
+        /// <param name="dbHelper"></param>
+        /// <param name="data"></param>
+        public static async Task<bool> EditQuickProjectModelAsync(SQLiteHelper dbHelper, EditQuickProjectIn data)
+        {
+            t_quick_project model = new t_quick_project
+            {
+                conn_ip = data.server.server_ip,
+                conn_mode = (int)EOSConnectMode.UserAndPassword,
+                conn_password = data.server.server_password == GetCommon.GetHidePassword() ? "" : ConcealCommon.EncryptDES(data.server.server_password),
+                conn_port = int.Parse(data.server.server_port),
+                conn_user = data.server.server_account,
+                platform_type = int.Parse(data.server.server_platform),
+                proj_guid = data.project.project_guid,
+                publish_path = data.publish.publish_path,
+                publish_before_cmd = data.publish.publish_before_command,
+                publish_after_cmd = data.publish.publish_after_command
+            };
+
+            string sql = $@"UPDATE t_quick_project SET
+                                conn_ip=@conn_ip,
+                                conn_port=@conn_port,
+                                conn_mode=@conn_mode,
+                                conn_user=@conn_user,
+                                {(data.server.server_password == GetCommon.GetHidePassword() ? "" : "conn_password = @conn_password,")}
+                                publish_path = @publish_path,
+                                platform_type = @platform_type,
+                                publish_before_cmd = @publish_before_cmd,
+                                publish_after_cmd = @publish_after_cmd
+                                WHERE proj_guid = @proj_guid; ";
+
+            return await dbHelper.ExecAsync(sql, model) > 0;
+        }
+
+        /// <summary>
         /// 批量获取项目配置信息
         /// </summary>
         /// <param name="dbHelper"></param>
@@ -120,7 +156,7 @@ namespace DAO.QuickProject
         /// <returns></returns>
         public static async Task<t_quick_project> GetProject(SQLiteHelper dbHelper, string proj_guid)
         {
-            string sql = @"SELECT proj_guid,conn_ip,conn_user,conn_mode,publish_path,platform_type,publish_before_cmd,publish_after_cmd FROM t_quick_project WHERE proj_guid=@proj_guid;";
+            string sql = @"SELECT proj_guid,conn_ip,conn_port,conn_user,conn_password,conn_mode,publish_path,platform_type,publish_before_cmd,publish_after_cmd FROM t_quick_project WHERE proj_guid=@proj_guid;";
             return await dbHelper.QueryAsync<t_quick_project>(sql, new { proj_guid = proj_guid });
         }
     }

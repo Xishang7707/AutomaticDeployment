@@ -113,5 +113,14 @@ namespace Common
             }
             return true;
         }
+
+        /// <summary>
+        /// 替换密码
+        /// </summary>
+        /// <returns></returns>
+        public static string GetHidePassword()
+        {
+            return @"^$\(@#...#@)/$^";
+        }
     }
 }

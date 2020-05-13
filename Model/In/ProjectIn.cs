@@ -9,6 +9,9 @@ namespace Model.In
     /// </summary>
     public class ProjectIn
     {
-
+        /// <summary>
+        /// 项目标识
+        /// </summary>
+        public string project_guid { get; set; }
     }
 }

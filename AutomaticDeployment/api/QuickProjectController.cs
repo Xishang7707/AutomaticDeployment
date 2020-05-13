@@ -62,5 +62,17 @@ namespace AutomaticDeployment.api
             IQuickProjectApp app = AppFactory.Get<IQuickProjectApp>();
             return await app.GetProjectAsync(PackRequest(project_uid));
         }
+
+        /// <summary>
+        /// 编辑项目
+        /// </summary>
+        /// <param name="model">项目信息</param>
+        /// <returns></returns>
+        [HttpPost("editproject")]
+        public async Task<IActionResult> EditProject([FromBody]EditQuickProjectIn model)
+        {
+            IQuickProjectApp app = AppFactory.Get<IQuickProjectApp>();
+            return await app.EditProject(PackRequest(model));
+        }
     }
 }

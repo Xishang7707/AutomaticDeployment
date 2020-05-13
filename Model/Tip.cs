@@ -173,5 +173,15 @@ namespace Model
         /// 数据库文件不存在
         /// </summary>
         public static string TIP_33 { get; } = "数据库文件不存在";
+
+        /// <summary>
+        /// 修改成功
+        /// </summary>
+        public static string TIP_34 { get; } = "修改成功";
+
+        /// <summary>
+        /// 修改失败
+        /// </summary>
+        public static string TIP_35 { get; } = "修改失败";
     }
 }

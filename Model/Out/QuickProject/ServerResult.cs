@@ -20,8 +20,18 @@ namespace Model.Out.QuickProject
         public string server_account { get; set; }
 
         /// <summary>
+        /// 服务器端口
+        /// </summary>
+        public string server_port { get; set; }
+
+        /// <summary>
         /// 服务器连接模式
         /// </summary>
         public string server_connect_mode { get; set; }
+
+        /// <summary>
+        /// 服务器密码
+        /// </summary>
+        public string server_password { get; set; }
     }
 }

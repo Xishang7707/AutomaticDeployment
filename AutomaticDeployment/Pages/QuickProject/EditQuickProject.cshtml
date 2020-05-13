@@ -1,0 +1,137 @@
+﻿@page
+@model AutomaticDeployment.Pages.QuickProject.EditQuickProjectModel
+@{
+    ViewData["Title"] = "修改项目";
+}
+
+<link href="/lib/steps/steps.css" rel="stylesheet" />
+<link href="~/css/quickproject/editquickproject.css" rel="stylesheet" />
+<script src="/lib/steps/steps.js"></script>
+<script src="~/js/quickproject/editquickproject.js"></script>
+
+<body class="layui-layout-body">
+    <div class="layui-layout layui-layout-admin">
+        <div class="layui-header">
+            <div id="dev_steps"></div>
+        </div>
+        <div class="layui-body step_wapper">
+            <div class="layui-carousel step_item_wapper" lay-filter="dev_step" id="dev_step">
+                <div carousel-item>
+                    <div>
+                        <div class="layui-card">
+                            <div class="layui-card-header">说明</div>
+                            <div class="layui-card">
+                                <ol>
+                                    <li style="color:#FF5722">请不要执行rm -rf /</li>
+                                    <li style="color:#FFB800">执行命令先确保服务器安装了命令</li>
+                                    <li style="color:#FFB800">发布不包括环境依赖的安装</li>
+                                    <li style="color:#FFB800">目前只支持Linux的发布</li>
+                                    <li style="color:#FFB800">目前只支持ZIP格式的压缩包发布</li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="layui-card">
+                            <div class="layui-card-header">项目配置</div>
+                            <div class="layui-card-body">
+                                <form class="layui-form" action="" id="step_project">
+                                    <div class="layui-form-item">
+                                        <div class="layui-form-item">
+                                            <label class="layui-form-label">项目名称</label>
+                                            <div class="layui-input-block">
+                                                <input type="hidden" name="project_uid" value="" maxlength="20" autocomplete="off">
+                                                <input type="text" name="project_name" value="" maxlength="20" required lay-verify="required" placeholder="项目名称" autocomplete="off" class="layui-input">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="layui-form-item">
+                                        <div class="layui-form-item">
+                                            <label class="layui-form-label">描述</label>
+                                            <div class="layui-input-block">
+                                                <textarea type="text" name="project_remark" maxlength="200" placeholder="最多200个字符" autocomplete="off" class="layui-textarea"></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="layui-card">
+                            <div class="layui-card-header">服务器配置</div>
+                            <div class="layui-card-body">
+                                <form class="layui-form" action="" id="step_server">
+                                    <div class="layui-form-item">
+                                        <label class="layui-form-label">平台</label>
+                                        <div class="layui-input-block">
+                                            <input type="hidden" />
+                                            <select name="server_platform" lay-verify="required">
+                                                <option value="0" selected>Linux</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="layui-form-item">
+                                        <label class="layui-form-label">IP地址</label>
+                                        <div class="layui-input-block">
+                                            <input type="text" name="server_ip" value="" maxlength="20" required lay-verify="required" placeholder="服务器ip(必填)" autocomplete="off" class="layui-input">
+                                        </div>
+                                    </div>
+                                    <div class="layui-form-item">
+                                        <label class="layui-form-label">端口</label>
+                                        <div class="layui-input-block">
+                                            <input type="text" name="server_port" maxlength="20" required lay-verify="required" placeholder="服务器端口(必填)" autocomplete="off" class="layui-input" value="">
+                                        </div>
+                                    </div>
+                                    <div class="layui-form-item">
+                                        <label class="layui-form-label">账号</label>
+                                        <div class="layui-input-block">
+                                            <input type="text" name="server_account" value="root" maxlength="20" required lay-verify="required" placeholder="服务器账号(必填)" autocomplete="off" class="layui-input">
+                                        </div>
+                                    </div>
+                                    <div class="layui-form-item">
+                                        <label class="layui-form-label">密码</label>
+                                        <div class="layui-input-block">
+                                            <input type="password" name="server_password" value="" maxlength="20" required lay-verify="required" placeholder="服务器密码(必填)" autocomplete="off" class="layui-input">
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="layui-card">
+                            <div class="layui-card-header">发布配置</div>
+                            <div class="layui-card-body">
+                                <form class="layui-form" action="" id="step_publish">
+                                    <div class="layui-form-item">
+                                        <label class="layui-form-label">发布路径</label>
+                                        <div class="layui-input-block">
+                                            <input type="text" name="publish_path" required lay-verify="required" placeholder="项目在服务器上发布的目录(必填)" autocomplete="off" class="layui-input" maxlength="1024">
+                                        </div>
+                                    </div>
+                                    <div class="layui-form-item">
+                                        <label class="layui-form-label">停止命令</label>
+                                        <div class="layui-input-block">
+                                            <textarea name="publish_before_command" placeholder="项目发布前的停止命令" class="layui-textarea"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="layui-form-item">
+                                        <label class="layui-form-label">启动命令</label>
+                                        <div class="layui-input-block">
+                                            <textarea name="publish_after_command" placeholder="项目发布后的启动命令" class="layui-textarea"></textarea>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="layui-btn-container">
+                <button type="button" class="layui-btn btn_step" id="btn_step_sub">上一步</button>
+                <button type="button" class="layui-btn btn_step" id="btn_step_add">下一步</button>
+            </div>
+        </div>
+    </div>
+</body>

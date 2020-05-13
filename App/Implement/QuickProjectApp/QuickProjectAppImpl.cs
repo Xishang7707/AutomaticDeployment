@@ -23,6 +23,11 @@ namespace App.Implement.QuickProjectApp
             return await server.AddQuickProjectAsync(inData);
         }
 
+        public async Task<Result> EditProject(In<EditQuickProjectIn> inData)
+        {
+            return await ServerFactory.Get<IQuickProjectServer>().EditProject(inData);
+        }
+
         public async Task<Result> GetProjectAsync(In<string> inData)
         {
             IQuickProjectServer server = ServerFactory.Get<IQuickProjectServer>();
