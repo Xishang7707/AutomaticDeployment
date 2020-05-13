@@ -24,6 +24,10 @@ namespace Server.Implement.SqlManage
 
         public void Close()
         {
+            if (dbHelper == null)
+            {
+                return;
+            }
             dbHelper.Close();
         }
 

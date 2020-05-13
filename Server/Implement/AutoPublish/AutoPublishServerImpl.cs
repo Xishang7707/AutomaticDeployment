@@ -153,7 +153,7 @@ namespace Server.Implement.AutoPublish
             {
                 return result;
             }
-            result = DoWorkFileFlow(info, ConnectService, ExecBeforeCommand, PublishToService, ExecUnZip, ExecAfterCommand, ConnectSQL, ExecSql, DoWorkAfterExec);
+            result = DoWorkFileFlow(info, ConnectService, ExecBeforeCommand, PublishToService, ExecUnZip, ConnectSQL, ExecSql, ExecAfterCommand, DoWorkAfterExec);
 
             return result;
         }
@@ -206,7 +206,7 @@ namespace Server.Implement.AutoPublish
         private Result DoWorkAfterExec(WorkInfo<List<FileModePublish>> info)
         {
             info.osManagerServer.Close();
-            info.sqlManageServer.Close();
+            info.sqlManageServer?.Close();
             Result result = new Result
             {
                 result = true,
