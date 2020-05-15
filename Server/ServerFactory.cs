@@ -6,6 +6,7 @@ using Server.Implement.OSManage;
 using Server.Implement.PublishFlow;
 using Server.Implement.PublishLog;
 using Server.Implement.QuickProject;
+using Server.Implement.Service;
 using Server.Implement.SqlManage;
 using Server.Interface;
 
@@ -32,6 +33,9 @@ namespace Server
 
             if (typeof(T) == typeof(IAutoPublishServer))
                 return new AutoPublishServerImpl() as T;
+            
+            if (typeof(T) == typeof(IServiceServer))
+                return new ServiceServerImpl() as T;
 
             if (typeof(T) == typeof(IOSManageServer))
             {

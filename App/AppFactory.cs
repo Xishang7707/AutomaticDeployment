@@ -2,6 +2,7 @@
 using App.Implement.AutoPublishApp;
 using App.Implement.PublishLogApp;
 using App.Implement.QuickProjectApp;
+using App.Implement.ServiceApp;
 using App.Interface;
 using Microsoft.AspNetCore.SignalR;
 using Server.Implement.PublishLog;
@@ -29,6 +30,9 @@ namespace App
 
             if (typeof(T) == typeof(IAutoPublishApp))
                 return new AutoPublishAppImpl() as T;
+
+            if (typeof(T) == typeof(IServiceApp))
+                return new ServiceAppImpl() as T;
 
             if (typeof(T) == typeof(IPublishLogApp))
                 return new PublishLogAppImpl(o[0] as IHubContext<PublishLogHub>) as T;

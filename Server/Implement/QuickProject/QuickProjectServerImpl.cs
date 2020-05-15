@@ -84,7 +84,7 @@ namespace Server.Implement.QuickProject
                 result.msg = Tip.TIP_10;
                 return result;
             }
-            if (!VerifyCommon.ServiceAccountLength(data.server.server_password))
+            if (!VerifyCommon.ServicePasswordLength(data.server.server_password))
             {
                 result.msg = Tip.TIP_18;
                 return result;

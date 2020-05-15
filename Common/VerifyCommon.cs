@@ -34,28 +34,42 @@ namespace Common
         /// </summary>
         /// <param name="account"></param>
         /// <returns></returns>
-        public static bool ServiceAccountLength(string account) => account.Length < 20;
+        public static bool ServiceAccountLength(string account) => account.Length <= 20;
+
+        /// <summary>
+        /// 验证服务器名称长度
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
+        public static bool ServiceNameLength(string name) => name.Length <= 15;
+
+        /// <summary>
+        /// 验证服务器名称长度
+        /// </summary>
+        /// <param name="path"></param>
+        /// <returns></returns>
+        public static bool ServiceWorkspaceLength(string path) => path.Length <= 255;
 
         /// <summary>
         /// 验证服务器密码长度
         /// </summary>
         /// <param name="password"></param>
         /// <returns></returns>
-        public static bool ServicePasswordLength(string password) => password.Length < 20;
+        public static bool ServicePasswordLength(string password) => password.Length <= 20;
 
         /// <summary>
         /// 验证项目名称长度
         /// </summary>
         /// <param name="name"></param>
         /// <returns></returns>
-        public static bool ProjectNameLength(string name) => name.Length < 20;
+        public static bool ProjectNameLength(string name) => name.Length <= 20;
 
         /// <summary>
         /// 验证发布路径长度
         /// </summary>
         /// <param name="path"></param>
         /// <returns></returns>
-        public static bool PublishProjectPathLength(string path) => path.Length < 1024;
+        public static bool PublishProjectPathLength(string path) => path.Length <= 1024;
 
         /// <summary>
         /// 验证平台类型

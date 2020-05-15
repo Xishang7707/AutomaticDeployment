@@ -8,4 +8,1494 @@
     <TimeStampOfAssociatedLegacyPublishXmlFile />
     <_PublishTargetUrl>G:\Projects\AutomaticDeployment\AutomaticDeployment\bin\Release\netcoreapp3.1\publish\</_PublishTargetUrl>
   </PropertyGroup>
+  <ItemGroup>
+    <File Include="App.dll">
+      <publishTime>05/13/2020 14:04:51</publishTime>
+    </File>
+    <File Include="App.pdb">
+      <publishTime>05/13/2020 14:04:51</publishTime>
+    </File>
+    <File Include="appsettings.Development.json">
+      <publishTime>04/30/2020 14:13:19</publishTime>
+    </File>
+    <File Include="appsettings.json">
+      <publishTime>05/13/2020 14:03:32</publishTime>
+    </File>
+    <File Include="AutomaticDeployment.deps.json">
+      <publishTime>05/12/2020 12:58:22</publishTime>
+    </File>
+    <File Include="AutomaticDeployment.dll">
+      <publishTime>05/13/2020 14:04:52</publishTime>
+    </File>
+    <File Include="AutomaticDeployment.exe">
+      <publishTime>05/13/2020 14:04:52</publishTime>
+    </File>
+    <File Include="AutomaticDeployment.pdb">
+      <publishTime>05/13/2020 14:04:52</publishTime>
+    </File>
+    <File Include="AutomaticDeployment.runtimeconfig.json">
+      <publishTime>05/12/2020 12:58:23</publishTime>
+    </File>
+    <File Include="AutomaticDeployment.Views.dll">
+      <publishTime>05/13/2020 14:04:53</publishTime>
+    </File>
+    <File Include="AutomaticDeployment.Views.pdb">
+      <publishTime>05/13/2020 14:04:53</publishTime>
+    </File>
+    <File Include="Common.dll">
+      <publishTime>05/13/2020 14:04:50</publishTime>
+    </File>
+    <File Include="Common.pdb">
+      <publishTime>05/13/2020 14:04:50</publishTime>
+    </File>
+    <File Include="cs/Microsoft.CodeAnalysis.CSharp.resources.dll">
+      <publishTime>09/12/2019 17:08:58</publishTime>
+    </File>
+    <File Include="cs/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll">
+      <publishTime>09/12/2019 17:09:12</publishTime>
+    </File>
+    <File Include="cs/Microsoft.CodeAnalysis.resources.dll">
+      <publishTime>09/12/2019 17:07:46</publishTime>
+    </File>
+    <File Include="cs/Microsoft.CodeAnalysis.Workspaces.resources.dll">
+      <publishTime>09/12/2019 17:08:36</publishTime>
+    </File>
+    <File Include="DAO.dll">
+      <publishTime>05/13/2020 14:04:50</publishTime>
+    </File>
+    <File Include="DAO.pdb">
+      <publishTime>05/13/2020 14:04:50</publishTime>
+    </File>
+    <File Include="Dapper.dll">
+      <publishTime>04/05/2020 12:46:06</publishTime>
+    </File>
+    <File Include="de/Microsoft.CodeAnalysis.CSharp.resources.dll">
+      <publishTime>09/12/2019 17:08:58</publishTime>
+    </File>
+    <File Include="de/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll">
+      <publishTime>09/12/2019 17:09:12</publishTime>
+    </File>
+    <File Include="de/Microsoft.CodeAnalysis.resources.dll">
+      <publishTime>09/12/2019 17:07:46</publishTime>
+    </File>
+    <File Include="de/Microsoft.CodeAnalysis.Workspaces.resources.dll">
+      <publishTime>09/12/2019 17:08:36</publishTime>
+    </File>
+    <File Include="dotnet-aspnet-codegenerator-design.dll">
+      <publishTime>03/27/2020 20:10:02</publishTime>
+    </File>
+    <File Include="EntityFramework.dll">
+      <publishTime>09/14/2019 17:01:18</publishTime>
+    </File>
+    <File Include="EntityFramework.SqlServer.dll">
+      <publishTime>09/14/2019 17:01:34</publishTime>
+    </File>
+    <File Include="es/Microsoft.CodeAnalysis.CSharp.resources.dll">
+      <publishTime>09/12/2019 17:09:00</publishTime>
+    </File>
+    <File Include="es/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll">
+      <publishTime>09/12/2019 17:09:12</publishTime>
+    </File>
+    <File Include="es/Microsoft.CodeAnalysis.resources.dll">
+      <publishTime>09/12/2019 17:07:46</publishTime>
+    </File>
+    <File Include="es/Microsoft.CodeAnalysis.Workspaces.resources.dll">
+      <publishTime>09/12/2019 17:08:36</publishTime>
+    </File>
+    <File Include="fr/Microsoft.CodeAnalysis.CSharp.resources.dll">
+      <publishTime>09/12/2019 17:09:00</publishTime>
+    </File>
+    <File Include="fr/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll">
+      <publishTime>09/12/2019 17:09:12</publishTime>
+    </File>
+    <File Include="fr/Microsoft.CodeAnalysis.resources.dll">
+      <publishTime>09/12/2019 17:07:46</publishTime>
+    </File>
+    <File Include="fr/Microsoft.CodeAnalysis.Workspaces.resources.dll">
+      <publishTime>09/12/2019 17:08:36</publishTime>
+    </File>
+    <File Include="it/Microsoft.CodeAnalysis.CSharp.resources.dll">
+      <publishTime>09/12/2019 17:09:00</publishTime>
+    </File>
+    <File Include="it/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll">
+      <publishTime>09/12/2019 17:09:12</publishTime>
+    </File>
+    <File Include="it/Microsoft.CodeAnalysis.resources.dll">
+      <publishTime>09/12/2019 17:07:46</publishTime>
+    </File>
+    <File Include="it/Microsoft.CodeAnalysis.Workspaces.resources.dll">
+      <publishTime>09/12/2019 17:08:36</publishTime>
+    </File>
+    <File Include="ja/Microsoft.CodeAnalysis.CSharp.resources.dll">
+      <publishTime>09/12/2019 17:09:00</publishTime>
+    </File>
+    <File Include="ja/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll">
+      <publishTime>09/12/2019 17:09:12</publishTime>
+    </File>
+    <File Include="ja/Microsoft.CodeAnalysis.resources.dll">
+      <publishTime>09/12/2019 17:07:46</publishTime>
+    </File>
+    <File Include="ja/Microsoft.CodeAnalysis.Workspaces.resources.dll">
+      <publishTime>09/12/2019 17:08:36</publishTime>
+    </File>
+    <File Include="ko/Microsoft.CodeAnalysis.CSharp.resources.dll">
+      <publishTime>09/12/2019 17:09:00</publishTime>
+    </File>
+    <File Include="ko/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll">
+      <publishTime>09/12/2019 17:09:12</publishTime>
+    </File>
+    <File Include="ko/Microsoft.CodeAnalysis.resources.dll">
+      <publishTime>09/12/2019 17:07:46</publishTime>
+    </File>
+    <File Include="ko/Microsoft.CodeAnalysis.Workspaces.resources.dll">
+      <publishTime>09/12/2019 17:08:36</publishTime>
+    </File>
+    <File Include="libman.json">
+      <publishTime>05/06/2020 13:54:02</publishTime>
+    </File>
+    <File Include="Microsoft.AspNetCore.Http.Features.dll">
+      <publishTime>03/14/2020 05:18:38</publishTime>
+    </File>
+    <File Include="Microsoft.AspNetCore.Mvc.Razor.Extensions.dll">
+      <publishTime>02/29/2020 00:36:24</publishTime>
+    </File>
+    <File Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation.dll">
+      <publishTime>03/14/2020 05:30:32</publishTime>
+    </File>
+    <File Include="Microsoft.AspNetCore.Razor.Language.dll">
+      <publishTime>02/29/2020 00:36:16</publishTime>
+    </File>
+    <File Include="Microsoft.CodeAnalysis.CSharp.dll">
+      <publishTime>09/12/2019 17:08:58</publishTime>
+    </File>
+    <File Include="Microsoft.CodeAnalysis.CSharp.Workspaces.dll">
+      <publishTime>09/12/2019 17:09:12</publishTime>
+    </File>
+    <File Include="Microsoft.CodeAnalysis.dll">
+      <publishTime>09/12/2019 17:07:46</publishTime>
+    </File>
+    <File Include="Microsoft.CodeAnalysis.Razor.dll">
+      <publishTime>02/29/2020 00:36:20</publishTime>
+    </File>
+    <File Include="Microsoft.CodeAnalysis.Workspaces.dll">
+      <publishTime>09/12/2019 17:08:34</publishTime>
+    </File>
+    <File Include="Microsoft.Data.Sqlite.dll">
+      <publishTime>02/29/2020 00:29:50</publishTime>
+    </File>
+    <File Include="Microsoft.Extensions.DependencyModel.dll">
+      <publishTime>02/28/2020 21:04:04</publishTime>
+    </File>
+    <File Include="Microsoft.Extensions.Primitives.dll">
+      <publishTime>02/28/2020 23:29:40</publishTime>
+    </File>
+    <File Include="Microsoft.VisualStudio.Web.CodeGeneration.Contracts.dll">
+      <publishTime>03/27/2020 20:09:46</publishTime>
+    </File>
+    <File Include="Microsoft.VisualStudio.Web.CodeGeneration.Core.dll">
+      <publishTime>03/27/2020 20:09:54</publishTime>
+    </File>
+    <File Include="Microsoft.VisualStudio.Web.CodeGeneration.dll">
+      <publishTime>03/27/2020 20:09:56</publishTime>
+    </File>
+    <File Include="Microsoft.VisualStudio.Web.CodeGeneration.EntityFrameworkCore.dll">
+      <publishTime>03/27/2020 20:09:56</publishTime>
+    </File>
+    <File Include="Microsoft.VisualStudio.Web.CodeGeneration.Templating.dll">
+      <publishTime>03/27/2020 20:09:50</publishTime>
+    </File>
+    <File Include="Microsoft.VisualStudio.Web.CodeGeneration.Utils.dll">
+      <publishTime>03/27/2020 20:09:48</publishTime>
+    </File>
+    <File Include="Microsoft.VisualStudio.Web.CodeGenerators.Mvc.dll">
+      <publishTime>03/27/2020 20:09:58</publishTime>
+    </File>
+    <File Include="Model.dll">
+      <publishTime>05/13/2020 14:04:49</publishTime>
+    </File>
+    <File Include="Model.pdb">
+      <publishTime>05/13/2020 14:04:49</publishTime>
+    </File>
+    <File Include="Newtonsoft.Json.dll">
+      <publishTime>11/09/2019 00:56:44</publishTime>
+    </File>
+    <File Include="NuGet.Frameworks.dll">
+      <publishTime>07/03/2019 15:31:25</publishTime>
+    </File>
+    <File Include="pl/Microsoft.CodeAnalysis.CSharp.resources.dll">
+      <publishTime>09/12/2019 17:09:00</publishTime>
+    </File>
+    <File Include="pl/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll">
+      <publishTime>09/12/2019 17:09:12</publishTime>
+    </File>
+    <File Include="pl/Microsoft.CodeAnalysis.resources.dll">
+      <publishTime>09/12/2019 17:07:48</publishTime>
+    </File>
+    <File Include="pl/Microsoft.CodeAnalysis.Workspaces.resources.dll">
+      <publishTime>09/12/2019 17:08:36</publishTime>
+    </File>
+    <File Include="pt-BR/Microsoft.CodeAnalysis.CSharp.resources.dll">
+      <publishTime>09/12/2019 17:09:00</publishTime>
+    </File>
+    <File Include="pt-BR/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll">
+      <publishTime>09/12/2019 17:09:14</publishTime>
+    </File>
+    <File Include="pt-BR/Microsoft.CodeAnalysis.resources.dll">
+      <publishTime>09/12/2019 17:07:48</publishTime>
+    </File>
+    <File Include="pt-BR/Microsoft.CodeAnalysis.Workspaces.resources.dll">
+      <publishTime>09/12/2019 17:08:36</publishTime>
+    </File>
+    <File Include="Renci.SshNet.dll">
+      <publishTime>10/16/2017 20:53:06</publishTime>
+    </File>
+    <File Include="ru/Microsoft.CodeAnalysis.CSharp.resources.dll">
+      <publishTime>09/12/2019 17:09:00</publishTime>
+    </File>
+    <File Include="ru/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll">
+      <publishTime>09/12/2019 17:09:14</publishTime>
+    </File>
+    <File Include="ru/Microsoft.CodeAnalysis.resources.dll">
+      <publishTime>09/12/2019 17:07:48</publishTime>
+    </File>
+    <File Include="ru/Microsoft.CodeAnalysis.Workspaces.resources.dll">
+      <publishTime>09/12/2019 17:08:36</publishTime>
+    </File>
+    <File Include="runtimes/alpine-x64/native/libe_sqlite3.so">
+      <publishTime>05/28/2019 15:03:36</publishTime>
+    </File>
+    <File Include="runtimes/linux-arm/native/libe_sqlite3.so">
+      <publishTime>05/28/2019 15:04:10</publishTime>
+    </File>
+    <File Include="runtimes/linux-arm64/native/libe_sqlite3.so">
+      <publishTime>05/28/2019 15:03:52</publishTime>
+    </File>
+    <File Include="runtimes/linux-armel/native/libe_sqlite3.so">
+      <publishTime>05/28/2019 15:04:26</publishTime>
+    </File>
+    <File Include="runtimes/linux-musl-x64/native/libe_sqlite3.so">
+      <publishTime>05/28/2019 15:03:36</publishTime>
+    </File>
+    <File Include="runtimes/linux-x64/native/libe_sqlite3.so">
+      <publishTime>05/28/2019 15:03:08</publishTime>
+    </File>
+    <File Include="runtimes/linux-x64/native/netstandard2.0/SQLite.Interop.dll">
+      <publishTime>04/05/2020 18:56:44</publishTime>
+    </File>
+    <File Include="runtimes/linux-x64/native/netstandard2.1/SQLite.Interop.dll">
+      <publishTime>04/05/2020 18:56:44</publishTime>
+    </File>
+    <File Include="runtimes/linux-x86/native/libe_sqlite3.so">
+      <publishTime>05/28/2019 15:03:22</publishTime>
+    </File>
+    <File Include="runtimes/osx-x64/native/libe_sqlite3.dylib">
+      <publishTime>05/28/2019 15:30:42</publishTime>
+    </File>
+    <File Include="runtimes/osx-x64/native/netstandard2.0/SQLite.Interop.dll">
+      <publishTime>04/05/2020 18:56:50</publishTime>
+    </File>
+    <File Include="runtimes/osx-x64/native/netstandard2.1/SQLite.Interop.dll">
+      <publishTime>04/05/2020 18:56:50</publishTime>
+    </File>
+    <File Include="runtimes/unix/lib/netcoreapp2.1/System.Data.SqlClient.dll">
+      <publishTime>01/17/2020 18:41:36</publishTime>
+    </File>
+    <File Include="runtimes/win-arm/native/e_sqlite3.dll">
+      <publishTime>08/15/2019 18:14:08</publishTime>
+    </File>
+    <File Include="runtimes/win-arm64/native/e_sqlite3.dll">
+      <publishTime>08/15/2019 18:14:28</publishTime>
+    </File>
+    <File Include="runtimes/win-arm64/native/sni.dll">
+      <publishTime>08/22/2019 19:30:56</publishTime>
+    </File>
+    <File Include="runtimes/win-x64/native/e_sqlite3.dll">
+      <publishTime>08/15/2019 18:13:54</publishTime>
+    </File>
+    <File Include="runtimes/win-x64/native/netstandard2.0/SQLite.Interop.dll">
+      <publishTime>04/05/2020 18:37:10</publishTime>
+    </File>
+    <File Include="runtimes/win-x64/native/netstandard2.1/SQLite.Interop.dll">
+      <publishTime>04/05/2020 18:37:10</publishTime>
+    </File>
+    <File Include="runtimes/win-x64/native/sni.dll">
+      <publishTime>08/22/2019 19:30:56</publishTime>
+    </File>
+    <File Include="runtimes/win-x86/native/e_sqlite3.dll">
+      <publishTime>08/15/2019 18:13:34</publishTime>
+    </File>
+    <File Include="runtimes/win-x86/native/netstandard2.0/SQLite.Interop.dll">
+      <publishTime>04/05/2020 18:36:04</publishTime>
+    </File>
+    <File Include="runtimes/win-x86/native/netstandard2.1/SQLite.Interop.dll">
+      <publishTime>04/05/2020 18:36:04</publishTime>
+    </File>
+    <File Include="runtimes/win-x86/native/sni.dll">
+      <publishTime>08/22/2019 19:30:57</publishTime>
+    </File>
+    <File Include="runtimes/win/lib/netcoreapp2.1/System.Data.SqlClient.dll">
+      <publishTime>01/17/2020 18:41:44</publishTime>
+    </File>
+    <File Include="runtimes/win/lib/netstandard2.0/System.Security.Cryptography.ProtectedData.dll">
+      <publishTime>09/13/2019 02:39:20</publishTime>
+    </File>
+    <File Include="Server.dll">
+      <publishTime>05/13/2020 14:04:51</publishTime>
+    </File>
+    <File Include="Server.pdb">
+      <publishTime>05/13/2020 14:04:51</publishTime>
+    </File>
+    <File Include="SQLitePCLRaw.batteries_v2.dll">
+      <publishTime>11/01/2019 17:24:10</publishTime>
+    </File>
+    <File Include="SQLitePCLRaw.core.dll">
+      <publishTime>11/01/2019 17:23:34</publishTime>
+    </File>
+    <File Include="SQLitePCLRaw.nativelibrary.dll">
+      <publishTime>11/01/2019 17:23:32</publishTime>
+    </File>
+    <File Include="SQLitePCLRaw.provider.dynamic_cdecl.dll">
+      <publishTime>11/01/2019 17:23:56</publishTime>
+    </File>
+    <File Include="SshNet.Security.Cryptography.dll">
+      <publishTime>07/14/2016 20:47:20</publishTime>
+    </File>
+    <File Include="System.CodeDom.dll">
+      <publishTime>09/13/2019 02:27:54</publishTime>
+    </File>
+    <File Include="System.Composition.AttributedModel.dll">
+      <publishTime>07/03/2019 15:31:44</publishTime>
+    </File>
+    <File Include="System.Composition.Convention.dll">
+      <publishTime>07/03/2019 15:31:44</publishTime>
+    </File>
+    <File Include="System.Composition.Hosting.dll">
+      <publishTime>07/03/2019 15:31:45</publishTime>
+    </File>
+    <File Include="System.Composition.Runtime.dll">
+      <publishTime>07/03/2019 15:31:46</publishTime>
+    </File>
+    <File Include="System.Composition.TypedParts.dll">
+      <publishTime>07/03/2019 15:31:46</publishTime>
+    </File>
+    <File Include="System.Configuration.ConfigurationManager.dll">
+      <publishTime>09/13/2019 02:28:00</publishTime>
+    </File>
+    <File Include="System.Data.SqlClient.dll">
+      <publishTime>01/17/2020 18:28:34</publishTime>
+    </File>
+    <File Include="System.Data.SQLite.dll">
+      <publishTime>04/05/2020 18:58:14</publishTime>
+    </File>
+    <File Include="System.Data.SQLite.EF6.dll">
+      <publishTime>04/05/2020 18:58:14</publishTime>
+    </File>
+    <File Include="System.IO.Pipelines.dll">
+      <publishTime>02/21/2020 04:08:36</publishTime>
+    </File>
+    <File Include="System.Security.Cryptography.ProtectedData.dll">
+      <publishTime>09/13/2019 02:28:28</publishTime>
+    </File>
+    <File Include="System.Text.Json.dll">
+      <publishTime>01/17/2020 18:42:32</publishTime>
+    </File>
+    <File Include="System.Xml.XPath.XmlDocument.dll">
+      <publishTime>06/11/2016 23:15:02</publishTime>
+    </File>
+    <File Include="tr/Microsoft.CodeAnalysis.CSharp.resources.dll">
+      <publishTime>09/12/2019 17:09:00</publishTime>
+    </File>
+    <File Include="tr/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll">
+      <publishTime>09/12/2019 17:09:14</publishTime>
+    </File>
+    <File Include="tr/Microsoft.CodeAnalysis.resources.dll">
+      <publishTime>09/12/2019 17:07:48</publishTime>
+    </File>
+    <File Include="tr/Microsoft.CodeAnalysis.Workspaces.resources.dll">
+      <publishTime>09/12/2019 17:08:36</publishTime>
+    </File>
+    <File Include="web.config">
+      <publishTime>05/13/2020 14:05:12</publishTime>
+    </File>
+    <File Include="wwwroot/css/demo/index.css">
+      <publishTime>05/13/2020 10:26:13</publishTime>
+    </File>
+    <File Include="wwwroot/css/index.css">
+      <publishTime>05/13/2020 10:26:13</publishTime>
+    </File>
+    <File Include="wwwroot/css/quickproject/addquickproject.css">
+      <publishTime>05/13/2020 10:26:13</publishTime>
+    </File>
+    <File Include="wwwroot/css/quickproject/editquickproject.css">
+      <publishTime>05/13/2020 13:18:21</publishTime>
+    </File>
+    <File Include="wwwroot/css/quickproject/index.css">
+      <publishTime>05/13/2020 10:26:13</publishTime>
+    </File>
+    <File Include="wwwroot/css/quickproject/publish.css">
+      <publishTime>05/13/2020 10:26:13</publishTime>
+    </File>
+    <File Include="wwwroot/css/site.css">
+      <publishTime>05/13/2020 10:26:13</publishTime>
+    </File>
+    <File Include="wwwroot/favicon.ico">
+      <publishTime>05/13/2020 10:26:13</publishTime>
+    </File>
+    <File Include="wwwroot/js/common.js">
+      <publishTime>05/13/2020 10:26:14</publishTime>
+    </File>
+    <File Include="wwwroot/js/demo/index.js">
+      <publishTime>05/13/2020 10:26:14</publishTime>
+    </File>
+    <File Include="wwwroot/js/index.js">
+      <publishTime>05/13/2020 10:26:14</publishTime>
+    </File>
+    <File Include="wwwroot/js/quickproject/addquickproject.js">
+      <publishTime>05/13/2020 10:26:14</publishTime>
+    </File>
+    <File Include="wwwroot/js/quickproject/editquickproject.js">
+      <publishTime>05/13/2020 14:03:01</publishTime>
+    </File>
+    <File Include="wwwroot/js/quickproject/index.js">
+      <publishTime>05/13/2020 13:52:45</publishTime>
+    </File>
+    <File Include="wwwroot/js/quickproject/publish.js">
+      <publishTime>05/13/2020 10:26:14</publishTime>
+    </File>
+    <File Include="wwwroot/js/site.js">
+      <publishTime>05/13/2020 10:26:14</publishTime>
+    </File>
+    <File Include="wwwroot/js/verify.js">
+      <publishTime>05/13/2020 10:26:14</publishTime>
+    </File>
+    <File Include="wwwroot/lib/bootstrap/dist/css/bootstrap-grid.css">
+      <publishTime>05/13/2020 10:26:14</publishTime>
+    </File>
+    <File Include="wwwroot/lib/bootstrap/dist/css/bootstrap-grid.css.map">
+      <publishTime>05/13/2020 10:26:15</publishTime>
+    </File>
+    <File Include="wwwroot/lib/bootstrap/dist/css/bootstrap-grid.min.css">
+      <publishTime>05/13/2020 10:26:15</publishTime>
+    </File>
+    <File Include="wwwroot/lib/bootstrap/dist/css/bootstrap-grid.min.css.map">
+      <publishTime>05/13/2020 10:26:15</publishTime>
+    </File>
+    <File Include="wwwroot/lib/bootstrap/dist/css/bootstrap-reboot.css">
+      <publishTime>05/13/2020 10:26:15</publishTime>
+    </File>
+    <File Include="wwwroot/lib/bootstrap/dist/css/bootstrap-reboot.css.map">
+      <publishTime>05/13/2020 10:26:15</publishTime>
+    </File>
+    <File Include="wwwroot/lib/bootstrap/dist/css/bootstrap-reboot.min.css">
+      <publishTime>05/13/2020 10:26:15</publishTime>
+    </File>
+    <File Include="wwwroot/lib/bootstrap/dist/css/bootstrap-reboot.min.css.map">
+      <publishTime>05/13/2020 10:26:15</publishTime>
+    </File>
+    <File Include="wwwroot/lib/bootstrap/dist/css/bootstrap.css">
+      <publishTime>05/13/2020 10:26:15</publishTime>
+    </File>
+    <File Include="wwwroot/lib/bootstrap/dist/css/bootstrap.css.map">
+      <publishTime>05/13/2020 10:26:15</publishTime>
+    </File>
+    <File Include="wwwroot/lib/bootstrap/dist/css/bootstrap.min.css">
+      <publishTime>05/13/2020 10:26:15</publishTime>
+    </File>
+    <File Include="wwwroot/lib/bootstrap/dist/css/bootstrap.min.css.map">
+      <publishTime>05/13/2020 10:26:15</publishTime>
+    </File>
+    <File Include="wwwroot/lib/bootstrap/dist/js/bootstrap.bundle.js">
+      <publishTime>05/13/2020 10:26:15</publishTime>
+    </File>
+    <File Include="wwwroot/lib/bootstrap/dist/js/bootstrap.bundle.js.map">
+      <publishTime>05/13/2020 10:26:15</publishTime>
+    </File>
+    <File Include="wwwroot/lib/bootstrap/dist/js/bootstrap.bundle.min.js">
+      <publishTime>05/13/2020 10:26:15</publishTime>
+    </File>
+    <File Include="wwwroot/lib/bootstrap/dist/js/bootstrap.bundle.min.js.map">
+      <publishTime>05/13/2020 10:26:16</publishTime>
+    </File>
+    <File Include="wwwroot/lib/bootstrap/dist/js/bootstrap.js">
+      <publishTime>05/13/2020 10:26:16</publishTime>
+    </File>
+    <File Include="wwwroot/lib/bootstrap/dist/js/bootstrap.js.map">
+      <publishTime>05/13/2020 10:26:16</publishTime>
+    </File>
+    <File Include="wwwroot/lib/bootstrap/dist/js/bootstrap.min.js">
+      <publishTime>05/13/2020 10:26:16</publishTime>
+    </File>
+    <File Include="wwwroot/lib/bootstrap/dist/js/bootstrap.min.js.map">
+      <publishTime>05/13/2020 10:26:16</publishTime>
+    </File>
+    <File Include="wwwroot/lib/bootstrap/LICENSE">
+      <publishTime>05/13/2020 10:26:14</publishTime>
+    </File>
+    <File Include="wwwroot/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js">
+      <publishTime>05/13/2020 10:26:14</publishTime>
+    </File>
+    <File Include="wwwroot/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js">
+      <publishTime>05/13/2020 10:26:16</publishTime>
+    </File>
+    <File Include="wwwroot/lib/jquery-validation-unobtrusive/LICENSE.txt">
+      <publishTime>05/13/2020 10:26:14</publishTime>
+    </File>
+    <File Include="wwwroot/lib/jquery-validation/dist/additional-methods.js">
+      <publishTime>05/13/2020 10:26:16</publishTime>
+    </File>
+    <File Include="wwwroot/lib/jquery-validation/dist/additional-methods.min.js">
+      <publishTime>05/13/2020 10:26:16</publishTime>
+    </File>
+    <File Include="wwwroot/lib/jquery-validation/dist/jquery.validate.js">
+      <publishTime>05/13/2020 10:26:16</publishTime>
+    </File>
+    <File Include="wwwroot/lib/jquery-validation/dist/jquery.validate.min.js">
+      <publishTime>05/13/2020 10:26:16</publishTime>
+    </File>
+    <File Include="wwwroot/lib/jquery-validation/LICENSE.md">
+      <publishTime>05/13/2020 10:26:16</publishTime>
+    </File>
+    <File Include="wwwroot/lib/jquery/dist/jquery.js">
+      <publishTime>05/13/2020 10:26:16</publishTime>
+    </File>
+    <File Include="wwwroot/lib/jquery/dist/jquery.min.js">
+      <publishTime>05/13/2020 10:26:17</publishTime>
+    </File>
+    <File Include="wwwroot/lib/jquery/dist/jquery.min.map">
+      <publishTime>05/13/2020 10:26:17</publishTime>
+    </File>
+    <File Include="wwwroot/lib/jquery/LICENSE.txt">
+      <publishTime>05/13/2020 10:26:16</publishTime>
+    </File>
+    <File Include="wwwroot/lib/layui/css/layui.css">
+      <publishTime>05/13/2020 10:26:17</publishTime>
+    </File>
+    <File Include="wwwroot/lib/layui/css/layui.mobile.css">
+      <publishTime>05/13/2020 10:26:17</publishTime>
+    </File>
+    <File Include="wwwroot/lib/layui/css/modules/code.css">
+      <publishTime>05/13/2020 10:26:17</publishTime>
+    </File>
+    <File Include="wwwroot/lib/layui/css/modules/laydate/default/laydate.css">
+      <publishTime>05/13/2020 10:26:17</publishTime>
+    </File>
+    <File Include="wwwroot/lib/layui/css/modules/layer/default/icon-ext.png">
+      <publishTime>05/13/2020 10:26:17</publishTime>
+    </File>
+    <File Include="wwwroot/lib/layui/css/modules/layer/default/icon.png">
+      <publishTime>05/13/2020 10:26:17</publishTime>
+    </File>
+    <File Include="wwwroot/lib/layui/css/modules/layer/default/layer.css">
+      <publishTime>05/13/2020 10:26:17</publishTime>
+    </File>
+    <File Include="wwwroot/lib/layui/css/modules/layer/default/loading-0.gif">
+      <publishTime>05/13/2020 10:26:18</publishTime>
+    </File>
+    <File Include="wwwroot/lib/layui/css/modules/layer/default/loading-1.gif">
+      <publishTime>05/13/2020 10:26:18</publishTime>
+    </File>
+    <File Include="wwwroot/lib/layui/css/modules/layer/default/loading-2.gif">
+      <publishTime>05/13/2020 10:26:18</publishTime>
+    </File>
+    <File Include="wwwroot/lib/layui/font/iconfont.eot">
+      <publishTime>05/13/2020 10:26:17</publishTime>
+    </File>
+    <File Include="wwwroot/lib/layui/font/iconfont.svg">
+      <publishTime>05/13/2020 10:26:18</publishTime>
+    </File>
+    <File Include="wwwroot/lib/layui/font/iconfont.ttf">
+      <publishTime>05/13/2020 10:26:18</publishTime>
+    </File>
+    <File Include="wwwroot/lib/layui/font/iconfont.woff">
+      <publishTime>05/13/2020 10:26:18</publishTime>
+    </File>
+    <File Include="wwwroot/lib/layui/font/iconfont.woff2">
+      <publishTime>05/13/2020 10:26:18</publishTime>
+    </File>
+    <File Include="wwwroot/lib/layui/images/face/0.gif">
+      <publishTime>05/13/2020 10:26:18</publishTime>
+    </File>
+    <File Include="wwwroot/lib/layui/images/face/1.gif">
+      <publishTime>05/13/2020 10:26:18</publishTime>
+    </File>
+    <File Include="wwwroot/lib/layui/images/face/10.gif">
+      <publishTime>05/13/2020 10:26:18</publishTime>
+    </File>
+    <File Include="wwwroot/lib/layui/images/face/11.gif">
+      <publishTime>05/13/2020 10:26:18</publishTime>
+    </File>
+    <File Include="wwwroot/lib/layui/images/face/12.gif">
+      <publishTime>05/13/2020 10:26:18</publishTime>
+    </File>
+    <File Include="wwwroot/lib/layui/images/face/13.gif">
+      <publishTime>05/13/2020 10:26:18</publishTime>
+    </File>
+    <File Include="wwwroot/lib/layui/images/face/14.gif">
+      <publishTime>05/13/2020 10:26:18</publishTime>
+    </File>
+    <File Include="wwwroot/lib/layui/images/face/15.gif">
+      <publishTime>05/13/2020 10:26:18</publishTime>
+    </File>
+    <File Include="wwwroot/lib/layui/images/face/16.gif">
+      <publishTime>05/13/2020 10:26:18</publishTime>
+    </File>
+    <File Include="wwwroot/lib/layui/images/face/17.gif">
+      <publishTime>05/13/2020 10:26:18</publishTime>
+    </File>
+    <File Include="wwwroot/lib/layui/images/face/18.gif">
+      <publishTime>05/13/2020 10:26:18</publishTime>
+    </File>
+    <File Include="wwwroot/lib/layui/images/face/19.gif">
+      <publishTime>05/13/2020 10:26:18</publishTime>
+    </File>
+    <File Include="wwwroot/lib/layui/images/face/2.gif">
+      <publishTime>05/13/2020 10:26:18</publishTime>
+    </File>
+    <File Include="wwwroot/lib/layui/images/face/20.gif">
+      <publishTime>05/13/2020 10:26:18</publishTime>
+    </File>
+    <File Include="wwwroot/lib/layui/images/face/21.gif">
+      <publishTime>05/13/2020 10:26:18</publishTime>
+    </File>
+    <File Include="wwwroot/lib/layui/images/face/22.gif">
+      <publishTime>05/13/2020 10:26:18</publishTime>
+    </File>
+    <File Include="wwwroot/lib/layui/images/face/23.gif">
+      <publishTime>05/13/2020 10:26:18</publishTime>
+    </File>
+    <File Include="wwwroot/lib/layui/images/face/24.gif">
+      <publishTime>05/13/2020 10:26:18</publishTime>
+    </File>
+    <File Include="wwwroot/lib/layui/images/face/25.gif">
+      <publishTime>05/13/2020 10:26:18</publishTime>
+    </File>
+    <File Include="wwwroot/lib/layui/images/face/26.gif">
+      <publishTime>05/13/2020 10:26:18</publishTime>
+    </File>
+    <File Include="wwwroot/lib/layui/images/face/27.gif">
+      <publishTime>05/13/2020 10:26:18</publishTime>
+    </File>
+    <File Include="wwwroot/lib/layui/images/face/28.gif">
+      <publishTime>05/13/2020 10:26:19</publishTime>
+    </File>
+    <File Include="wwwroot/lib/layui/images/face/29.gif">
+      <publishTime>05/13/2020 10:26:19</publishTime>
+    </File>
+    <File Include="wwwroot/lib/layui/images/face/3.gif">
+      <publishTime>05/13/2020 10:26:19</publishTime>
+    </File>
+    <File Include="wwwroot/lib/layui/images/face/30.gif">
+      <publishTime>05/13/2020 10:26:19</publishTime>
+    </File>
+    <File Include="wwwroot/lib/layui/images/face/31.gif">
+      <publishTime>05/13/2020 10:26:19</publishTime>
+    </File>
+    <File Include="wwwroot/lib/layui/images/face/32.gif">
+      <publishTime>05/13/2020 10:26:19</publishTime>
+    </File>
+    <File Include="wwwroot/lib/layui/images/face/33.gif">
+      <publishTime>05/13/2020 10:26:19</publishTime>
+    </File>
+    <File Include="wwwroot/lib/layui/images/face/34.gif">
+      <publishTime>05/13/2020 10:26:19</publishTime>
+    </File>
+    <File Include="wwwroot/lib/layui/images/face/35.gif">
+      <publishTime>05/13/2020 10:26:19</publishTime>
+    </File>
+    <File Include="wwwroot/lib/layui/images/face/36.gif">
+      <publishTime>05/13/2020 10:26:19</publishTime>
+    </File>
+    <File Include="wwwroot/lib/layui/images/face/37.gif">
+      <publishTime>05/13/2020 10:26:19</publishTime>
+    </File>
+    <File Include="wwwroot/lib/layui/images/face/38.gif">
+      <publishTime>05/13/2020 10:26:19</publishTime>
+    </File>
+    <File Include="wwwroot/lib/layui/images/face/39.gif">
+      <publishTime>05/13/2020 10:26:19</publishTime>
+    </File>
+    <File Include="wwwroot/lib/layui/images/face/4.gif">
+      <publishTime>05/13/2020 10:26:19</publishTime>
+    </File>
+    <File Include="wwwroot/lib/layui/images/face/40.gif">
+      <publishTime>05/13/2020 10:26:19</publishTime>
+    </File>
+    <File Include="wwwroot/lib/layui/images/face/41.gif">
+      <publishTime>05/13/2020 10:26:19</publishTime>
+    </File>
+    <File Include="wwwroot/lib/layui/images/face/42.gif">
+      <publishTime>05/13/2020 10:26:19</publishTime>
+    </File>
+    <File Include="wwwroot/lib/layui/images/face/43.gif">
+      <publishTime>05/13/2020 10:26:19</publishTime>
+    </File>
+    <File Include="wwwroot/lib/layui/images/face/44.gif">
+      <publishTime>05/13/2020 10:26:19</publishTime>
+    </File>
+    <File Include="wwwroot/lib/layui/images/face/45.gif">
+      <publishTime>05/13/2020 10:26:19</publishTime>
+    </File>
+    <File Include="wwwroot/lib/layui/images/face/46.gif">
+      <publishTime>05/13/2020 10:26:19</publishTime>
+    </File>
+    <File Include="wwwroot/lib/layui/images/face/47.gif">
+      <publishTime>05/13/2020 10:26:19</publishTime>
+    </File>
+    <File Include="wwwroot/lib/layui/images/face/48.gif">
+      <publishTime>05/13/2020 10:26:19</publishTime>
+    </File>
+    <File Include="wwwroot/lib/layui/images/face/49.gif">
+      <publishTime>05/13/2020 10:26:19</publishTime>
+    </File>
+    <File Include="wwwroot/lib/layui/images/face/5.gif">
+      <publishTime>05/13/2020 10:26:19</publishTime>
+    </File>
+    <File Include="wwwroot/lib/layui/images/face/50.gif">
+      <publishTime>05/13/2020 10:26:19</publishTime>
+    </File>
+    <File Include="wwwroot/lib/layui/images/face/51.gif">
+      <publishTime>05/13/2020 10:26:19</publishTime>
+    </File>
+    <File Include="wwwroot/lib/layui/images/face/52.gif">
+      <publishTime>05/13/2020 10:26:19</publishTime>
+    </File>
+    <File Include="wwwroot/lib/layui/images/face/53.gif">
+      <publishTime>05/13/2020 10:26:19</publishTime>
+    </File>
+    <File Include="wwwroot/lib/layui/images/face/54.gif">
+      <publishTime>05/13/2020 10:26:19</publishTime>
+    </File>
+    <File Include="wwwroot/lib/layui/images/face/55.gif">
+      <publishTime>05/13/2020 10:26:19</publishTime>
+    </File>
+    <File Include="wwwroot/lib/layui/images/face/56.gif">
+      <publishTime>05/13/2020 10:26:19</publishTime>
+    </File>
+    <File Include="wwwroot/lib/layui/images/face/57.gif">
+      <publishTime>05/13/2020 10:26:19</publishTime>
+    </File>
+    <File Include="wwwroot/lib/layui/images/face/58.gif">
+      <publishTime>05/13/2020 10:26:19</publishTime>
+    </File>
+    <File Include="wwwroot/lib/layui/images/face/59.gif">
+      <publishTime>05/13/2020 10:26:19</publishTime>
+    </File>
+    <File Include="wwwroot/lib/layui/images/face/6.gif">
+      <publishTime>05/13/2020 10:26:19</publishTime>
+    </File>
+    <File Include="wwwroot/lib/layui/images/face/60.gif">
+      <publishTime>05/13/2020 10:26:19</publishTime>
+    </File>
+    <File Include="wwwroot/lib/layui/images/face/61.gif">
+      <publishTime>05/13/2020 10:26:19</publishTime>
+    </File>
+    <File Include="wwwroot/lib/layui/images/face/62.gif">
+      <publishTime>05/13/2020 10:26:19</publishTime>
+    </File>
+    <File Include="wwwroot/lib/layui/images/face/63.gif">
+      <publishTime>05/13/2020 10:26:19</publishTime>
+    </File>
+    <File Include="wwwroot/lib/layui/images/face/64.gif">
+      <publishTime>05/13/2020 10:26:19</publishTime>
+    </File>
+    <File Include="wwwroot/lib/layui/images/face/65.gif">
+      <publishTime>05/13/2020 10:26:19</publishTime>
+    </File>
+    <File Include="wwwroot/lib/layui/images/face/66.gif">
+      <publishTime>05/13/2020 10:26:19</publishTime>
+    </File>
+    <File Include="wwwroot/lib/layui/images/face/67.gif">
+      <publishTime>05/13/2020 10:26:19</publishTime>
+    </File>
+    <File Include="wwwroot/lib/layui/images/face/68.gif">
+      <publishTime>05/13/2020 10:26:19</publishTime>
+    </File>
+    <File Include="wwwroot/lib/layui/images/face/69.gif">
+      <publishTime>05/13/2020 10:26:19</publishTime>
+    </File>
+    <File Include="wwwroot/lib/layui/images/face/7.gif">
+      <publishTime>05/13/2020 10:26:19</publishTime>
+    </File>
+    <File Include="wwwroot/lib/layui/images/face/70.gif">
+      <publishTime>05/13/2020 10:26:19</publishTime>
+    </File>
+    <File Include="wwwroot/lib/layui/images/face/71.gif">
+      <publishTime>05/13/2020 10:26:19</publishTime>
+    </File>
+    <File Include="wwwroot/lib/layui/images/face/8.gif">
+      <publishTime>05/13/2020 10:26:19</publishTime>
+    </File>
+    <File Include="wwwroot/lib/layui/images/face/9.gif">
+      <publishTime>05/13/2020 10:26:19</publishTime>
+    </File>
+    <File Include="wwwroot/lib/layui/lay/modules/carousel.js">
+      <publishTime>05/13/2020 10:26:20</publishTime>
+    </File>
+    <File Include="wwwroot/lib/layui/lay/modules/code.js">
+      <publishTime>05/13/2020 10:26:20</publishTime>
+    </File>
+    <File Include="wwwroot/lib/layui/lay/modules/colorpicker.js">
+      <publishTime>05/13/2020 10:26:20</publishTime>
+    </File>
+    <File Include="wwwroot/lib/layui/lay/modules/element.js">
+      <publishTime>05/13/2020 10:26:20</publishTime>
+    </File>
+    <File Include="wwwroot/lib/layui/lay/modules/flow.js">
+      <publishTime>05/13/2020 10:26:20</publishTime>
+    </File>
+    <File Include="wwwroot/lib/layui/lay/modules/form.js">
+      <publishTime>05/13/2020 10:26:20</publishTime>
+    </File>
+    <File Include="wwwroot/lib/layui/lay/modules/jquery.js">
+      <publishTime>05/13/2020 10:26:20</publishTime>
+    </File>
+    <File Include="wwwroot/lib/layui/lay/modules/laydate.js">
+      <publishTime>05/13/2020 10:26:20</publishTime>
+    </File>
+    <File Include="wwwroot/lib/layui/lay/modules/layedit.js">
+      <publishTime>05/13/2020 10:26:20</publishTime>
+    </File>
+    <File Include="wwwroot/lib/layui/lay/modules/layer.js">
+      <publishTime>05/13/2020 10:26:20</publishTime>
+    </File>
+    <File Include="wwwroot/lib/layui/lay/modules/laypage.js">
+      <publishTime>05/13/2020 10:26:20</publishTime>
+    </File>
+    <File Include="wwwroot/lib/layui/lay/modules/laytpl.js">
+      <publishTime>05/13/2020 10:26:20</publishTime>
+    </File>
+    <File Include="wwwroot/lib/layui/lay/modules/mobile.js">
+      <publishTime>05/13/2020 10:26:20</publishTime>
+    </File>
+    <File Include="wwwroot/lib/layui/lay/modules/rate.js">
+      <publishTime>05/13/2020 10:26:20</publishTime>
+    </File>
+    <File Include="wwwroot/lib/layui/lay/modules/slider.js">
+      <publishTime>05/13/2020 10:26:20</publishTime>
+    </File>
+    <File Include="wwwroot/lib/layui/lay/modules/table.js">
+      <publishTime>05/13/2020 10:26:20</publishTime>
+    </File>
+    <File Include="wwwroot/lib/layui/lay/modules/transfer.js">
+      <publishTime>05/13/2020 10:26:21</publishTime>
+    </File>
+    <File Include="wwwroot/lib/layui/lay/modules/tree.js">
+      <publishTime>05/13/2020 10:26:21</publishTime>
+    </File>
+    <File Include="wwwroot/lib/layui/lay/modules/upload.js">
+      <publishTime>05/13/2020 10:26:21</publishTime>
+    </File>
+    <File Include="wwwroot/lib/layui/lay/modules/util.js">
+      <publishTime>05/13/2020 10:26:21</publishTime>
+    </File>
+    <File Include="wwwroot/lib/layui/layui.all.js">
+      <publishTime>05/13/2020 10:26:21</publishTime>
+    </File>
+    <File Include="wwwroot/lib/layui/layui.js">
+      <publishTime>05/13/2020 10:26:21</publishTime>
+    </File>
+    <File Include="wwwroot/lib/signalr/dist/browser/signalr.js">
+      <publishTime>05/13/2020 10:26:22</publishTime>
+    </File>
+    <File Include="wwwroot/lib/signalr/dist/browser/signalr.js.map">
+      <publishTime>05/13/2020 10:26:22</publishTime>
+    </File>
+    <File Include="wwwroot/lib/signalr/dist/browser/signalr.min.js">
+      <publishTime>05/13/2020 10:26:22</publishTime>
+    </File>
+    <File Include="wwwroot/lib/signalr/dist/browser/signalr.min.js.map">
+      <publishTime>05/13/2020 10:26:22</publishTime>
+    </File>
+    <File Include="wwwroot/lib/signalr/dist/cjs/AbortController.js">
+      <publishTime>05/13/2020 10:26:22</publishTime>
+    </File>
+    <File Include="wwwroot/lib/signalr/dist/cjs/AbortController.js.map">
+      <publishTime>05/13/2020 10:26:22</publishTime>
+    </File>
+    <File Include="wwwroot/lib/signalr/dist/cjs/browser-index.js">
+      <publishTime>05/13/2020 10:26:24</publishTime>
+    </File>
+    <File Include="wwwroot/lib/signalr/dist/cjs/browser-index.js.map">
+      <publishTime>05/13/2020 10:26:24</publishTime>
+    </File>
+    <File Include="wwwroot/lib/signalr/dist/cjs/DefaultHttpClient.js">
+      <publishTime>05/13/2020 10:26:22</publishTime>
+    </File>
+    <File Include="wwwroot/lib/signalr/dist/cjs/DefaultHttpClient.js.map">
+      <publishTime>05/13/2020 10:26:22</publishTime>
+    </File>
+    <File Include="wwwroot/lib/signalr/dist/cjs/DefaultReconnectPolicy.js">
+      <publishTime>05/13/2020 10:26:22</publishTime>
+    </File>
+    <File Include="wwwroot/lib/signalr/dist/cjs/DefaultReconnectPolicy.js.map">
+      <publishTime>05/13/2020 10:26:22</publishTime>
+    </File>
+    <File Include="wwwroot/lib/signalr/dist/cjs/EmptyNodeHttpClient.js">
+      <publishTime>05/13/2020 10:26:22</publishTime>
+    </File>
+    <File Include="wwwroot/lib/signalr/dist/cjs/EmptyNodeHttpClient.js.map">
+      <publishTime>05/13/2020 10:26:22</publishTime>
+    </File>
+    <File Include="wwwroot/lib/signalr/dist/cjs/Errors.js">
+      <publishTime>05/13/2020 10:26:22</publishTime>
+    </File>
+    <File Include="wwwroot/lib/signalr/dist/cjs/Errors.js.map">
+      <publishTime>05/13/2020 10:26:22</publishTime>
+    </File>
+    <File Include="wwwroot/lib/signalr/dist/cjs/HandshakeProtocol.js">
+      <publishTime>05/13/2020 10:26:22</publishTime>
+    </File>
+    <File Include="wwwroot/lib/signalr/dist/cjs/HandshakeProtocol.js.map">
+      <publishTime>05/13/2020 10:26:22</publishTime>
+    </File>
+    <File Include="wwwroot/lib/signalr/dist/cjs/HttpClient.js">
+      <publishTime>05/13/2020 10:26:22</publishTime>
+    </File>
+    <File Include="wwwroot/lib/signalr/dist/cjs/HttpClient.js.map">
+      <publishTime>05/13/2020 10:26:22</publishTime>
+    </File>
+    <File Include="wwwroot/lib/signalr/dist/cjs/HttpConnection.js">
+      <publishTime>05/13/2020 10:26:22</publishTime>
+    </File>
+    <File Include="wwwroot/lib/signalr/dist/cjs/HttpConnection.js.map">
+      <publishTime>05/13/2020 10:26:22</publishTime>
+    </File>
+    <File Include="wwwroot/lib/signalr/dist/cjs/HubConnection.js">
+      <publishTime>05/13/2020 10:26:23</publishTime>
+    </File>
+    <File Include="wwwroot/lib/signalr/dist/cjs/HubConnection.js.map">
+      <publishTime>05/13/2020 10:26:23</publishTime>
+    </File>
+    <File Include="wwwroot/lib/signalr/dist/cjs/HubConnectionBuilder.js">
+      <publishTime>05/13/2020 10:26:23</publishTime>
+    </File>
+    <File Include="wwwroot/lib/signalr/dist/cjs/HubConnectionBuilder.js.map">
+      <publishTime>05/13/2020 10:26:23</publishTime>
+    </File>
+    <File Include="wwwroot/lib/signalr/dist/cjs/IConnection.js">
+      <publishTime>05/13/2020 10:26:23</publishTime>
+    </File>
+    <File Include="wwwroot/lib/signalr/dist/cjs/IConnection.js.map">
+      <publishTime>05/13/2020 10:26:23</publishTime>
+    </File>
+    <File Include="wwwroot/lib/signalr/dist/cjs/IHttpConnectionOptions.js">
+      <publishTime>05/13/2020 10:26:23</publishTime>
+    </File>
+    <File Include="wwwroot/lib/signalr/dist/cjs/IHttpConnectionOptions.js.map">
+      <publishTime>05/13/2020 10:26:23</publishTime>
+    </File>
+    <File Include="wwwroot/lib/signalr/dist/cjs/IHubProtocol.js">
+      <publishTime>05/13/2020 10:26:23</publishTime>
+    </File>
+    <File Include="wwwroot/lib/signalr/dist/cjs/IHubProtocol.js.map">
+      <publishTime>05/13/2020 10:26:23</publishTime>
+    </File>
+    <File Include="wwwroot/lib/signalr/dist/cjs/ILogger.js">
+      <publishTime>05/13/2020 10:26:23</publishTime>
+    </File>
+    <File Include="wwwroot/lib/signalr/dist/cjs/ILogger.js.map">
+      <publishTime>05/13/2020 10:26:23</publishTime>
+    </File>
+    <File Include="wwwroot/lib/signalr/dist/cjs/index.js">
+      <publishTime>05/13/2020 10:26:24</publishTime>
+    </File>
+    <File Include="wwwroot/lib/signalr/dist/cjs/index.js.map">
+      <publishTime>05/13/2020 10:26:24</publishTime>
+    </File>
+    <File Include="wwwroot/lib/signalr/dist/cjs/IRetryPolicy.js">
+      <publishTime>05/13/2020 10:26:23</publishTime>
+    </File>
+    <File Include="wwwroot/lib/signalr/dist/cjs/IRetryPolicy.js.map">
+      <publishTime>05/13/2020 10:26:23</publishTime>
+    </File>
+    <File Include="wwwroot/lib/signalr/dist/cjs/ITransport.js">
+      <publishTime>05/13/2020 10:26:23</publishTime>
+    </File>
+    <File Include="wwwroot/lib/signalr/dist/cjs/ITransport.js.map">
+      <publishTime>05/13/2020 10:26:23</publishTime>
+    </File>
+    <File Include="wwwroot/lib/signalr/dist/cjs/JsonHubProtocol.js">
+      <publishTime>05/13/2020 10:26:23</publishTime>
+    </File>
+    <File Include="wwwroot/lib/signalr/dist/cjs/JsonHubProtocol.js.map">
+      <publishTime>05/13/2020 10:26:23</publishTime>
+    </File>
+    <File Include="wwwroot/lib/signalr/dist/cjs/Loggers.js">
+      <publishTime>05/13/2020 10:26:23</publishTime>
+    </File>
+    <File Include="wwwroot/lib/signalr/dist/cjs/Loggers.js.map">
+      <publishTime>05/13/2020 10:26:23</publishTime>
+    </File>
+    <File Include="wwwroot/lib/signalr/dist/cjs/LongPollingTransport.js">
+      <publishTime>05/13/2020 10:26:23</publishTime>
+    </File>
+    <File Include="wwwroot/lib/signalr/dist/cjs/LongPollingTransport.js.map">
+      <publishTime>05/13/2020 10:26:23</publishTime>
+    </File>
+    <File Include="wwwroot/lib/signalr/dist/cjs/NodeHttpClient.js">
+      <publishTime>05/13/2020 10:26:23</publishTime>
+    </File>
+    <File Include="wwwroot/lib/signalr/dist/cjs/NodeHttpClient.js.map">
+      <publishTime>05/13/2020 10:26:24</publishTime>
+    </File>
+    <File Include="wwwroot/lib/signalr/dist/cjs/Polyfills.js">
+      <publishTime>05/13/2020 10:26:24</publishTime>
+    </File>
+    <File Include="wwwroot/lib/signalr/dist/cjs/Polyfills.js.map">
+      <publishTime>05/13/2020 10:26:24</publishTime>
+    </File>
+    <File Include="wwwroot/lib/signalr/dist/cjs/ServerSentEventsTransport.js">
+      <publishTime>05/13/2020 10:26:24</publishTime>
+    </File>
+    <File Include="wwwroot/lib/signalr/dist/cjs/ServerSentEventsTransport.js.map">
+      <publishTime>05/13/2020 10:26:24</publishTime>
+    </File>
+    <File Include="wwwroot/lib/signalr/dist/cjs/Stream.js">
+      <publishTime>05/13/2020 10:26:24</publishTime>
+    </File>
+    <File Include="wwwroot/lib/signalr/dist/cjs/Stream.js.map">
+      <publishTime>05/13/2020 10:26:24</publishTime>
+    </File>
+    <File Include="wwwroot/lib/signalr/dist/cjs/Subject.js">
+      <publishTime>05/13/2020 10:26:24</publishTime>
+    </File>
+    <File Include="wwwroot/lib/signalr/dist/cjs/Subject.js.map">
+      <publishTime>05/13/2020 10:26:24</publishTime>
+    </File>
+    <File Include="wwwroot/lib/signalr/dist/cjs/TextMessageFormat.js">
+      <publishTime>05/13/2020 10:26:24</publishTime>
+    </File>
+    <File Include="wwwroot/lib/signalr/dist/cjs/TextMessageFormat.js.map">
+      <publishTime>05/13/2020 10:26:24</publishTime>
+    </File>
+    <File Include="wwwroot/lib/signalr/dist/cjs/Utils.js">
+      <publishTime>05/13/2020 10:26:24</publishTime>
+    </File>
+    <File Include="wwwroot/lib/signalr/dist/cjs/Utils.js.map">
+      <publishTime>05/13/2020 10:26:24</publishTime>
+    </File>
+    <File Include="wwwroot/lib/signalr/dist/cjs/WebSocketTransport.js">
+      <publishTime>05/13/2020 10:26:24</publishTime>
+    </File>
+    <File Include="wwwroot/lib/signalr/dist/cjs/WebSocketTransport.js.map">
+      <publishTime>05/13/2020 10:26:24</publishTime>
+    </File>
+    <File Include="wwwroot/lib/signalr/dist/cjs/XhrHttpClient.js">
+      <publishTime>05/13/2020 10:26:24</publishTime>
+    </File>
+    <File Include="wwwroot/lib/signalr/dist/cjs/XhrHttpClient.js.map">
+      <publishTime>05/13/2020 10:26:24</publishTime>
+    </File>
+    <File Include="wwwroot/lib/signalr/dist/esm/AbortController.d.ts">
+      <publishTime>05/13/2020 10:26:24</publishTime>
+    </File>
+    <File Include="wwwroot/lib/signalr/dist/esm/AbortController.js">
+      <publishTime>05/13/2020 10:26:24</publishTime>
+    </File>
+    <File Include="wwwroot/lib/signalr/dist/esm/AbortController.js.map">
+      <publishTime>05/13/2020 10:26:24</publishTime>
+    </File>
+    <File Include="wwwroot/lib/signalr/dist/esm/browser-index.d.ts">
+      <publishTime>05/13/2020 10:26:30</publishTime>
+    </File>
+    <File Include="wwwroot/lib/signalr/dist/esm/browser-index.js">
+      <publishTime>05/13/2020 10:26:30</publishTime>
+    </File>
+    <File Include="wwwroot/lib/signalr/dist/esm/browser-index.js.map">
+      <publishTime>05/13/2020 10:26:30</publishTime>
+    </File>
+    <File Include="wwwroot/lib/signalr/dist/esm/DefaultHttpClient.d.ts">
+      <publishTime>05/13/2020 10:26:24</publishTime>
+    </File>
+    <File Include="wwwroot/lib/signalr/dist/esm/DefaultHttpClient.js">
+      <publishTime>05/13/2020 10:26:24</publishTime>
+    </File>
+    <File Include="wwwroot/lib/signalr/dist/esm/DefaultHttpClient.js.map">
+      <publishTime>05/13/2020 10:26:24</publishTime>
+    </File>
+    <File Include="wwwroot/lib/signalr/dist/esm/DefaultReconnectPolicy.d.ts">
+      <publishTime>05/13/2020 10:26:24</publishTime>
+    </File>
+    <File Include="wwwroot/lib/signalr/dist/esm/DefaultReconnectPolicy.js">
+      <publishTime>05/13/2020 10:26:24</publishTime>
+    </File>
+    <File Include="wwwroot/lib/signalr/dist/esm/DefaultReconnectPolicy.js.map">
+      <publishTime>05/13/2020 10:26:25</publishTime>
+    </File>
+    <File Include="wwwroot/lib/signalr/dist/esm/EmptyNodeHttpClient.d.ts">
+      <publishTime>05/13/2020 10:26:25</publishTime>
+    </File>
+    <File Include="wwwroot/lib/signalr/dist/esm/EmptyNodeHttpClient.js">
+      <publishTime>05/13/2020 10:26:25</publishTime>
+    </File>
+    <File Include="wwwroot/lib/signalr/dist/esm/EmptyNodeHttpClient.js.map">
+      <publishTime>05/13/2020 10:26:25</publishTime>
+    </File>
+    <File Include="wwwroot/lib/signalr/dist/esm/Errors.d.ts">
+      <publishTime>05/13/2020 10:26:25</publishTime>
+    </File>
+    <File Include="wwwroot/lib/signalr/dist/esm/Errors.js">
+      <publishTime>05/13/2020 10:26:25</publishTime>
+    </File>
+    <File Include="wwwroot/lib/signalr/dist/esm/Errors.js.map">
+      <publishTime>05/13/2020 10:26:25</publishTime>
+    </File>
+    <File Include="wwwroot/lib/signalr/dist/esm/HandshakeProtocol.d.ts">
+      <publishTime>05/13/2020 10:26:25</publishTime>
+    </File>
+    <File Include="wwwroot/lib/signalr/dist/esm/HandshakeProtocol.js">
+      <publishTime>05/13/2020 10:26:25</publishTime>
+    </File>
+    <File Include="wwwroot/lib/signalr/dist/esm/HandshakeProtocol.js.map">
+      <publishTime>05/13/2020 10:26:25</publishTime>
+    </File>
+    <File Include="wwwroot/lib/signalr/dist/esm/HttpClient.d.ts">
+      <publishTime>05/13/2020 10:26:25</publishTime>
+    </File>
+    <File Include="wwwroot/lib/signalr/dist/esm/HttpClient.js">
+      <publishTime>05/13/2020 10:26:25</publishTime>
+    </File>
+    <File Include="wwwroot/lib/signalr/dist/esm/HttpClient.js.map">
+      <publishTime>05/13/2020 10:26:25</publishTime>
+    </File>
+    <File Include="wwwroot/lib/signalr/dist/esm/HttpConnection.d.ts">
+      <publishTime>05/13/2020 10:26:25</publishTime>
+    </File>
+    <File Include="wwwroot/lib/signalr/dist/esm/HttpConnection.js">
+      <publishTime>05/13/2020 10:26:25</publishTime>
+    </File>
+    <File Include="wwwroot/lib/signalr/dist/esm/HttpConnection.js.map">
+      <publishTime>05/13/2020 10:26:25</publishTime>
+    </File>
+    <File Include="wwwroot/lib/signalr/dist/esm/HubConnection.d.ts">
+      <publishTime>05/13/2020 10:26:25</publishTime>
+    </File>
+    <File Include="wwwroot/lib/signalr/dist/esm/HubConnection.js">
+      <publishTime>05/13/2020 10:26:25</publishTime>
+    </File>
+    <File Include="wwwroot/lib/signalr/dist/esm/HubConnection.js.map">
+      <publishTime>05/13/2020 10:26:25</publishTime>
+    </File>
+    <File Include="wwwroot/lib/signalr/dist/esm/HubConnectionBuilder.d.ts">
+      <publishTime>05/13/2020 10:26:25</publishTime>
+    </File>
+    <File Include="wwwroot/lib/signalr/dist/esm/HubConnectionBuilder.js">
+      <publishTime>05/13/2020 10:26:25</publishTime>
+    </File>
+    <File Include="wwwroot/lib/signalr/dist/esm/HubConnectionBuilder.js.map">
+      <publishTime>05/13/2020 10:26:25</publishTime>
+    </File>
+    <File Include="wwwroot/lib/signalr/dist/esm/IConnection.d.ts">
+      <publishTime>05/13/2020 10:26:25</publishTime>
+    </File>
+    <File Include="wwwroot/lib/signalr/dist/esm/IConnection.js">
+      <publishTime>05/13/2020 10:26:25</publishTime>
+    </File>
+    <File Include="wwwroot/lib/signalr/dist/esm/IConnection.js.map">
+      <publishTime>05/13/2020 10:26:25</publishTime>
+    </File>
+    <File Include="wwwroot/lib/signalr/dist/esm/IHttpConnectionOptions.d.ts">
+      <publishTime>05/13/2020 10:26:26</publishTime>
+    </File>
+    <File Include="wwwroot/lib/signalr/dist/esm/IHttpConnectionOptions.js">
+      <publishTime>05/13/2020 10:26:26</publishTime>
+    </File>
+    <File Include="wwwroot/lib/signalr/dist/esm/IHttpConnectionOptions.js.map">
+      <publishTime>05/13/2020 10:26:26</publishTime>
+    </File>
+    <File Include="wwwroot/lib/signalr/dist/esm/IHubProtocol.d.ts">
+      <publishTime>05/13/2020 10:26:26</publishTime>
+    </File>
+    <File Include="wwwroot/lib/signalr/dist/esm/IHubProtocol.js">
+      <publishTime>05/13/2020 10:26:26</publishTime>
+    </File>
+    <File Include="wwwroot/lib/signalr/dist/esm/IHubProtocol.js.map">
+      <publishTime>05/13/2020 10:26:26</publishTime>
+    </File>
+    <File Include="wwwroot/lib/signalr/dist/esm/ILogger.d.ts">
+      <publishTime>05/13/2020 10:26:26</publishTime>
+    </File>
+    <File Include="wwwroot/lib/signalr/dist/esm/ILogger.js">
+      <publishTime>05/13/2020 10:26:26</publishTime>
+    </File>
+    <File Include="wwwroot/lib/signalr/dist/esm/ILogger.js.map">
+      <publishTime>05/13/2020 10:26:26</publishTime>
+    </File>
+    <File Include="wwwroot/lib/signalr/dist/esm/index.d.ts">
+      <publishTime>05/13/2020 10:26:30</publishTime>
+    </File>
+    <File Include="wwwroot/lib/signalr/dist/esm/index.js">
+      <publishTime>05/13/2020 10:26:30</publishTime>
+    </File>
+    <File Include="wwwroot/lib/signalr/dist/esm/index.js.map">
+      <publishTime>05/13/2020 10:26:30</publishTime>
+    </File>
+    <File Include="wwwroot/lib/signalr/dist/esm/IRetryPolicy.d.ts">
+      <publishTime>05/13/2020 10:26:26</publishTime>
+    </File>
+    <File Include="wwwroot/lib/signalr/dist/esm/IRetryPolicy.js">
+      <publishTime>05/13/2020 10:26:26</publishTime>
+    </File>
+    <File Include="wwwroot/lib/signalr/dist/esm/IRetryPolicy.js.map">
+      <publishTime>05/13/2020 10:26:26</publishTime>
+    </File>
+    <File Include="wwwroot/lib/signalr/dist/esm/ITransport.d.ts">
+      <publishTime>05/13/2020 10:26:26</publishTime>
+    </File>
+    <File Include="wwwroot/lib/signalr/dist/esm/ITransport.js">
+      <publishTime>05/13/2020 10:26:26</publishTime>
+    </File>
+    <File Include="wwwroot/lib/signalr/dist/esm/ITransport.js.map">
+      <publishTime>05/13/2020 10:26:26</publishTime>
+    </File>
+    <File Include="wwwroot/lib/signalr/dist/esm/JsonHubProtocol.d.ts">
+      <publishTime>05/13/2020 10:26:26</publishTime>
+    </File>
+    <File Include="wwwroot/lib/signalr/dist/esm/JsonHubProtocol.js">
+      <publishTime>05/13/2020 10:26:26</publishTime>
+    </File>
+    <File Include="wwwroot/lib/signalr/dist/esm/JsonHubProtocol.js.map">
+      <publishTime>05/13/2020 10:26:26</publishTime>
+    </File>
+    <File Include="wwwroot/lib/signalr/dist/esm/Loggers.d.ts">
+      <publishTime>05/13/2020 10:26:26</publishTime>
+    </File>
+    <File Include="wwwroot/lib/signalr/dist/esm/Loggers.js">
+      <publishTime>05/13/2020 10:26:26</publishTime>
+    </File>
+    <File Include="wwwroot/lib/signalr/dist/esm/Loggers.js.map">
+      <publishTime>05/13/2020 10:26:26</publishTime>
+    </File>
+    <File Include="wwwroot/lib/signalr/dist/esm/LongPollingTransport.d.ts">
+      <publishTime>05/13/2020 10:26:26</publishTime>
+    </File>
+    <File Include="wwwroot/lib/signalr/dist/esm/LongPollingTransport.js">
+      <publishTime>05/13/2020 10:26:26</publishTime>
+    </File>
+    <File Include="wwwroot/lib/signalr/dist/esm/LongPollingTransport.js.map">
+      <publishTime>05/13/2020 10:26:26</publishTime>
+    </File>
+    <File Include="wwwroot/lib/signalr/dist/esm/NodeHttpClient.d.ts">
+      <publishTime>05/13/2020 10:26:26</publishTime>
+    </File>
+    <File Include="wwwroot/lib/signalr/dist/esm/NodeHttpClient.js">
+      <publishTime>05/13/2020 10:26:26</publishTime>
+    </File>
+    <File Include="wwwroot/lib/signalr/dist/esm/NodeHttpClient.js.map">
+      <publishTime>05/13/2020 10:26:26</publishTime>
+    </File>
+    <File Include="wwwroot/lib/signalr/dist/esm/Polyfills.d.ts">
+      <publishTime>05/13/2020 10:26:26</publishTime>
+    </File>
+    <File Include="wwwroot/lib/signalr/dist/esm/Polyfills.js">
+      <publishTime>05/13/2020 10:26:26</publishTime>
+    </File>
+    <File Include="wwwroot/lib/signalr/dist/esm/Polyfills.js.map">
+      <publishTime>05/13/2020 10:26:26</publishTime>
+    </File>
+    <File Include="wwwroot/lib/signalr/dist/esm/ServerSentEventsTransport.d.ts">
+      <publishTime>05/13/2020 10:26:26</publishTime>
+    </File>
+    <File Include="wwwroot/lib/signalr/dist/esm/ServerSentEventsTransport.js">
+      <publishTime>05/13/2020 10:26:26</publishTime>
+    </File>
+    <File Include="wwwroot/lib/signalr/dist/esm/ServerSentEventsTransport.js.map">
+      <publishTime>05/13/2020 10:26:26</publishTime>
+    </File>
+    <File Include="wwwroot/lib/signalr/dist/esm/Stream.d.ts">
+      <publishTime>05/13/2020 10:26:26</publishTime>
+    </File>
+    <File Include="wwwroot/lib/signalr/dist/esm/Stream.js">
+      <publishTime>05/13/2020 10:26:26</publishTime>
+    </File>
+    <File Include="wwwroot/lib/signalr/dist/esm/Stream.js.map">
+      <publishTime>05/13/2020 10:26:26</publishTime>
+    </File>
+    <File Include="wwwroot/lib/signalr/dist/esm/Subject.d.ts">
+      <publishTime>05/13/2020 10:26:26</publishTime>
+    </File>
+    <File Include="wwwroot/lib/signalr/dist/esm/Subject.js">
+      <publishTime>05/13/2020 10:26:26</publishTime>
+    </File>
+    <File Include="wwwroot/lib/signalr/dist/esm/Subject.js.map">
+      <publishTime>05/13/2020 10:26:27</publishTime>
+    </File>
+    <File Include="wwwroot/lib/signalr/dist/esm/TextMessageFormat.d.ts">
+      <publishTime>05/13/2020 10:26:27</publishTime>
+    </File>
+    <File Include="wwwroot/lib/signalr/dist/esm/TextMessageFormat.js">
+      <publishTime>05/13/2020 10:26:29</publishTime>
+    </File>
+    <File Include="wwwroot/lib/signalr/dist/esm/TextMessageFormat.js.map">
+      <publishTime>05/13/2020 10:26:29</publishTime>
+    </File>
+    <File Include="wwwroot/lib/signalr/dist/esm/Utils.d.ts">
+      <publishTime>05/13/2020 10:26:29</publishTime>
+    </File>
+    <File Include="wwwroot/lib/signalr/dist/esm/Utils.js">
+      <publishTime>05/13/2020 10:26:29</publishTime>
+    </File>
+    <File Include="wwwroot/lib/signalr/dist/esm/Utils.js.map">
+      <publishTime>05/13/2020 10:26:29</publishTime>
+    </File>
+    <File Include="wwwroot/lib/signalr/dist/esm/WebSocketTransport.d.ts">
+      <publishTime>05/13/2020 10:26:29</publishTime>
+    </File>
+    <File Include="wwwroot/lib/signalr/dist/esm/WebSocketTransport.js">
+      <publishTime>05/13/2020 10:26:29</publishTime>
+    </File>
+    <File Include="wwwroot/lib/signalr/dist/esm/WebSocketTransport.js.map">
+      <publishTime>05/13/2020 10:26:30</publishTime>
+    </File>
+    <File Include="wwwroot/lib/signalr/dist/esm/XhrHttpClient.d.ts">
+      <publishTime>05/13/2020 10:26:30</publishTime>
+    </File>
+    <File Include="wwwroot/lib/signalr/dist/esm/XhrHttpClient.js">
+      <publishTime>05/13/2020 10:26:30</publishTime>
+    </File>
+    <File Include="wwwroot/lib/signalr/dist/esm/XhrHttpClient.js.map">
+      <publishTime>05/13/2020 10:26:30</publishTime>
+    </File>
+    <File Include="wwwroot/lib/signalr/dist/webworker/signalr.js">
+      <publishTime>05/13/2020 10:26:30</publishTime>
+    </File>
+    <File Include="wwwroot/lib/signalr/dist/webworker/signalr.js.map">
+      <publishTime>05/13/2020 10:26:30</publishTime>
+    </File>
+    <File Include="wwwroot/lib/signalr/dist/webworker/signalr.min.js">
+      <publishTime>05/13/2020 10:26:30</publishTime>
+    </File>
+    <File Include="wwwroot/lib/signalr/dist/webworker/signalr.min.js.map">
+      <publishTime>05/13/2020 10:26:30</publishTime>
+    </File>
+    <File Include="wwwroot/lib/signalr/package.json">
+      <publishTime>05/13/2020 10:26:21</publishTime>
+    </File>
+    <File Include="wwwroot/lib/signalr/README.md">
+      <publishTime>05/13/2020 10:26:21</publishTime>
+    </File>
+    <File Include="wwwroot/lib/signalr/src/AbortController.ts">
+      <publishTime>05/13/2020 10:26:30</publishTime>
+    </File>
+    <File Include="wwwroot/lib/signalr/src/browser-index.ts">
+      <publishTime>05/13/2020 10:26:31</publishTime>
+    </File>
+    <File Include="wwwroot/lib/signalr/src/DefaultHttpClient.ts">
+      <publishTime>05/13/2020 10:26:30</publishTime>
+    </File>
+    <File Include="wwwroot/lib/signalr/src/DefaultReconnectPolicy.ts">
+      <publishTime>05/13/2020 10:26:30</publishTime>
+    </File>
+    <File Include="wwwroot/lib/signalr/src/EmptyNodeHttpClient.ts">
+      <publishTime>05/13/2020 10:26:30</publishTime>
+    </File>
+    <File Include="wwwroot/lib/signalr/src/Errors.ts">
+      <publishTime>05/13/2020 10:26:30</publishTime>
+    </File>
+    <File Include="wwwroot/lib/signalr/src/HandshakeProtocol.ts">
+      <publishTime>05/13/2020 10:26:30</publishTime>
+    </File>
+    <File Include="wwwroot/lib/signalr/src/HttpClient.ts">
+      <publishTime>05/13/2020 10:26:30</publishTime>
+    </File>
+    <File Include="wwwroot/lib/signalr/src/HttpConnection.ts">
+      <publishTime>05/13/2020 10:26:30</publishTime>
+    </File>
+    <File Include="wwwroot/lib/signalr/src/HubConnection.ts">
+      <publishTime>05/13/2020 10:26:31</publishTime>
+    </File>
+    <File Include="wwwroot/lib/signalr/src/HubConnectionBuilder.ts">
+      <publishTime>05/13/2020 10:26:31</publishTime>
+    </File>
+    <File Include="wwwroot/lib/signalr/src/IConnection.ts">
+      <publishTime>05/13/2020 10:26:31</publishTime>
+    </File>
+    <File Include="wwwroot/lib/signalr/src/IHttpConnectionOptions.ts">
+      <publishTime>05/13/2020 10:26:31</publishTime>
+    </File>
+    <File Include="wwwroot/lib/signalr/src/IHubProtocol.ts">
+      <publishTime>05/13/2020 10:26:31</publishTime>
+    </File>
+    <File Include="wwwroot/lib/signalr/src/ILogger.ts">
+      <publishTime>05/13/2020 10:26:31</publishTime>
+    </File>
+    <File Include="wwwroot/lib/signalr/src/index.ts">
+      <publishTime>05/13/2020 10:26:31</publishTime>
+    </File>
+    <File Include="wwwroot/lib/signalr/src/IRetryPolicy.ts">
+      <publishTime>05/13/2020 10:26:31</publishTime>
+    </File>
+    <File Include="wwwroot/lib/signalr/src/ITransport.ts">
+      <publishTime>05/13/2020 10:26:31</publishTime>
+    </File>
+    <File Include="wwwroot/lib/signalr/src/JsonHubProtocol.ts">
+      <publishTime>05/13/2020 10:26:31</publishTime>
+    </File>
+    <File Include="wwwroot/lib/signalr/src/Loggers.ts">
+      <publishTime>05/13/2020 10:26:31</publishTime>
+    </File>
+    <File Include="wwwroot/lib/signalr/src/LongPollingTransport.ts">
+      <publishTime>05/13/2020 10:26:31</publishTime>
+    </File>
+    <File Include="wwwroot/lib/signalr/src/NodeHttpClient.ts">
+      <publishTime>05/13/2020 10:26:31</publishTime>
+    </File>
+    <File Include="wwwroot/lib/signalr/src/Polyfills.ts">
+      <publishTime>05/13/2020 10:26:31</publishTime>
+    </File>
+    <File Include="wwwroot/lib/signalr/src/ServerSentEventsTransport.ts">
+      <publishTime>05/13/2020 10:26:31</publishTime>
+    </File>
+    <File Include="wwwroot/lib/signalr/src/Stream.ts">
+      <publishTime>05/13/2020 10:26:31</publishTime>
+    </File>
+    <File Include="wwwroot/lib/signalr/src/Subject.ts">
+      <publishTime>05/13/2020 10:26:31</publishTime>
+    </File>
+    <File Include="wwwroot/lib/signalr/src/TextMessageFormat.ts">
+      <publishTime>05/13/2020 10:26:31</publishTime>
+    </File>
+    <File Include="wwwroot/lib/signalr/src/third-party-notices.txt">
+      <publishTime>05/13/2020 10:26:31</publishTime>
+    </File>
+    <File Include="wwwroot/lib/signalr/src/Utils.ts">
+      <publishTime>05/13/2020 10:26:31</publishTime>
+    </File>
+    <File Include="wwwroot/lib/signalr/src/WebSocketTransport.ts">
+      <publishTime>05/13/2020 10:26:31</publishTime>
+    </File>
+    <File Include="wwwroot/lib/signalr/src/XhrHttpClient.ts">
+      <publishTime>05/13/2020 10:26:31</publishTime>
+    </File>
+    <File Include="wwwroot/lib/steps/steps.css">
+      <publishTime>05/13/2020 10:26:30</publishTime>
+    </File>
+    <File Include="wwwroot/lib/steps/steps.js">
+      <publishTime>05/13/2020 10:26:31</publishTime>
+    </File>
+    <File Include="zh-Hans/Microsoft.CodeAnalysis.CSharp.resources.dll">
+      <publishTime>09/12/2019 17:09:00</publishTime>
+    </File>
+    <File Include="zh-Hans/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll">
+      <publishTime>09/12/2019 17:09:14</publishTime>
+    </File>
+    <File Include="zh-Hans/Microsoft.CodeAnalysis.resources.dll">
+      <publishTime>09/12/2019 17:07:48</publishTime>
+    </File>
+    <File Include="zh-Hans/Microsoft.CodeAnalysis.Workspaces.resources.dll">
+      <publishTime>09/12/2019 17:08:36</publishTime>
+    </File>
+    <File Include="zh-Hant/Microsoft.CodeAnalysis.CSharp.resources.dll">
+      <publishTime>09/12/2019 17:09:00</publishTime>
+    </File>
+    <File Include="zh-Hant/Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll">
+      <publishTime>09/12/2019 17:09:14</publishTime>
+    </File>
+    <File Include="zh-Hant/Microsoft.CodeAnalysis.resources.dll">
+      <publishTime>09/12/2019 17:07:48</publishTime>
+    </File>
+    <File Include="zh-Hant/Microsoft.CodeAnalysis.Workspaces.resources.dll">
+      <publishTime>09/12/2019 17:08:36</publishTime>
+    </File>
+  </ItemGroup>
 </Project>

@@ -183,5 +183,25 @@ namespace Model
         /// 修改失败
         /// </summary>
         public static string TIP_35 { get; } = "修改失败";
+
+        /// <summary>
+        /// 服务器名称不能超过15个字符
+        /// </summary>
+        public static string TIP_36 { get; } = "服务器名称不能超过15个字符";
+
+        /// <summary>
+        /// 服务器添加成功
+        /// </summary>
+        public static string TIP_37 { get; } = "服务器添加成功";
+
+        /// <summary>
+        /// 服务器添加失败
+        /// </summary>
+        public static string TIP_38 { get; } = "服务器添加失败";
+
+        /// <summary>
+        /// 服务器工作目录最多255个字符
+        /// </summary>
+        public static string TIP_39 { get; } = "服务器工作目录最多255个字符";
     }
 }

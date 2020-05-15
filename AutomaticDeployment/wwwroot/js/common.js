@@ -59,3 +59,13 @@ function getQuery(variable) {
     }
     return '';
 }
+
+//打开页面
+function open_page(title, path, id) {
+    var w = get_top_window();
+    if (w.open_tab) {
+        w.open_tab(title, path, id);
+    } else {
+        w.open(path.substring(path.indexOf('/')), '_blank');
+    }
+}

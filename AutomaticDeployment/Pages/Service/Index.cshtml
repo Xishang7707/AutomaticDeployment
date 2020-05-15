@@ -1,0 +1,32 @@
+﻿@page
+@model AutomaticDeployment.Pages.Service.IndexModel
+@{
+    ViewData["Title"] = "服务器";
+}
+
+<link href="~/css/service/index.css" rel="stylesheet" />
+<script src="~/js/service/index.js"></script>
+
+<body style="padding:3px;">
+    <div class="layui-card">
+        <div class="layui-card-header">
+            <div class="layui-btn-group">
+                <button type="button" class="layui-btn" id="btn_open_addservice">添加服务器</button>
+            </div>
+        </div>
+        <div class="layui-card-body" id="service-body">
+            <table class="layui-table">
+                <thead>
+                    <tr>
+                        <th>名称</th>
+                        <th>连接信息</th>
+                        <th>工作目录</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
