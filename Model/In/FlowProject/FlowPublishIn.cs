@@ -25,6 +25,11 @@ namespace Model.In.FlowProject
         public string build_after_command { get; set; }
 
         /// <summary>
+        /// 编译后需发布的文件路径
+        /// </summary>
+        public string publish_file_path { get; set; }
+
+        /// <summary>
         /// 发布前命令
         /// </summary>
         public string publish_before_command { get; set; }

@@ -1,8 +1,33 @@
 ﻿@page
 @model AutomaticDeployment.Pages.FlowProject.IndexModel
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "流水项目";
 }
 
-<h1>Index</h1>
+<link href="~/css/flowproject/index.css" rel="stylesheet" />
+<script src="~/js/flowproject/index.js"></script>
 
+<body style="padding:3px;">
+    <div class="layui-card">
+        <div class="layui-card-header">
+            <div class="layui-btn-group">
+                <button type="button" class="layui-btn" id="btn_open_addproject">添加项目</button>
+            </div>
+        </div>
+        <div class="layui-card-body" id="project-body">
+            <table class="layui-table">
+                <thead>
+                    <tr>
+                        <th>项目信息</th>
+                        <th>服务器</th>
+                        <th>发布信息</th>
+                        <th>备注</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>

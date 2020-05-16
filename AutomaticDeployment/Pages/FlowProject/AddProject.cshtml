@@ -1,0 +1,146 @@
+﻿@page
+@model AutomaticDeployment.Pages.FlowProject.AddProjectModel
+@{
+    ViewData["Title"] = "AddProject";
+}
+
+<link href="/lib/steps/steps.css" rel="stylesheet" />
+<link href="~/css/flowproject/addproject.css" rel="stylesheet" />
+<script src="/lib/steps/steps.js"></script>
+<script src="~/js/flowproject/addproject.js"></script>
+
+<body class="layui-layout-body">
+    <div class="layui-layout layui-layout-admin">
+        <div class="layui-header">
+            <div id="dev_steps"></div>
+        </div>
+        <div class="layui-body step_wapper">
+            <div class="layui-carousel step_item_wapper" lay-filter="dev_step" id="dev_step">
+                <div carousel-item>
+                    <div>
+                        <div class="layui-card">
+                            <div class="layui-card-header">说明</div>
+                            <div class="layui-card">
+                                <ol>
+                                    <li style="color:#FF5722">请不要执行rm -rf /</li>
+                                    <li style="color:#FFB800">执行命令先确保服务器安装了命令</li>
+                                    <li style="color:#FFB800">发布不包括环境依赖的安装</li>
+                                    <li style="color:#FFB800">目前只支持Linux的发布</li>
+                                    <li style="color:#FFB800">目前只支持ZIP格式的压缩包发布</li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="layui-card">
+                            <div class="layui-card-header">项目配置</div>
+                            <div class="layui-card-body">
+                                <form class="layui-form" action="" id="step_project">
+                                    <div class="layui-form-item">
+                                        <label class="layui-form-label">服务器</label>
+                                        <div class="layui-input-block">
+                                            <input type="hidden" name="server_id" />
+                                            <select name="project_service_id" lay-verify="required">
+                                                <option value="">请选择</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="layui-form-item">
+                                        <div class="layui-form-item">
+                                            <label class="layui-form-label">项目名称</label>
+                                            <div class="layui-input-block">
+                                                <input type="text" name="project_name" value="" maxlength="20" required lay-verify="required" placeholder="项目名称" autocomplete="off" class="layui-input">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="layui-form-item">
+                                        <label class="layui-form-label">代码工具</label>
+                                        <div class="layui-input-block">
+                                            <input type="hidden" name="code_souce_tool_id" />
+                                            <select name="code_souce_tool" lay-verify="required">
+                                                <option value="1" selected>Git</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="layui-form-item">
+                                        <div class="layui-form-item">
+                                            <label class="layui-form-label">源码获取命令</label>
+                                            <div class="layui-input-block">
+                                                <textarea type="text" name="code_get_cmd" maxlength="255" placeholder="最多255个字符" autocomplete="off" class="layui-textarea"></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="layui-form-item">
+                                        <div class="layui-form-item">
+                                            <label class="layui-form-label">项目路径</label>
+                                            <div class="layui-input-block">
+                                                <input type="text" name="project_path" maxlength="1024" placeholder="最多1024个字符" autocomplete="off" class="layui-textarea" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="layui-form-item">
+                                        <div class="layui-form-item">
+                                            <label class="layui-form-label">描述</label>
+                                            <div class="layui-input-block">
+                                                <textarea type="text" name="project_remark" maxlength="200" placeholder="最多200个字符" autocomplete="off" class="layui-textarea"></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="layui-card">
+                            <div class="layui-card-header">发布配置</div>
+                            <div class="layui-card-body">
+                                <form class="layui-form" action="" id="step_publish">
+                                    <div class="layui-form-item">
+                                        <label class="layui-form-label">构建前命令</label>
+                                        <div class="layui-input-block">
+                                            <textarea name="build_before_command" placeholder="项目编译之前执行" class="layui-textarea"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="layui-form-item">
+                                        <label class="layui-form-label">构建命令</label>
+                                        <div class="layui-input-block">
+                                            <textarea name="build_command" placeholder="项目编译" class="layui-textarea"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="layui-form-item">
+                                        <label class="layui-form-label">构建后命令</label>
+                                        <div class="layui-input-block">
+                                            <textarea name="build_after_command" placeholder="项目编译之后执行" class="layui-textarea"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="layui-form-item">
+                                        <label class="layui-form-label">文件路径</label>
+                                        <div class="layui-input-block">
+                                            <input name="publish_file_path" placeholder="项目编译后的可发布文件路径" class="layui-textarea" />
+                                        </div>
+                                    </div>
+                                    <div class="layui-form-item">
+                                        <label class="layui-form-label">发布前命令</label>
+                                        <div class="layui-input-block">
+                                            <textarea name="publish_before_command" placeholder="项目发布之前执行(远程)" class="layui-textarea"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="layui-form-item">
+                                        <label class="layui-form-label">发布后命令</label>
+                                        <div class="layui-input-block">
+                                            <textarea name="publish_after_command" placeholder="项目发布之后执行(远程)" class="layui-textarea"></textarea>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="layui-btn-container">
+                <button type="button" class="layui-btn btn_step" id="btn_step_sub">上一步</button>
+                <button type="button" class="layui-btn btn_step" id="btn_step_add">下一步</button>
+            </div>
+        </div>
+    </div>
+</body>

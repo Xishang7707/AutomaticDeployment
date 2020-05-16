@@ -29,6 +29,7 @@ namespace DAO.FlowProject
                 publish_after_cmd = data.publish.publish_after_command,
                 build_cmd = data.publish.build_command,
                 publish_before_cmd = data.publish.publish_before_command,
+                publish_file_path = data.publish.publish_file_path
             };
             string sql = @"INSERT INTO t_publish (
                           proj_guid,
@@ -36,7 +37,8 @@ namespace DAO.FlowProject
                           build_before_cmd,
                           build_after_cmd,
                           publish_before_cmd,
-                          publish_after_cmd
+                          publish_after_cmd,
+                          publish_file_path
                       )
                       VALUES (
                           @proj_guid,
@@ -44,7 +46,8 @@ namespace DAO.FlowProject
                           @build_before_cmd,
                           @build_after_cmd,
                           @publish_before_cmd,
-                          @publish_after_cmd
+                          @publish_after_cmd,
+                          @publish_file_path
                       );";
             return await db.ExecAsync(sql, model) > 0;
         }
