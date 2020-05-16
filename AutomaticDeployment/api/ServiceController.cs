@@ -29,5 +29,15 @@ namespace AutomaticDeployment.api
         {
             return await serviceApp.AddService(PackRequest(model));
         }
+
+        /// <summary>
+        /// 获取服务器列表
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost("getdropservice")]
+        public async Task<IActionResult> GetDropService()
+        {
+            return await serviceApp.GetDropService();
+        }
     }
 }

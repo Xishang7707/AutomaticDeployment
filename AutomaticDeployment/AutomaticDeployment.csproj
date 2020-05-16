@@ -14,4 +14,9 @@
     <ProjectReference Include="..\App\App.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\css\flowproject\" />
+    <Folder Include="wwwroot\js\flowproject\" />
+  </ItemGroup>
+
 </Project>

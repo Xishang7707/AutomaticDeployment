@@ -2,6 +2,7 @@
 using Model.Db.Enum;
 using Server.Implement;
 using Server.Implement.AutoPublish;
+using Server.Implement.FlowProject;
 using Server.Implement.OSManage;
 using Server.Implement.PublishFlow;
 using Server.Implement.PublishLog;
@@ -33,9 +34,12 @@ namespace Server
 
             if (typeof(T) == typeof(IAutoPublishServer))
                 return new AutoPublishServerImpl() as T;
-            
+
             if (typeof(T) == typeof(IServiceServer))
                 return new ServiceServerImpl() as T;
+
+            if (typeof(T) == typeof(IFlowProjectServer))
+                return new FlowProjectServerImpl() as T;
 
             if (typeof(T) == typeof(IOSManageServer))
             {

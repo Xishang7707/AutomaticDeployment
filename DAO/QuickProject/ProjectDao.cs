@@ -29,7 +29,6 @@ namespace DAO.QuickProject
                           proj_guid,
                           proj_type,
                           add_time,
-                          code_mode,
                           remark
                       )
                       VALUES (
@@ -37,7 +36,6 @@ namespace DAO.QuickProject
                           @proj_guid,
                           @proj_type,
                           @add_time,
-                          @code_mode,
                           @remark
                       );select last_insert_rowid();";
             return await dbHelper.ExecAsync<int>(sql, model);
@@ -55,11 +53,9 @@ namespace DAO.QuickProject
             t_project model = new t_project
             {
                 add_time = DateTime.Now.GetSQLTime(),
-                code_mode = (int)ECodeMode.File,
                 name = data.project_name,
                 remark = data.project_remark,
                 proj_guid = MakeCommon.MakeGUID("N"),
-                code_source = null,
                 proj_type = (int)EProjectType.Quick
             };
 

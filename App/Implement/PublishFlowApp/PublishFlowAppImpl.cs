@@ -2,6 +2,7 @@
 using Model.In;
 using Model.In.PublishFlow;
 using Model.Out;
+using Server;
 using Server.Interface;
 using System;
 using System.Collections.Generic;
@@ -14,7 +15,7 @@ namespace App.Implement.PublishFlowApp
     {
         public async Task<Result> PublishAsync(In<PublishQuickProject> inData)
         {
-            IPublishFlowApp server = AppFactory.Get<IPublishFlowApp>();
+            IPublishFlowServer server = ServerFactory.Get<IPublishFlowServer>();
             return await server.PublishAsync(inData);
         }
     }

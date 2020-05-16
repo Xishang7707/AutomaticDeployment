@@ -19,5 +19,10 @@ namespace App.Implement.ServiceApp
         {
             return await serviceServer.AddService(inData);
         }
+
+        public async Task<Result> GetDropService()
+        {
+            return await serviceServer.GetDropService();
+        }
     }
 }

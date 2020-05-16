@@ -63,5 +63,17 @@ namespace DAO.Service
             string sql = @"SELECT id,name,conn_ip,conn_user FROM t_service";
             return await sqlHelper.QueryListAsync<t_service>(sql);
         }
+
+        /// <summary>
+        /// 服务器是否存在
+        /// </summary>
+        /// <param name="sqlHelper"></param>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public static async Task<bool> IsExist(SQLiteHelper sqlHelper, int id)
+        {
+            string sql = @"SELECT id FROM t_service WHERE id=@id";
+            return await sqlHelper.QueryAsync<int>(sql, new { id = id }) > 0;
+        }
     }
 }

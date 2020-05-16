@@ -1,5 +1,6 @@
 ﻿using App.Implement;
 using App.Implement.AutoPublishApp;
+using App.Implement.FlowProjectApp;
 using App.Implement.PublishLogApp;
 using App.Implement.QuickProjectApp;
 using App.Implement.ServiceApp;
@@ -33,6 +34,9 @@ namespace App
 
             if (typeof(T) == typeof(IServiceApp))
                 return new ServiceAppImpl() as T;
+
+            if (typeof(T) == typeof(IFlowProjectApp))
+                return new FlowProjectAppImpl() as T;
 
             if (typeof(T) == typeof(IPublishLogApp))
                 return new PublishLogAppImpl(o[0] as IHubContext<PublishLogHub>) as T;

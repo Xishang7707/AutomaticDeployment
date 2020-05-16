@@ -19,5 +19,11 @@ namespace App.Interface
         /// <param name="inData"></param>
         /// <returns></returns>
         Task<Result> AddService(In<AddServiceIn> inData);
+
+        /// <summary>
+        /// 获取服务器列表
+        /// </summary>
+        /// <returns></returns>
+        Task<Result> GetDropService();
     }
 }

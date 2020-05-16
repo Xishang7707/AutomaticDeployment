@@ -2,9 +2,11 @@
 using DAO;
 using DAO.Service;
 using Model;
+using Model.Db;
 using Model.In;
 using Model.In.Service;
 using Model.Out;
+using Model.Out.Service;
 using Server.Interface;
 using System;
 using System.Collections.Generic;
@@ -126,6 +128,31 @@ namespace Server.Implement.Service
                 db.Close();
                 result.msg = Tip.TIP_38;
             }
+            return result;
+        }
+
+        public async Task<Result> GetDropService()
+        {
+            SQLiteHelper db = new SQLiteHelper();
+            List<t_service> serviceList = await DAO.Service.ServiceDao.GetKvAll(db);
+            Result<List<ServiceKvResult>> result = new Result<List<ServiceKvResult>> { result = true, data = new List<ServiceKvResult>() };
+            foreach (var item in serviceList)
+            {
+                var service = new ServiceKvResult
+                {
+                    value = item.id
+                };
+                if (string.IsNullOrWhiteSpace(item.name))
+                {
+                    service.name = $"{item.conn_ip}";
+                }
+                else
+                {
+                    service.name = $"{item.name}({item.conn_ip})";
+                }
+                result.data.Add(service);
+            }
+
             return result;
         }
     }

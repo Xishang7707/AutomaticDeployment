@@ -72,6 +72,13 @@ namespace Common
         public static bool PublishProjectPathLength(string path) => path.Length <= 1024;
 
         /// <summary>
+        /// 验证源代码获取命令长度
+        /// </summary>
+        /// <param name="cmd"></param>
+        /// <returns></returns>
+        public static bool CodeGetCommandLength(string cmd) => cmd.Length <= 255;
+
+        /// <summary>
         /// 验证平台类型
         /// </summary>
         /// <param name="plat"></param>

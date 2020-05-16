@@ -20,11 +20,6 @@ namespace Model.Db
         public string proj_guid { get; set; }
 
         /// <summary>
-        /// 服务器id
-        /// </summary>
-        public int serv_id { get; set; }
-
-        /// <summary>
         /// 构建命令
         /// </summary>
         public string build_cmd { get; set; }
@@ -38,11 +33,6 @@ namespace Model.Db
         /// 构建后命令
         /// </summary>
         public string build_after_cmd { get; set; }
-
-        /// <summary>
-        /// 发布模式
-        /// </summary>
-        public int publish_mode { get; set; }
 
         /// <summary>
         /// 发布前命令

@@ -45,16 +45,6 @@ namespace Model.Db
         public string add_time { get; set; }
 
         /// <summary>
-        /// 代码来源
-        /// </summary>
-        public string code_source { get; set; }
-
-        /// <summary>
-        /// 代码工具
-        /// </summary>
-        public int code_mode { get; set; }
-
-        /// <summary>
         /// 描述
         /// </summary>
         public string remark { get; set; }

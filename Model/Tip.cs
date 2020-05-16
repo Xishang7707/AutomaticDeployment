@@ -203,5 +203,45 @@ namespace Model
         /// 服务器工作目录最多255个字符
         /// </summary>
         public static string TIP_39 { get; } = "服务器工作目录最多255个字符";
+
+        /// <summary>
+        /// 请选择服务器
+        /// </summary>
+        public static string TIP_40 { get; } = "请选择服务器";
+
+        /// <summary>
+        /// 服务器不存在
+        /// </summary>
+        public static string TIP_41 { get; } = "服务器不存在";
+
+        /// <summary>
+        /// 请选择源代码工具
+        /// </summary>
+        public static string TIP_42 { get; } = "请选择源代码工具";
+
+        /// <summary>
+        /// 源代码工具不存在
+        /// </summary>
+        public static string TIP_43 { get; } = "源代码工具不存在";
+
+        /// <summary>
+        /// 源代码获取命令不能为空
+        /// </summary>
+        public static string TIP_44 { get; } = "源代码获取命令不能为空";
+
+        /// <summary>
+        /// 源代码获取命令最多255个字符
+        /// </summary>
+        public static string TIP_45 { get; } = "源代码获取命令最多255个字符";
+
+        /// <summary>
+        /// 发布路径最多1024个字符
+        /// </summary>
+        public static string TIP_46 { get; } = "发布路径最多1024个字符";
+
+        /// <summary>
+        /// 构建命令不能为空
+        /// </summary>
+        public static string TIP_47 { get; } = "构建命令不能为空";
     }
 }

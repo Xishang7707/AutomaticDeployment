@@ -1,5 +1,5 @@
 ﻿using Model.In;
-using Model.In.Service;
+using Model.In.FlowProject;
 using Model.Out;
 using System;
 using System.Collections.Generic;
@@ -9,21 +9,15 @@ using System.Threading.Tasks;
 namespace Server.Interface
 {
     /// <summary>
-    /// 服务器
+    /// 流水
     /// </summary>
-    public interface IServiceServer : IServer
+    public interface IFlowProjectServer : IServer
     {
         /// <summary>
-        /// 添加服务器
+        /// 添加项目
         /// </summary>
         /// <param name="inData"></param>
         /// <returns></returns>
-        Task<Result> AddService(In<AddServiceIn> inData);
-
-        /// <summary>
-        /// 获取服务器列表
-        /// </summary>
-        /// <returns></returns>
-        Task<Result> GetDropService();
+        Task<Result> AddProject(In<AddProjectIn> inData);
     }
 }
