@@ -1,15 +1,20 @@
 ﻿using Common;
+using Common.Extend;
 using DAO;
 using DAO.FlowProject;
 using Model;
+using Model.Db;
 using Model.Db.Enum;
 using Model.In;
 using Model.In.FlowProject;
+using Model.In.PublishFlow;
 using Model.Out;
+using Model.Out.FlowProject;
 using Server.Interface;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity.Hierarchy;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -169,6 +174,101 @@ namespace Server.Implement.FlowProject
                 await db.RollbackAsync();
                 result.msg = Tip.TIP_20;
             }
+            return result;
+        }
+
+        public async Task<Result> GetProjectList()
+        {
+            List<ProjectInfoResult> resultList = new List<ProjectInfoResult>();
+            Result<List<ProjectInfoResult>> result = new Result<List<ProjectInfoResult>> { result = true, data = resultList };
+
+            SQLiteHelper dbHelper = new SQLiteHelper();
+
+            List<t_project> projList = await ProjectDao.GetProjectList(dbHelper);
+            List<t_flow_project> flowList = new List<t_flow_project>();
+            List<t_publish> publishList = new List<t_publish>();
+            List<t_service> serviceList = new List<t_service>();
+            if (projList.Count > 0)
+            {
+                flowList = await FlowProjectDao.GetProjectList(dbHelper, projList.Select(s => s.proj_guid).ToArray());
+                publishList = await PublishDao.GetList(dbHelper, projList.Select(s => s.proj_guid).ToArray());
+                serviceList = await DAO.FlowProject.ServiceDao.GetServiceList(dbHelper, flowList.Select(s => s.serv_id).ToArray());
+            }
+
+            foreach (var item in projList)
+            {
+                t_flow_project flowItem = flowList.First(f => f.proj_guid == item.proj_guid);
+                t_publish publishItem = publishList.First(f => f.proj_guid == item.proj_guid);
+                t_service serviceItem = serviceList.First(f => f.id == flowItem.serv_id);
+
+                resultList.Add(new ProjectInfoResult
+                {
+                    project = new ProjectResult
+                    {
+                        project_uid = item.proj_guid,
+                        project_name = item.name,
+                        project_remark = item.remark,
+                        code_souce_tool = ((ECodeTools)flowItem.code_source).GetDesc(),
+                        project_path = flowItem.proj_path
+                    },
+                    server = new ServiceResult
+                    {
+                        name = (string.IsNullOrWhiteSpace(serviceItem.name) ? serviceItem.conn_ip : $"{serviceItem.name}({serviceItem.conn_ip})")
+                    },
+                    publish = new PublishResult
+                    {
+                        publish_before_command = publishItem.publish_before_cmd,
+                        publish_after_command = publishItem.publish_after_cmd,
+                        publish_time = !GetCommon.GetCastTime(item.last_publish_time, out DateTime publishVal) ? "暂未发布" : publishVal.ToString("yyyy-MM-dd HH:mm:dd"),
+                        publish_status = !GetCommon.GetCastTime(item.last_publish_time, out DateTime publishVal2) ? "暂未发布" : ((EPublishStatus)item.last_publish_status).GetDesc()
+                    }
+                });
+            }
+
+            return result;
+        }
+
+        private async Task<Result> VerifyPublish(PublishFlowProject data)
+        {
+            Result result = new Result();
+            if (data == null)
+            {
+                result.msg = Tip.TIP_1;
+                return result;
+            }
+            if (string.IsNullOrWhiteSpace(data.project_uid))
+            {
+                result.msg = Tip.TIP_24;
+                return result;
+            }
+            SQLiteHelper db = new SQLiteHelper();
+            bool proj_exist_flag = await ProjectDao.IsExist(db, data.project_uid.Trim());
+            db.Close();
+            if (!proj_exist_flag)
+            {
+                result.msg = Tip.TIP_24;
+                return result;
+            }
+            result.result = true;
+            return result;
+        }
+
+        public async Task<Result> Publish(In<PublishFlowProject> inData)
+        {
+            Result result = await VerifyPublish(inData.data);
+            if (!result.result)
+            {
+                return result;
+            }
+
+            result = await ServerFactory.Get<IPublishFlowServer>().PublishAsync(inData);
+            if (!result.result)
+            {
+                return result;
+            }
+
+            //发布数据添加完成 通知服务发布
+            ServerFactory.Get<IAutoPublishServer>().Notice();
             return result;
         }
     }

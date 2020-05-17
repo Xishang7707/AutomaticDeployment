@@ -15,5 +15,10 @@ namespace App.Implement.FlowProjectApp
         {
             return await server.AddProject(inData);
         }
+
+        public async Task<Result> GetProjectList()
+        {
+            return await server.GetProjectList();
+        }
     }
 }

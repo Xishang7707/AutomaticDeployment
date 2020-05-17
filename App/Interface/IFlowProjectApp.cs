@@ -16,5 +16,11 @@ namespace App.Interface
         /// <param name="inData"></param>
         /// <returns></returns>
         Task<Result> AddProject(In<AddProjectIn> inData);
+
+        /// <summary>
+        /// 获取项目列表
+        /// </summary>
+        /// <returns></returns>
+        Task<Result> GetProjectList();
     }
 }

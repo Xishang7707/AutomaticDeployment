@@ -1,7 +1,7 @@
 ﻿@page
 @model AutomaticDeployment.Pages.FlowProject.AddProjectModel
 @{
-    ViewData["Title"] = "AddProject";
+    ViewData["Title"] = "添加项目";
 }
 
 <link href="/lib/steps/steps.css" rel="stylesheet" />
@@ -66,7 +66,7 @@
                                         <div class="layui-form-item">
                                             <label class="layui-form-label">源码获取命令</label>
                                             <div class="layui-input-block">
-                                                <textarea type="text" name="code_get_cmd" maxlength="255" placeholder="最多255个字符" autocomplete="off" class="layui-textarea"></textarea>
+                                                <input type="text" name="code_get_cmd" maxlength="255" placeholder="最多255个字符" autocomplete="off" class="layui-input" />
                                             </div>
                                         </div>
                                     </div>
@@ -74,7 +74,7 @@
                                         <div class="layui-form-item">
                                             <label class="layui-form-label">项目路径</label>
                                             <div class="layui-input-block">
-                                                <input type="text" name="project_path" maxlength="1024" placeholder="最多1024个字符" autocomplete="off" class="layui-textarea" />
+                                                <input type="text" name="project_path" maxlength="1024" placeholder="最多1024个字符" autocomplete="off" class="layui-input" />
                                             </div>
                                         </div>
                                     </div>
@@ -98,37 +98,37 @@
                                     <div class="layui-form-item">
                                         <label class="layui-form-label">构建前命令</label>
                                         <div class="layui-input-block">
-                                            <textarea name="build_before_command" placeholder="项目编译之前执行" class="layui-textarea"></textarea>
+                                            <input name="build_before_command" placeholder="项目编译之前执行" class="layui-input" />
                                         </div>
                                     </div>
                                     <div class="layui-form-item">
                                         <label class="layui-form-label">构建命令</label>
                                         <div class="layui-input-block">
-                                            <textarea name="build_command" placeholder="项目编译" class="layui-textarea"></textarea>
+                                            <input name="build_command" placeholder="项目编译" class="layui-input" />
                                         </div>
                                     </div>
                                     <div class="layui-form-item">
                                         <label class="layui-form-label">构建后命令</label>
                                         <div class="layui-input-block">
-                                            <textarea name="build_after_command" placeholder="项目编译之后执行" class="layui-textarea"></textarea>
+                                            <input name="build_after_command" placeholder="项目编译之后执行" class="layui-input" />
                                         </div>
                                     </div>
                                     <div class="layui-form-item">
                                         <label class="layui-form-label">文件路径</label>
                                         <div class="layui-input-block">
-                                            <input name="publish_file_path" placeholder="项目编译后的可发布文件路径" class="layui-textarea" />
+                                            <input name="publish_file_path" placeholder="项目编译后的可发布文件路径" class="layui-input" />
                                         </div>
                                     </div>
                                     <div class="layui-form-item">
                                         <label class="layui-form-label">发布前命令</label>
                                         <div class="layui-input-block">
-                                            <textarea name="publish_before_command" placeholder="项目发布之前执行(远程)" class="layui-textarea"></textarea>
+                                            <input name="publish_before_command" placeholder="项目发布之前执行(远程)" class="layui-input" />
                                         </div>
                                     </div>
                                     <div class="layui-form-item">
                                         <label class="layui-form-label">发布后命令</label>
                                         <div class="layui-input-block">
-                                            <textarea name="publish_after_command" placeholder="项目发布之后执行(远程)" class="layui-textarea"></textarea>
+                                            <input name="publish_after_command" placeholder="项目发布之后执行(远程)" class="layui-input" />
                                         </div>
                                     </div>
                                 </form>

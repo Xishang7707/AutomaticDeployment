@@ -246,6 +246,10 @@ namespace Server.Implement.QuickProject
         public async Task<Result> Publish(In<PublishQuickProject> inData)
         {
             Result result = await VerifyPublish(inData.data);
+            if (!result.result)
+            {
+                return result;
+            }
             IPublishFlowServer publishFlowServer = ServerFactory.Get<IPublishFlowServer>();
             result = await publishFlowServer.PublishAsync(inData);
             if (!result.result)

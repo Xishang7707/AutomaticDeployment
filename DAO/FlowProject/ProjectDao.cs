@@ -22,7 +22,7 @@ namespace DAO.FlowProject
         /// <param name="data"></param>
         /// <param name="guid">guid</param>
         /// <returns></returns>
-        public  static async Task<int> InsertAsync(SQLiteHelper dbHelper, AddProjectIn data, string guid)
+        public static async Task<int> InsertAsync(SQLiteHelper dbHelper, AddProjectIn data, string guid)
         {
             t_project model = new t_project
             {
@@ -49,5 +49,30 @@ namespace DAO.FlowProject
 
             return await dbHelper.ExecAsync<int>(sql, model);
         }
+
+        /// <summary>
+        /// 获取项目列表
+        /// </summary>
+        /// <param name="dbHelper"></param>
+        /// <returns></returns>
+        public static async Task<List<t_project>> GetProjectList(SQLiteHelper dbHelper)
+        {
+            string sql = @"SELECT name,proj_guid,last_publish_time,last_publish_status,add_time,remark FROM t_project WHERE proj_type=@proj_type;";
+            return await dbHelper.QueryListAsync<t_project>(sql, new { proj_type = (int)EProjectType.Flow });
+        }
+
+
+        /// <summary>
+        /// 项目是否存在
+        /// </summary>
+        /// <param name="dbHelper"></param>
+        /// <param name="proj_guid">项目guid</param>
+        /// <returns></returns>
+        public static async Task<bool> IsExist(SQLiteHelper dbHelper, string proj_guid)
+        {
+            string sql = @"SELECT id FROM t_project WHERE proj_guid=@proj_guid AND proj_type=@proj_type";
+            return (await dbHelper.QueryAsync<int>(sql, new { proj_guid = proj_guid, proj_type = (int)EProjectType.Flow })) > 0;
+        }
+
     }
 }

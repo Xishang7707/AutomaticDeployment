@@ -1,9 +1,7 @@
 ﻿using Model.In;
 using Model.In.FlowProject;
+using Model.In.PublishFlow;
 using Model.Out;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Server.Interface
@@ -19,5 +17,18 @@ namespace Server.Interface
         /// <param name="inData"></param>
         /// <returns></returns>
         Task<Result> AddProject(In<AddProjectIn> inData);
+
+        /// <summary>
+        /// 获取项目列表
+        /// </summary>
+        /// <returns></returns>
+        Task<Result> GetProjectList();
+
+        /// <summary>
+        /// 发布
+        /// </summary>
+        /// <param name="inData"></param>
+        /// <returns></returns>
+        Task<Result> Publish(In<PublishFlowProject> inData);
     }
 }

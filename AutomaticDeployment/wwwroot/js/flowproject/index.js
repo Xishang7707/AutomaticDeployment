@@ -35,15 +35,13 @@ function render_project_table(o) {
         var temp = `
                     <tr>
                         <td>
-                            <p>${item['project']['project_name']}</p>
+                            <p>项目名称：${item['project']['project_name']}</p>
+                            <p>服务器：${item['server']['name']}</p>
                         </td>
                         <td>
-                            <p>IP：${item['server']['server_ip']}</p>
-                            <p>账号：${item['server']['server_account']}</p>
-                            <p>登录模式：${item['server']['server_connect_mode']}</p>
                         </td>
                         <td>
-                            <p>发布路径：${item['publish']['publish_path']}</p>
+                            <p>发布路径：${item['project']['project_path']}</p>
                             <p>发布前命令：${item['publish']['publish_before_command']}</p>
                             <p>发布后命令：${item['publish']['publish_after_command']}</p>
                             <p>发布时间：${item['publish']['publish_time']}</p>
@@ -82,7 +80,7 @@ function bind_edit_project(o) {
         var item = o[k];
         ((id, name) => {
             $(`#btn-edit-${id}`).click(() => {
-                open_edit(id, name);
+                open_page(`修改[${name}]`, 'flowproject/editflowproject?project_uid=' + id, 'editflowproject#' + id);
             });
         })(item['project']['project_uid'], item['project']['project_name']);
     }

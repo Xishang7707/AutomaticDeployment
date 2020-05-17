@@ -81,5 +81,54 @@ namespace DAO.PublishFlow
 
             return (await dbHelper.ExecAsync(sql, model)) > 0;
         }
+
+        /// <summary>
+        /// 插入
+        /// </summary>
+        /// <param name="dbHelper"></param>
+        /// <param name="proj_model"></param>
+        /// <param name="service_model"></param>
+        /// <param name="publish_model"></param>
+        /// <returns></returns>
+        public static async Task<bool> Insert(SQLiteHelper dbHelper, t_flow_project proj_model, t_service service_model, t_publish publish_model)
+        {
+            t_publish_flow model = new t_publish_flow
+            {
+                add_time = DateTime.Now.GetSQLTime(),
+                extern_info = null,
+                proj_guid = proj_model.proj_guid,
+                proj_info = JsonConvert.SerializeObject(proj_model),
+                publish_info = JsonConvert.SerializeObject(publish_model),
+                server_info = JsonConvert.SerializeObject(service_model),
+                proj_type = (int)EProjectType.Flow,
+                status = (int)EStatus.Enable,
+                publish_status = (int)EPublishStatus.Waitting
+            };
+
+            string sql = @"INSERT INTO t_publish_flow (
+                               proj_guid,
+                               proj_type,
+                               publish_status,
+                               add_time,
+                               server_info,
+                               publish_info,
+                               proj_info,
+                               status,
+                               extern_info
+                           )
+                           VALUES (
+                               @proj_guid,
+                               @proj_type,
+                               @publish_status,
+                               @add_time,
+                               @server_info,
+                               @publish_info,
+                               @proj_info,
+                               @status,
+                               @extern_info
+                           );";
+
+            return (await dbHelper.ExecAsync(sql, model)) > 0;
+        }
     }
 }

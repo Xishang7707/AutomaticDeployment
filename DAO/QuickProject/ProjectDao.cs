@@ -88,8 +88,8 @@ namespace DAO.QuickProject
         /// <returns></returns>
         public static async Task<bool> IsExist(SQLiteHelper dbHelper, string proj_guid)
         {
-            string sql = @"SELECT id FROM t_project WHERE proj_guid=@proj_guid";
-            return (await dbHelper.QueryAsync<int>(sql, new { proj_guid = proj_guid })) > 0;
+            string sql = @"SELECT id FROM t_project WHERE proj_guid=@proj_guid AND proj_type=@proj_type";
+            return (await dbHelper.QueryAsync<int>(sql, new { proj_guid = proj_guid, proj_type = (int)EProjectType.Quick })) > 0;
         }
 
         /// <summary>

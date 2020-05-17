@@ -70,7 +70,7 @@ function get_step_project() {
         service_id: get_selected('#step_project select[name=project_service_id]'),
         project_name: $('#step_project input[name=project_name]').val(),
         code_souce_tool: get_selected('#step_project select[name=code_souce_tool]'),
-        code_get_cmd: $('#step_project textarea[name=code_get_cmd]').val(),
+        code_get_cmd: $('#step_project input[name=code_get_cmd]').val(),
         project_path: $('#step_project input[name=project_path]').val(),
         project_remark: $('#step_project textarea[name=project_remark]').val(),
     };
@@ -104,12 +104,12 @@ function verify_step_project(data) {
 
 function get_step_publish() {
     var data = {
-        build_before_command: $('#step_publish textarea[name=build_before_command]').val(),
-        build_command: $('#step_publish textarea[name=build_command]').val(),
-        build_after_command: $('#step_publish textarea[name=build_after_command]').val(),
-        publish_file_path: $('#step_publish textarea[name=publish_file_path]').val(),
-        publish_before_command: $('#step_publish textarea[name=publish_before_command]').val(),
-        publish_after_command: $('#step_publish textarea[name=publish_after_command]').val()
+        build_before_command: $('#step_publish input[name=build_before_command]').val(),
+        build_command: $('#step_publish input[name=build_command]').val(),
+        build_after_command: $('#step_publish input[name=build_after_command]').val(),
+        publish_file_path: $('#step_publish input[name=publish_file_path]').val(),
+        publish_before_command: $('#step_publish input[name=publish_before_command]').val(),
+        publish_after_command: $('#step_publish input[name=publish_after_command]').val()
     };
     return data;
 }

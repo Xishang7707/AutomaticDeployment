@@ -47,5 +47,18 @@ namespace DAO.FlowProject
 
             return await db.ExecAsync(sql, model) > 0;
         }
+
+        /// <summary>
+        /// 获取项目
+        /// </summary>
+        /// <param name="db"></param>
+        /// <param name="proj_arr"></param>
+        /// <returns></returns>
+        public static async Task<List<t_flow_project>> GetProjectList(SQLiteHelper db, string[] proj_arr)
+        {
+            string sql = @"SELECT * from t_flow_project WHERE proj_guid in @proj_arr";
+
+            return await db.QueryListAsync<t_flow_project>(sql, new { proj_arr });
+        }
     }
 }

@@ -26,5 +26,15 @@ namespace AutomaticDeployment.api
         {
             return await app.AddProject(PackRequest(data));
         }
+
+        /// <summary>
+        /// 获取项目列表
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("getprojectlist")]
+        public async Task<IActionResult> GetProjectList()
+        {
+            return await app.GetProjectList();
+        }
     }
 }

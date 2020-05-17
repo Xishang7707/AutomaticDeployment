@@ -19,5 +19,12 @@ namespace Server.Interface
         /// <param name="inData"></param>
         /// <returns></returns>
         Task<Result> PublishAsync(In<PublishQuickProject> inData);
+
+        /// <summary>
+        /// 发布流式项目
+        /// </summary>
+        /// <param name="inData"></param>
+        /// <returns></returns>
+        Task<Result> PublishAsync(In<PublishFlowProject> inData);
     }
 }
