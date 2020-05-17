@@ -13,6 +13,7 @@ using Newtonsoft.Json;
 using Server.Interface;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -47,6 +48,11 @@ namespace Server.Implement.AutoPublish
         /// </summary>
         private IPublishLogServer publishLogServer { get; }
 
+        /// <summary>
+        /// 本地操作
+        /// </summary>
+        private IOSManageServer osLocal;
+
         public AutoPublishServerImpl()
         {
             if (Instance != null)
@@ -57,6 +63,14 @@ namespace Server.Implement.AutoPublish
             dbHelper = new SQLiteHelper();
             manualResetEvent = new ManualResetEvent(true);
             publishLogServer = ServerFactory.GetPublisLog();
+            osLocal = ServerFactory.GetOSPlatform(ServerConfig.OSPlatform);
+            osLocal.Connect(new Model.In.OSManage.UserConnectIn
+            {
+                host = "127.0.0.1",
+                password = ServerConfig.OSPassword,
+                user = ServerConfig.OSUser,
+                port = ServerConfig.OSPort
+            });
         }
 
         public void Notice()
@@ -115,7 +129,19 @@ namespace Server.Implement.AutoPublish
                         try
                         {
                             //进行中
-                            Result result = await DoWorkFile(publishFlow);
+                            Result result = new Result();
+
+                            switch ((EProjectType)publishFlow.proj_type)
+                            {
+                                case EProjectType.Quick:
+                                    result = await DoWorkFile(publishFlow);
+                                    break;
+                                case EProjectType.Flow:
+                                    result = await DoWorkBuild(publishFlow);
+                                    break;
+                                default:
+                                    break;
+                            }
 
                             //发布结果
                             if (result.result)
@@ -132,9 +158,9 @@ namespace Server.Implement.AutoPublish
                             //注销超时定时器
                             timer?.Dispose();
                         }
-                        catch (Exception)
+                        catch (Exception ex)
                         {
-
+                            publishLogServer.LogAsync(publishFlow.proj_guid, publishFlow.id, ex.Message);
                         }
                     }, cancelToken.Token);
                 }
@@ -147,7 +173,7 @@ namespace Server.Implement.AutoPublish
         /// <param name="model"></param>
         private async Task<Result> DoWorkFile(t_publish_flow model)
         {
-            WorkInfo<List<FileModePublish>> info = new WorkInfo<List<FileModePublish>>(model);
+            WorkInfo<t_project, List<FileModePublish>> info = new WorkInfo<t_project, List<FileModePublish>>(model);
             Result result = await DoWorkBeforeExec(info);
             if (!result.result)
             {
@@ -164,7 +190,7 @@ namespace Server.Implement.AutoPublish
         /// <param name="info">发布信息</param>
         /// <param name="flows">步骤流</param>
         /// <returns></returns>
-        private Result DoWorkFileFlow(WorkInfo<List<FileModePublish>> info, params Func<WorkInfo<List<FileModePublish>>, Result>[] flows)
+        private Result DoWorkFileFlow(WorkInfo<t_project, List<FileModePublish>> info, params Func<WorkInfo<t_project, List<FileModePublish>>, Result>[] flows)
         {
             Result result = new Result { result = true, msg = Tip.TIP_16 };
             foreach (var item in flows)
@@ -184,7 +210,26 @@ namespace Server.Implement.AutoPublish
         /// </summary>
         /// <param name="info"></param>
         /// <returns></returns>
-        private async Task<Result> DoWorkBeforeExec(WorkInfo<List<FileModePublish>> info)
+        private async Task<Result> DoWorkBeforeExec(WorkInfo<t_project, List<FileModePublish>> info)
+        {
+            Result result = new Result
+            {
+                result = await PublishStart(info.proj_info.proj_guid, info.flow_id)
+            };
+            if (!result.result)
+            {
+                result.msg = Tip.TIP_26;
+            }
+            publishLogServer.SendToPublishResultAsync(info.proj_info.proj_guid, info.flow_id, EPublishStatus.Progress);
+            return result;
+        }
+
+        /// <summary>
+        /// 发布前
+        /// </summary>
+        /// <param name="info"></param>
+        /// <returns></returns>
+        private async Task<Result> DoWorkBeforeExec(WorkInfo<t_flow_project> info)
         {
             Result result = new Result
             {
@@ -203,7 +248,24 @@ namespace Server.Implement.AutoPublish
         /// </summary>
         /// <param name="info"></param>
         /// <returns></returns>
-        private Result DoWorkAfterExec(WorkInfo<List<FileModePublish>> info)
+        private Result DoWorkAfterExec(WorkInfo<t_project, List<FileModePublish>> info)
+        {
+            info.osManagerServer.Close();
+            info.sqlManageServer?.Close();
+            Result result = new Result
+            {
+                result = true,
+                msg = Tip.TIP_16
+            };
+            return result;
+        }
+
+        /// <summary>
+        /// 发布后
+        /// </summary>
+        /// <param name="info"></param>
+        /// <returns></returns>
+        private Result DoWorkAfterExec(WorkInfo<t_flow_project> info)
         {
             info.osManagerServer.Close();
             info.sqlManageServer?.Close();
@@ -351,12 +413,12 @@ namespace Server.Implement.AutoPublish
         /// <summary>
         /// 工作任务信息
         /// </summary>
-        class WorkInfo
+        class WorkInfo<T_Proj> where T_Proj : class, new()
         {
             /// <summary>
             /// 项目信息
             /// </summary>
-            public t_project proj_info { get; set; }
+            public T_Proj proj_info { get; set; }
 
             /// <summary>
             /// 服务器信息
@@ -387,7 +449,7 @@ namespace Server.Implement.AutoPublish
             public WorkInfo(t_publish_flow model)
             {
                 flow_id = model.id;
-                proj_info = JsonConvert.DeserializeObject<t_project>(model.proj_info);
+                proj_info = JsonConvert.DeserializeObject<T_Proj>(model.proj_info);
                 service_info = JsonConvert.DeserializeObject<t_service>(model.server_info);
                 publish_info = JsonConvert.DeserializeObject<t_publish>(model.publish_info);
             }
@@ -396,15 +458,17 @@ namespace Server.Implement.AutoPublish
         /// <summary>
         /// 工作任务信息
         /// </summary>
-        class WorkInfo<T> : WorkInfo where T : class, new()
+        class WorkInfo<T_Proj, T_Exten> : WorkInfo<T_Proj>
+            where T_Proj : class, new()
+            where T_Exten : class, new()
         {
             /// <summary>
             /// 扩展信息
             /// </summary>
-            public T extend_info { get; set; }
+            public T_Exten extend_info { get; set; }
 
             public WorkInfo() { }
-            public WorkInfo(t_publish_flow model) : base(model) => extend_info = (string.IsNullOrWhiteSpace(model.extern_info) ? null : JsonConvert.DeserializeObject<T>(model.extern_info));
+            public WorkInfo(t_publish_flow model) : base(model) => extend_info = (string.IsNullOrWhiteSpace(model.extern_info) ? null : JsonConvert.DeserializeObject<T_Exten>(model.extern_info));
         }
 
         /// <summary>
@@ -412,7 +476,41 @@ namespace Server.Implement.AutoPublish
         /// </summary>
         /// <param name="service">服务器信息</param>
         /// <returns></returns>
-        private Result ConnectService(WorkInfo<List<FileModePublish>> info)
+        private Result ConnectService(WorkInfo<t_project, List<FileModePublish>> info)
+        {
+            string decPassword = ConcealCommon.DecryptDES(info.service_info.conn_password);
+            info.osManagerServer = ServerFactory.GetOSPlatform((EOSPlatform)info.service_info.platform_type);
+            Result result = info.osManagerServer.Connect(new Model.In.OSManage.UserConnectIn
+            {
+                host = info.service_info.conn_ip,
+                port = info.service_info.conn_port,
+                user = info.service_info.conn_user,
+                password = decPassword
+            });
+            if (!result.result)
+            {
+                return result;
+            }
+
+            //切换到工作目录
+            if (!string.IsNullOrWhiteSpace(info.service_info.work_spacepath))
+            {
+                result = info.osManagerServer.ChangeWorkspace(info.service_info.work_spacepath);
+                if (!result.result)
+                {
+                    return result;
+                }
+            }
+
+            return result;
+        }
+
+        /// <summary>
+        /// 发布第一步 连接服务器
+        /// </summary>
+        /// <param name="service">服务器信息</param>
+        /// <returns></returns>
+        private Result ConnectService(WorkInfo<t_flow_project> info)
         {
             string decPassword = ConcealCommon.DecryptDES(info.service_info.conn_password);
             info.osManagerServer = ServerFactory.GetOSPlatform((EOSPlatform)info.service_info.platform_type);
@@ -446,7 +544,31 @@ namespace Server.Implement.AutoPublish
         /// </summary>
         /// <param name="info"></param>
         /// <returns></returns>
-        private Result ExecBeforeCommand(WorkInfo<List<FileModePublish>> info)
+        private Result ExecBeforeCommand(WorkInfo<t_project, List<FileModePublish>> info)
+        {
+            Result result = new Result();
+            if (string.IsNullOrWhiteSpace(info.publish_info.publish_before_cmd))
+            {
+                result.result = true;
+                return result;
+            }
+
+            ExecResult execResult = info.osManagerServer.Exec(info.publish_info.publish_before_cmd).Cast<ExecResult>();
+            result.msg = execResult.msg;
+            if (!execResult.result)
+            {
+                return result;
+            }
+            result.result = true;
+            return result;
+        }
+
+        /// <summary>
+        /// 发布前命令 --连接
+        /// </summary>
+        /// <param name="info"></param>
+        /// <returns></returns>
+        private Result ExecBeforeCommand(WorkInfo<t_flow_project> info)
         {
             Result result = new Result();
             if (string.IsNullOrWhiteSpace(info.publish_info.publish_before_cmd))
@@ -470,7 +592,7 @@ namespace Server.Implement.AutoPublish
         /// </summary>
         /// <param name="info"></param>
         /// <returns></returns>
-        private Result PublishToService(WorkInfo<List<FileModePublish>> info)
+        private Result PublishToService(WorkInfo<t_project, List<FileModePublish>> info)
         {
             Result result = new Result();
 
@@ -501,11 +623,53 @@ namespace Server.Implement.AutoPublish
         }
 
         /// <summary>
+        /// 发布文件到服务器
+        /// </summary>
+        /// <param name="info"></param>
+        /// <returns></returns>
+        private Result PublishToService(WorkInfo<t_flow_project> info)
+        {
+            Result result = info.osManagerServer.Upload(ServerCommon.GetBuildPath(info.proj_info.proj_guid), $"{info.service_info.work_spacepath}/{info.proj_info.proj_path}", $"{info.proj_info.proj_guid}.zip");
+            if (!result.result)
+            {
+                return result;
+            }
+            result.result = true;
+            return result;
+        }
+
+        /// <summary>
         /// 发布后命令 --连接
         /// </summary>
         /// <param name="info"></param>
         /// <returns></returns>
-        private Result ExecAfterCommand(WorkInfo<List<FileModePublish>> info)
+        private Result ExecAfterCommand(WorkInfo<t_project, List<FileModePublish>> info)
+        {
+            Result result = new Result();
+            if (string.IsNullOrWhiteSpace(info.publish_info.publish_after_cmd))
+            {
+                result.result = true;
+                return result;
+            }
+
+            ExecResult execResult = info.osManagerServer.Exec(info.publish_info.publish_after_cmd).Cast<ExecResult>();
+            result.msg = execResult.msg;
+            if (!execResult.result)
+            {
+                result.msg = execResult.msg;
+                return result;
+            }
+
+            result.result = true;
+            return result;
+        }
+
+        /// <summary>
+        /// 发布后命令 --连接
+        /// </summary>
+        /// <param name="info"></param>
+        /// <returns></returns>
+        private Result ExecAfterCommand(WorkInfo<t_flow_project> info)
         {
             Result result = new Result();
             if (string.IsNullOrWhiteSpace(info.publish_info.publish_after_cmd))
@@ -531,7 +695,7 @@ namespace Server.Implement.AutoPublish
         /// </summary>
         /// <param name="info"></param>
         /// <returns></returns>
-        private Result ExecUnZip(WorkInfo<List<FileModePublish>> info)
+        private Result ExecUnZip(WorkInfo<t_project, List<FileModePublish>> info)
         {
             Result result = new Result();
             foreach (var item in info.extend_info)
@@ -547,11 +711,27 @@ namespace Server.Implement.AutoPublish
         }
 
         /// <summary>
+        /// 解压缩文件
+        /// </summary>
+        /// <param name="info"></param>
+        /// <returns></returns>
+        private Result ExecUnZip(WorkInfo<t_flow_project> info)
+        {
+            Result result = info.osManagerServer.UnZip($"{info.proj_info.proj_guid}.zip");
+            if (!result.result)
+            {
+                return result;
+            }
+            result.result = true;
+            return result;
+        }
+
+        /// <summary>
         /// 连接到数据库
         /// </summary>
         /// <param name="info"></param>
         /// <returns></returns>
-        private Result ConnectSQL(WorkInfo<List<FileModePublish>> info)
+        private Result ConnectSQL(WorkInfo<t_project, List<FileModePublish>> info)
         {
             Result result = new Result();
             if (info.extend_info == null || info.extend_info.Where(w => VerifyCommon.FileType(w.file_id, EFileType.SQL)).Count() == 0)
@@ -569,7 +749,7 @@ namespace Server.Implement.AutoPublish
         /// </summary>
         /// <param name="info"></param>
         /// <returns></returns>
-        private Result ExecSql(WorkInfo<List<FileModePublish>> info)
+        private Result ExecSql(WorkInfo<t_project, List<FileModePublish>> info)
         {
             Result result = new Result();
             List<FileModePublish> fileList = info.extend_info.Where(w => VerifyCommon.FileType(w.file_id, EFileType.SQL)).ToList();
@@ -597,6 +777,94 @@ namespace Server.Implement.AutoPublish
         public async Task Start()
         {
             await Instance.StartWorkAsync();
+        }
+
+        /// <summary>
+        /// 工作 --构建
+        /// </summary>
+        /// <param name="model"></param>
+        private async Task<Result> DoWorkBuild(t_publish_flow model)
+        {
+            WorkInfo<t_flow_project> info = new WorkInfo<t_flow_project>(model);
+            Result result = await DoWorkBeforeExec(info);
+            if (!result.result)
+            {
+                return result;
+            }
+            //获取代码、连接服务器、发布前命令、构建前命令、构建、构建后命令、打包上传解压、发布后命令、关闭连接
+            result = DoWorkBuildFlow(info, ConnectService, GetCode, ExecBeforeCommand, ExecBuild, PackageBuildFile, PublishToService, ExecAfterCommand, DoWorkAfterExec);
+
+            return result;
+        }
+
+        /// <summary>
+        /// 工作流 -回调列表形式进行
+        /// </summary>
+        /// <param name="info">发布信息</param>
+        /// <param name="flows">步骤流</param>
+        /// <returns></returns>
+        private Result DoWorkBuildFlow(WorkInfo<t_flow_project> info, params Func<WorkInfo<t_flow_project>, Result>[] flows)
+        {
+            Result result = new Result { result = true, msg = Tip.TIP_16 };
+            foreach (var item in flows)
+            {
+                result = item(info);
+                publishLogServer.LogAsync(info.proj_info.proj_guid, info.flow_id, result.msg);
+                if (!result.result)
+                {
+                    return result;
+                }
+            }
+            return result;
+        }
+
+        /// <summary>
+        /// 获取源代码
+        /// </summary>
+        /// <param name="info"></param>
+        /// <returns></returns>
+        private Result GetCode(WorkInfo<t_flow_project> info)
+        {
+            publishLogServer.LogAsync(info.proj_info.proj_guid, info.flow_id, "获取源代码");
+            string path = Path.GetFullPath(ServerCommon.GetBuildPath(info.proj_info.proj_guid));
+            if (!Directory.Exists(path))
+            {
+                Directory.CreateDirectory(path);
+            }
+            Result result = osLocal.ChangeWorkspace(path);
+            if (!result.result)
+            {
+                return result;
+            }
+            result = osLocal.Exec($"git pull {info.proj_info.code_cmd}");
+            return result;
+        }
+
+        /// <summary>
+        /// 构建
+        /// </summary>
+        /// <param name="info"></param>
+        /// <returns></returns>
+        private Result ExecBuild(WorkInfo<t_flow_project> info)
+        {
+            publishLogServer.LogAsync(info.proj_info.proj_guid, info.flow_id, "构建项目");
+            return osLocal.Exec(info.publish_info.build_cmd);
+        }
+
+        /// <summary>
+        /// 文件打包
+        /// </summary>
+        /// <param name="info"></param>
+        /// <returns></returns>
+        private Result PackageBuildFile(WorkInfo<t_flow_project> info)
+        {
+            publishLogServer.LogAsync(info.proj_info.proj_guid, info.flow_id, "打包");
+            Result result = osLocal.Zip(info.proj_info.proj_guid, info.publish_info.publish_file_path);
+            if (!result.result)
+            {
+                return result;
+            }
+            return result;
         }
     }
 }

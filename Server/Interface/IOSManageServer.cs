@@ -49,6 +49,14 @@ namespace Server.Interface
         Result UnZip(string fileName);
 
         /// <summary>
+        /// 压缩
+        /// </summary>
+        /// <param name="name">打包文件名</param>
+        /// <param name="path">路径</param>
+        /// <returns></returns>
+        Result Zip(string name, string path);
+
+        /// <summary>
         /// 关闭
         /// </summary>
         void Close();

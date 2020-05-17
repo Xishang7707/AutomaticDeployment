@@ -42,5 +42,10 @@ namespace Server.Implement.OSManage
         {
             throw new NotImplementedException();
         }
+
+        public Result Zip(string name, string path)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

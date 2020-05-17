@@ -65,11 +65,22 @@ function render_project_table(o) {
 }
 
 function bind_publish(o) {
+
     for (var k in o) {
         var item = o[k];
         ((id, name) => {
             $(`#btn-publish-${id}`).click(() => {
-                open_page(`发布[${name}]`, 'flowproject/publish?project_uid=' + id, 'flowpublish#' + id);
+                post({
+                    url: '../api/flowproject/publish',
+                    data: { project_uid: id },
+                    done: o => {
+                        layer.msg(o.msg);
+                    },
+                    err: o => {
+                        layer.msg(o.msg);
+                    }
+                })
+                //open_page(`发布[${name}]`, 'flowproject/publish?project_uid=' + id, 'flowpublish#' + id);
             });
         })(item['project']['project_uid'], item['project']['project_name']);
     }

@@ -1,6 +1,7 @@
 ﻿using App.Interface;
 using Model.In;
 using Model.In.FlowProject;
+using Model.In.PublishFlow;
 using Model.Out;
 using Server;
 using Server.Interface;
@@ -19,6 +20,11 @@ namespace App.Implement.FlowProjectApp
         public async Task<Result> GetProjectList()
         {
             return await server.GetProjectList();
+        }
+
+        public async Task<Result> Publish(In<PublishFlowProject> inData)
+        {
+            return await server.Publish(inData);
         }
     }
 }

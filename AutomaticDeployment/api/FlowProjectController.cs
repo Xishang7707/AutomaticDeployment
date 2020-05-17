@@ -6,6 +6,7 @@ using App;
 using App.Interface;
 using Microsoft.AspNetCore.Mvc;
 using Model.In.FlowProject;
+using Model.In.PublishFlow;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -35,6 +36,17 @@ namespace AutomaticDeployment.api
         public async Task<IActionResult> GetProjectList()
         {
             return await app.GetProjectList();
+        }
+
+        /// <summary>
+        /// 发布
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        [HttpPost("publish")]
+        public async Task<IActionResult> Publish([FromBody]PublishFlowProject data)
+        {
+            return await app.Publish(PackRequest(data));
         }
     }
 }

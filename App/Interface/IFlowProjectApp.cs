@@ -1,5 +1,6 @@
 ﻿using Model.In;
 using Model.In.FlowProject;
+using Model.In.PublishFlow;
 using Model.Out;
 using System.Threading.Tasks;
 
@@ -22,5 +23,12 @@ namespace App.Interface
         /// </summary>
         /// <returns></returns>
         Task<Result> GetProjectList();
+
+        /// <summary>
+        /// 发布
+        /// </summary>
+        /// <param name="inData"></param>
+        /// <returns></returns>
+        Task<Result> Publish(In<PublishFlowProject> inData);
     }
 }

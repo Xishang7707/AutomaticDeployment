@@ -39,5 +39,15 @@ namespace Server
         {
             return $"{ServerConfig.UploadDirectory}/{proj_guid}/{fileName}";
         }
+
+        /// <summary>
+        /// 获取构建目录
+        /// </summary>
+        /// <param name="proj_guid"></param>
+        /// <returns></returns>
+        public static string GetBuildPath(string proj_guid)
+        {
+            return $"{ServerConfig.WorkspaceName}/{proj_guid}";
+        }
     }
 }

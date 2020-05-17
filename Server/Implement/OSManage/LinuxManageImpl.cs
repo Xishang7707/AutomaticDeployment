@@ -118,6 +118,19 @@ namespace Server.Implement.OSManage
             return $"{cd}unzip -o -O GBK {path}";
         }
 
+        /// <summary>
+        /// zip
+        /// </summary>
+        /// <param name="name">压缩名称</param>
+        /// <param name="path">路径</param>
+        /// <returns></returns>
+        string Command_zip(string name, string path)
+        {
+            //zip -r mydata.zip mydata
+            string cd = string.IsNullOrWhiteSpace(osInfo.workspace) ? "" : Command_cd(osInfo.workspace) + "&&";
+            return $"{cd}zip -r {name}.zip {path}";
+        }
+
         #endregion
 
         public Result UnZip(string fileName)
@@ -129,6 +142,11 @@ namespace Server.Implement.OSManage
         {
             sshHelper.Close();
             sftpHelper.Close();
+        }
+
+        public Result Zip(string name, string path)
+        {
+            return sshHelper.Exec(Command_zip(name, path));
         }
     }
 }
