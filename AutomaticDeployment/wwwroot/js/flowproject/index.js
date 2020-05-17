@@ -69,6 +69,17 @@ function bind_publish(o) {
     for (var k in o) {
         var item = o[k];
         ((id, name) => {
+            let host = '../publishlog';
+            let hubConnection = new signalR.HubConnectionBuilder()
+                .withUrl(host)
+                .build();
+            recv_publish_log(hubConnection);
+            //recv_publish_result(hubConnection, project_uid);
+
+            hubConnection.start().then(() => {
+                hubConnection.send("publish", id);
+            });
+
             $(`#btn-publish-${id}`).click(() => {
                 post({
                     url: '../api/flowproject/publish',
@@ -95,4 +106,11 @@ function bind_edit_project(o) {
             });
         })(item['project']['project_uid'], item['project']['project_name']);
     }
+}
+
+
+function recv_publish_log(conn) {
+    conn.on("log", function (data) {
+        conlole.log(data);
+    });
 }

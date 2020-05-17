@@ -161,6 +161,8 @@ namespace Server.Implement.AutoPublish
                         catch (Exception ex)
                         {
                             publishLogServer.LogAsync(publishFlow.proj_guid, publishFlow.id, ex.Message);
+                            //发布失败
+                            await PublishFailed(publishFlow.proj_guid, publishFlow.id);
                         }
                     }, cancelToken.Token);
                 }
@@ -836,7 +838,7 @@ namespace Server.Implement.AutoPublish
             {
                 return result;
             }
-            result = osLocal.Exec($"git pull {info.proj_info.code_cmd}");
+            result = osLocal.Exec($"git clone {info.proj_info.code_cmd}");
             return result;
         }
 
