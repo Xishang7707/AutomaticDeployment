@@ -53,6 +53,36 @@ namespace DAO.FlowProject
         }
 
         /// <summary>
+        /// 更新
+        /// </summary>
+        /// <param name="db"></param>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        public static async Task<bool> Update(SQLiteHelper db, EditProjectIn data)
+        {
+            t_publish model = new t_publish
+            {
+                proj_guid = data.project_uid,
+                build_after_cmd = data.publish.build_after_command,
+                build_before_cmd = data.publish.build_before_command,
+                publish_after_cmd = data.publish.publish_after_command,
+                build_cmd = data.publish.build_command,
+                publish_before_cmd = data.publish.publish_before_command,
+                publish_file_path = data.publish.publish_file_path
+            };
+            string sql = @"UPDATE t_publish SET
+                          proj_guid=@proj_guid,
+                          build_cmd=@build_cmd,
+                          build_before_cmd=@build_before_cmd,
+                          build_after_cmd=@build_after_cmd,
+                          publish_before_cmd=@publish_before_cmd,
+                          publish_after_cmd=@publish_after_cmd,
+                          publish_file_path=@publish_file_path
+                      WHERE proj_guid=@proj_guid";
+            return await db.ExecAsync(sql, model) > 0;
+        }
+
+        /// <summary>
         /// 获取发布信息列表
         /// </summary>
         /// <param name="db"></param>

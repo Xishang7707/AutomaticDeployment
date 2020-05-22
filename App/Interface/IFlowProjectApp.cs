@@ -37,5 +37,19 @@ namespace App.Interface
         /// <param name="inData"></param>
         /// <returns></returns>
         Task<Result> GetProject(In<string> inData);
+
+        /// <summary>
+        /// 获取项目信息
+        /// </summary>
+        /// <param name="inData"></param>
+        /// <returns></returns>
+        Task<Result> GetProjectInfo(In<string> inData);
+
+        /// <summary>
+        /// 修改项目信息
+        /// </summary>
+        /// <param name="inData"></param>
+        /// <returns></returns>
+        Task<Result> EditProject(In<EditProjectIn> inData);
     }
 }

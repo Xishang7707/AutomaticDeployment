@@ -1,13 +1,13 @@
 ﻿@page
-@model AutomaticDeployment.Pages.FlowProject.AddProjectModel
+@model AutomaticDeployment.Pages.FlowProject.EditProjectModel
 @{
-    ViewData["Title"] = "添加项目";
+    ViewData["Title"] = "修改项目";
 }
 
 <link href="/lib/steps/steps.css" rel="stylesheet" />
-<link href="~/css/flowproject/addproject.css" rel="stylesheet" />
+<link href="~/css/flowproject/editproject.css" rel="stylesheet" />
 <script src="/lib/steps/steps.js"></script>
-<script src="~/js/flowproject/addproject.js"></script>
+<script src="~/js/flowproject/editproject.js"></script>
 
 <body class="layui-layout-body">
     <div class="layui-layout layui-layout-admin">
@@ -64,7 +64,7 @@
                                     </div>
                                     <div class="layui-form-item">
                                         <div class="layui-form-item">
-                                            <label class="layui-form-label">源码地址</label>
+                                            <label class="layui-form-label">源码获取命令</label>
                                             <div class="layui-input-block">
                                                 <input type="text" name="code_get_cmd" maxlength="255" placeholder="最多255个字符" autocomplete="off" class="layui-input" />
                                             </div>

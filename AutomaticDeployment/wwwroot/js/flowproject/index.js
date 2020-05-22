@@ -78,7 +78,7 @@ function bind_edit_project(o) {
         var item = o[k];
         ((id, name) => {
             $(`#btn-edit-${id}`).click(() => {
-                open_page(`修改[${name}]`, 'flowproject/editflowproject?project_uid=' + id, 'editflowproject#' + id);
+                open_page(`修改[${name}]`, 'flowproject/editproject?project_uid=' + id, 'editflowproject#' + id);
             });
         })(item['project']['project_uid'], item['project']['project_name']);
     }

@@ -1,9 +1,16 @@
-﻿$(function () {
+﻿var project_uid;
+var _service_info;
+$(function () {
+    project_uid = getQuery('project_uid');
+    if (!project_uid)
+        return;
+
     layui.use(['carousel', 'upload', 'form'], function () {
         var carousel = layui.carousel;
-        var upload = layui.upload;
         var form = layui.form;
-        get_service(form);
+
+        get_project(project_uid, form);
+
         var step_el = init_dev_steps();
 
         //建造实例
@@ -37,7 +44,7 @@
                 btn_step_sub.hide();
             }
             else if (obj.index + 1 == step_config.length) {
-                btn_step_add.text('添加项目');
+                btn_step_add.text('提交');
             }
             else {
                 btn_step_sub.show();
@@ -91,7 +98,7 @@ function verify_step_project(data) {
         return false;
     }
     if (!data['code_get_cmd']) {
-        layer.msg('请填写源码地址');
+        layer.msg('请填写获取代码的命令');
         return false;
     }
     if (data['project_remark'].length > 200) {
@@ -132,7 +139,8 @@ function check_step(index) {
 function publish() {
     var data = {
         project: get_step_project(),
-        publish: get_step_publish()
+        publish: get_step_publish(),
+        project_uid: project_uid
     }
 
     if (!verify_step_project(data['project'])) {
@@ -144,7 +152,7 @@ function publish() {
 
     layer.load();
     post({
-        url: '../api/flowproject/addproject',
+        url: '../api/flowproject/editproject',
         data: data,
         done: o => {
             layer.closeAll();
@@ -157,14 +165,15 @@ function publish() {
     });
 }
 
-function get_service(form) {
+function get_service(form, id) {
     get({
         url: '../api/service/getdropservice',
         done: o => {
             var data = o['data'];
+            _service_info = data;
             var dom = ``;
             for (var i = 0; i < data.length; i++) {
-                var tmp = `<option value="${data[i]['value']}">${data[i]['name']}</option>`;
+                var tmp = `<option value="${data[i]['value']}" ${data[i]['value'] == id ? 'selected' : ''}>${data[i]['name']}</option>`;
                 dom += tmp;
             }
 
@@ -172,4 +181,31 @@ function get_service(form) {
             form.render('select');
         }
     })
+}
+
+function get_project(id, form) {
+    get({
+        url: '../api/flowproject/getprojectinfo?project_uid=' + id,
+        done: o => {
+            render_project(o.data);
+            get_service(form, o.data['project']['service_id']);
+        },
+        err: o => {
+            layer.msg(o.msg);
+        }
+    })
+}
+
+function render_project(data) {
+    $('#step_project input[name=project_name]').val(data['project']['project_name']);
+    $('#step_project input[name=code_get_cmd]').val(data['project']['code_get_cmd']);
+    $('#step_project input[name=project_path]').val(data['project']['project_path']);
+    $('#step_project textarea[name=project_remark]').val(data['project']['project_remark']);
+
+    $('#step_publish input[name=build_before_command]').val(data['publish']['build_before_command']);
+    $('#step_publish input[name=build_command]').val(data['publish']['build_command']);
+    $('#step_publish input[name=build_after_command]').val(data['publish']['build_after_command']);
+    $('#step_publish input[name=publish_file_path]').val(data['publish']['publish_file_path']);
+    $('#step_publish input[name=publish_before_command]').val(data['publish']['publish_before_command']);
+    $('#step_publish input[name=publish_after_command]').val(data['publish']['publish_after_command']);
 }

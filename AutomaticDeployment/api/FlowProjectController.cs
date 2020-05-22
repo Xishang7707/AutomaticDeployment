@@ -59,5 +59,27 @@ namespace AutomaticDeployment.api
         {
             return await app.GetProject(PackRequest(project_uid));
         }
+
+        /// <summary>
+        /// 获取项目信息
+        /// </summary>
+        /// <param name="project_uid"></param>
+        /// <returns></returns>
+        [HttpGet("getprojectinfo")]
+        public async Task<IActionResult> GetProjectInfo([FromQuery] string project_uid)
+        {
+            return await app.GetProjectInfo(PackRequest(project_uid));
+        }
+
+        /// <summary>
+        /// 修改
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        [HttpPost("editproject")]
+        public async Task<IActionResult> EditProject([FromBody] EditProjectIn data)
+        {
+            return await app.EditProject(PackRequest(data));
+        }
     }
 }

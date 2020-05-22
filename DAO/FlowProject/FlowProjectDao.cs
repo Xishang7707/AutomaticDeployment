@@ -49,6 +49,33 @@ namespace DAO.FlowProject
         }
 
         /// <summary>
+        /// 更新
+        /// </summary>
+        /// <param name="db"></param>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        public static async Task<bool> Update(SQLiteHelper db, EditProjectIn data)
+        {
+            t_flow_project model = new t_flow_project
+            {
+                proj_guid = data.project_uid,
+                code_cmd = data.project.code_get_cmd,
+                code_source = int.Parse(data.project.code_souce_tool),
+                proj_path = data.project.project_path,
+                serv_id = int.Parse(data.project.service_id)
+            };
+
+            string sql = @"UPDATE t_flow_project SET
+                               code_cmd=@code_cmd,
+                               code_source=@code_source,
+                               proj_path=@proj_path,
+                               serv_id=@serv_id
+                           WHERE proj_guid=@proj_guid";
+
+            return await db.ExecAsync(sql, model) > 0;
+        }
+
+        /// <summary>
         /// 获取项目
         /// </summary>
         /// <param name="db"></param>

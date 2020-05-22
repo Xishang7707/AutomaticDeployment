@@ -273,7 +273,6 @@ namespace Server.Implement.FlowProject
             return result;
         }
 
-
         /// <summary>
         /// 获取项目验证
         /// </summary>
@@ -335,6 +334,238 @@ namespace Server.Implement.FlowProject
 
             Result<ProjectInfoResult> res = new Result<ProjectInfoResult> { data = info, result = true };
             return res;
+        }
+
+        /// <summary>
+        /// 获取项目验证
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        private Result VerifyGetProjectInfo(string data)
+        {
+            Result result = new Result();
+            if (string.IsNullOrWhiteSpace(data))
+            {
+                result.msg = Tip.TIP_24;
+                return result;
+            }
+            result.result = true;
+            return result;
+        }
+
+        public async Task<Result> GetProjectInfo(In<string> inData)
+        {
+            Result result = VerifyGetProjectInfo(inData.data);
+            if (!result.result)
+            {
+                return result;
+            }
+            result.result = false;
+
+            SQLiteHelper db = new SQLiteHelper();
+            t_project proj_model = await ProjectDao.GetProject(db, inData.data);
+            if (proj_model == null)
+            {
+                result.msg = Tip.TIP_24;
+                return result;
+            }
+            t_flow_project flow_model = await FlowProjectDao.GetProject(db, proj_model.proj_guid);
+            t_publish publish_model = await PublishDao.GetPublish(db, proj_model.proj_guid);
+
+            EditProjectInfoResult info = new EditProjectInfoResult
+            {
+                project = new FlowProjectIn
+                {
+                    code_get_cmd = flow_model.code_cmd,
+                    code_souce_tool = flow_model.code_source.ToString(),
+                    project_guid = flow_model.proj_guid,
+                    project_name = proj_model.name,
+                    project_path = flow_model.proj_path,
+                    project_remark = proj_model.remark,
+                    service_id = flow_model.serv_id.ToString(),
+                },
+                publish = new FlowPublishIn
+                {
+                    build_after_command = publish_model.build_after_cmd,
+                    publish_after_command = publish_model.publish_after_cmd,
+                    build_before_command = publish_model.build_before_cmd,
+                    build_command = publish_model.build_cmd,
+                    publish_before_command = publish_model.publish_before_cmd,
+                    publish_file_path = publish_model.publish_file_path
+                }
+            };
+
+            Result<EditProjectInfoResult> res = new Result<EditProjectInfoResult> { data = info, result = true };
+            return res;
+        }
+
+        /// <summary>
+        /// 验证修改项目数据
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        private async Task<Result> VerifyEditProject(EditProjectIn data)
+        {
+            Result result = new Result();
+            if (data == null)
+            {
+                result.msg = Tip.TIP_1;
+                return result;
+            }
+            result.result = false;
+            //验证项目信息
+            if (data.project == null)
+            {
+                result.msg = Tip.TIP_11;
+                return result;
+            }
+            if (string.IsNullOrWhiteSpace(data.project_uid))
+            {
+                result.msg = Tip.TIP_24;
+                return result;
+            }
+            data.project_uid = data.project_uid.Trim();
+            SQLiteHelper db = new SQLiteHelper();
+            bool proj_exist_flag = await ProjectDao.IsExist(db, data.project_uid);
+            if (!proj_exist_flag)
+            {
+                db.Close();
+                result.msg = Tip.TIP_24;
+                return result;
+            }
+            if (string.IsNullOrWhiteSpace(data.project.service_id) || !int.TryParse(data.project.service_id, out int service_id))
+            {
+                db.Close();
+                result.msg = Tip.TIP_40;
+                return result;
+            }
+            data.project.service_id = data.project.service_id.Trim();
+
+            bool service_exist_flag = await DAO.Service.ServiceDao.IsExist(db, service_id);
+            db.Close();
+            if (!service_exist_flag)
+            {
+                result.msg = Tip.TIP_41;
+                return result;
+            }
+            if (string.IsNullOrWhiteSpace(data.project.project_name))
+            {
+                result.msg = Tip.TIP_12;
+                return result;
+            }
+            data.project.project_name = data.project.project_name.Trim();
+            if (!VerifyCommon.ProjectNameLength(data.project.project_name))
+            {
+                result.msg = Tip.TIP_19;
+                return result;
+            }
+            if (string.IsNullOrWhiteSpace(data.project.code_souce_tool) || !int.TryParse(data.project.code_souce_tool, out int code_mode))
+            {
+                result.msg = Tip.TIP_42;
+                return result;
+            }
+            if (code_mode != (int)ECodeMode.GIT)
+            {
+                result.msg = Tip.TIP_43;
+                return result;
+            }
+            data.project.code_souce_tool = data.project.code_souce_tool.Trim();
+            if (string.IsNullOrWhiteSpace(data.project.code_get_cmd))
+            {
+                result.msg = Tip.TIP_44;
+                return result;
+            }
+            data.project.code_get_cmd = data.project.code_get_cmd.Trim();
+            if (!VerifyCommon.CodeGetCommandLength(data.project.code_get_cmd))
+            {
+                result.msg = Tip.TIP_45;
+                return result;
+            }
+            if (!string.IsNullOrWhiteSpace(data.project.project_path))
+            {
+                data.project.project_path = data.project.project_path.Trim();
+                if (!VerifyCommon.PublishProjectPathLength(data.project.project_path))
+                {
+                    result.msg = Tip.TIP_46;
+                    return result;
+                }
+            }
+            //发布信息验证
+            if (data.publish == null)
+            {
+                result.msg = Tip.TIP_13;
+                return result;
+            }
+            if (!string.IsNullOrWhiteSpace(data.publish.build_before_command))
+            {
+                data.publish.build_before_command = data.publish.build_before_command.Trim();
+            }
+            if (!string.IsNullOrWhiteSpace(data.publish.build_after_command))
+            {
+                data.publish.build_after_command = data.publish.build_after_command.Trim();
+            }
+            if (string.IsNullOrWhiteSpace(data.publish.build_command))
+            {
+                result.msg = Tip.TIP_47;
+                return result;
+            }
+            data.publish.build_command = data.publish.build_command.Trim();
+            if (!string.IsNullOrWhiteSpace(data.publish.publish_before_command))
+            {
+                data.publish.publish_before_command = data.publish.publish_before_command.Trim();
+            }
+            if (!string.IsNullOrWhiteSpace(data.publish.publish_after_command))
+            {
+                data.publish.publish_after_command = data.publish.publish_after_command.Trim();
+            }
+            result.result = true;
+            return result;
+        }
+        public async Task<Result> EditProject(In<EditProjectIn> inData)
+        {
+            Result result = await VerifyEditProject(inData.data);
+            if (!result.result)
+            {
+                return result;
+            }
+            result.result = false;
+            SQLiteHelper db = new SQLiteHelper();
+            try
+            {
+                await db.BeginTransactionAsync();
+                bool update_proj_flag = await ProjectDao.UpdateAsync(db, inData.data);
+                if (!update_proj_flag)
+                {
+                    await db.RollbackAsync();
+                    result.msg = Tip.TIP_35;
+                    return result;
+                }
+
+                bool update_flow_flag = await FlowProjectDao.Update(db, inData.data);
+                if (!update_flow_flag)
+                {
+                    await db.RollbackAsync();
+                    result.msg = Tip.TIP_35;
+                    return result;
+                }
+
+                bool update_publish_flag = await PublishDao.Update(db, inData.data);
+                if (!update_publish_flag)
+                {
+                    await db.RollbackAsync();
+                    result.msg = Tip.TIP_35;
+                    return result;
+                }
+                await db.CommitAsync();
+                result.msg = Tip.TIP_34;
+                result.result = true;
+            }
+            catch (Exception e)
+            {
+                await db.RollbackAsync();
+                result.msg = Tip.TIP_35;
+            }
+            return result;
         }
     }
 }

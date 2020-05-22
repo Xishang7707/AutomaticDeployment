@@ -5,3 +5,8 @@
     left: 0;
     right: 0;
 }
+
+.layui-tab-title {
+    z-index: 99999;
+    background: #fff;
+}
