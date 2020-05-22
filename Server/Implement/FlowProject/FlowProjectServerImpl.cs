@@ -269,7 +269,72 @@ namespace Server.Implement.FlowProject
 
             //发布数据添加完成 通知服务发布
             ServerFactory.Get<IAutoPublishServer>().Notice();
+            result.msg = Tip.TIP_27;
             return result;
+        }
+
+
+        /// <summary>
+        /// 获取项目验证
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        private Result VerifyGetProject(string data)
+        {
+            Result result = new Result();
+            if (string.IsNullOrWhiteSpace(data))
+            {
+                result.msg = Tip.TIP_24;
+                return result;
+            }
+            result.result = true;
+            return result;
+        }
+
+        public async Task<Result> GetProject(In<string> inData)
+        {
+            Result result = VerifyGetProject(inData.data);
+            if (!result.result)
+            {
+                return result;
+            }
+            result.result = false;
+
+            SQLiteHelper db = new SQLiteHelper();
+            t_project proj_model = await ProjectDao.GetProject(db, inData.data);
+            if (proj_model == null)
+            {
+                result.msg = Tip.TIP_24;
+                return result;
+            }
+            t_flow_project flow_model = await FlowProjectDao.GetProject(db, proj_model.proj_guid);
+            t_publish publish_model = await PublishDao.GetPublish(db, proj_model.proj_guid);
+            t_service service_model = await DAO.FlowProject.ServiceDao.GetService(db, flow_model.serv_id);
+            ProjectInfoResult info = new ProjectInfoResult
+            {
+                project = new ProjectResult
+                {
+                    project_uid = proj_model.proj_guid,
+                    project_name = proj_model.name,
+                    project_remark = proj_model.remark,
+                    code_souce_tool = ((ECodeTools)flow_model.code_source).GetDesc(),
+                    project_path = flow_model.proj_path
+                },
+                server = new ServiceResult
+                {
+                    name = (string.IsNullOrWhiteSpace(service_model.name) ? service_model.conn_ip : $"{service_model.name}({service_model.conn_ip})")
+                },
+                publish = new PublishResult
+                {
+                    publish_before_command = publish_model.publish_before_cmd,
+                    publish_after_command = publish_model.publish_after_cmd,
+                    publish_time = !GetCommon.GetCastTime(proj_model.last_publish_time, out DateTime publishVal) ? "暂未发布" : publishVal.ToString("yyyy-MM-dd HH:mm:dd"),
+                    publish_status = !GetCommon.GetCastTime(proj_model.last_publish_time, out DateTime publishVal2) ? "暂未发布" : ((EPublishStatus)proj_model.last_publish_status).GetDesc()
+                }
+            };
+
+            Result<ProjectInfoResult> res = new Result<ProjectInfoResult> { data = info, result = true };
+            return res;
         }
     }
 }

@@ -30,5 +30,12 @@ namespace Server.Interface
         /// <param name="inData"></param>
         /// <returns></returns>
         Task<Result> Publish(In<PublishFlowProject> inData);
+
+        /// <summary>
+        /// 获取项目信息
+        /// </summary>
+        /// <param name="inData"></param>
+        /// <returns></returns>
+        Task<Result> GetProject(In<string> inData);
     }
 }

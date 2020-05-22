@@ -74,5 +74,17 @@ namespace DAO.FlowProject
             return (await dbHelper.QueryAsync<int>(sql, new { proj_guid = proj_guid, proj_type = (int)EProjectType.Flow })) > 0;
         }
 
+        /// <summary>
+        /// 获取项目
+        /// </summary>
+        /// <param name="dbHelper"></param>
+        /// <param name="proj_guid">项目guid</param>
+        /// <returns></returns>
+        public static async Task<t_project> GetProject(SQLiteHelper dbHelper, string proj_guid)
+        {
+            string sql = @"SELECT name,proj_guid,last_publish_time,last_publish_status,add_time,remark FROM t_project WHERE proj_guid=@proj_guid AND proj_type=@proj_type;";
+            return await dbHelper.QueryAsync<t_project>(sql, new { proj_type = (int)EProjectType.Flow, proj_guid = proj_guid });
+        }
+
     }
 }

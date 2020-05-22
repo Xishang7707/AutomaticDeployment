@@ -64,5 +64,18 @@ namespace DAO.FlowProject
 
             return await db.QueryListAsync<t_publish>(sql, new { proj_arr = proj_arr });
         }
+
+        /// <summary>
+        /// 获取发布信息
+        /// </summary>
+        /// <param name="db"></param>
+        /// <param name="proj_guid"></param>
+        /// <returns></returns>
+        public static async Task<t_publish> GetPublish(SQLiteHelper db, string proj_guid)
+        {
+            string sql = @"select * from t_publish where proj_guid=@proj_guid";
+
+            return await db.QueryAsync<t_publish>(sql, new { proj_guid = proj_guid });
+        }
     }
 }

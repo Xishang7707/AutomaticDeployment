@@ -1,7 +1,7 @@
 ﻿$(function () {
     $('#btn_open_addproject').click(() => { open_page('添加项目', 'flowproject/addproject', 'addflowproject') });
     var w = get_top_window();
-    layui.use([], function () {
+    layui.use(['element'], function () {
         get({
             url: '../api/flowproject/getprojectlist',
             done: o => {
@@ -65,34 +65,10 @@ function render_project_table(o) {
 }
 
 function bind_publish(o) {
-
     for (var k in o) {
         var item = o[k];
         ((id, name) => {
-            let host = '../publishlog';
-            let hubConnection = new signalR.HubConnectionBuilder()
-                .withUrl(host)
-                .build();
-            recv_publish_log(hubConnection);
-            //recv_publish_result(hubConnection, project_uid);
-
-            hubConnection.start().then(() => {
-                hubConnection.send("publish", id);
-            });
-
-            $(`#btn-publish-${id}`).click(() => {
-                post({
-                    url: '../api/flowproject/publish',
-                    data: { project_uid: id },
-                    done: o => {
-                        layer.msg(o.msg);
-                    },
-                    err: o => {
-                        layer.msg(o.msg);
-                    }
-                })
-                //open_page(`发布[${name}]`, 'flowproject/publish?project_uid=' + id, 'flowpublish#' + id);
-            });
+            $(`#btn-publish-${id}`).click(() => { open_page(`发布[${name}]`, 'flowproject/publish?project_uid=' + id, 'flowpublish#' + id); });
         })(item['project']['project_uid'], item['project']['project_name']);
     }
 }

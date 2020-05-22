@@ -1,0 +1,60 @@
+﻿@page
+@model AutomaticDeployment.Pages.FlowProject.PublishModel
+@{
+    ViewData["Title"] = "发布";
+}
+
+<link href="~/css/flowproject/publish.css" rel="stylesheet" />
+<script src="~/lib/signalr/dist/browser/signalr.js"></script>
+<script src="~/js/common.js"></script>
+<script src="~/js/verify.js"></script>
+<script src="~/js/flowproject/publish.js"></script>
+<body style="padding:3px;">
+    <div class="layui-card">
+        <div class="layui-card-header">
+            <div class="layui-row">
+                <div class="layui-col-xs3">
+                    项目名称： <span id="project_name"></span>
+                </div>
+                <div class="layui-col-xs3">
+                    服务器： <span id="server_name"></span>
+                </div>
+                <div class="layui-col-xs3">
+                    发布时间： <span id="publish_time"></span>
+                </div>
+            </div>
+            <div class="layui-row">
+                <div class="layui-col-xs4">
+                    发布前命令： <span id="publish_before_command"></span>
+                </div>
+                <div class="layui-col-xs4">
+                    发布后命令： <span id="publish_after_command"></span>
+                </div>
+            </div>
+            <div class="layui-row">
+                <div class="layui-col-xs3">
+                    发布状态： <span id="publish_status"></span>
+                </div>
+                <div class="layui-col-xs9">
+                    备注： <span id="project_remark"></span>
+                </div>
+            </div>
+        </div>
+        <div class="layui-card-body" id="project-body">
+            <div class="layui-row">
+                <div class="layui-col-xs3">
+                    <button type="button" class="layui-btn" id="btn-project-publish">
+                        <i class="layui-icon">&#xe67c;</i>发布
+                    </button>
+                </div>
+            </div>
+            <br />
+            <div class="layui-row">
+                <div class="layui-col-xs12">
+                    <ul id="publish_log">
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>

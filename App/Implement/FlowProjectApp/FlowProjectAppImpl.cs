@@ -17,6 +17,11 @@ namespace App.Implement.FlowProjectApp
             return await server.AddProject(inData);
         }
 
+        public async Task<Result> GetProject(In<string> inData)
+        {
+            return await server.GetProject(inData);
+        }
+
         public async Task<Result> GetProjectList()
         {
             return await server.GetProjectList();

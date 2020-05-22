@@ -23,5 +23,18 @@ namespace DAO.FlowProject
 
             return await db.QueryListAsync<t_service>(sql, new { serv_arr = serv_arr });
         }
+
+        /// <summary>
+        /// 获取服务器信息
+        /// </summary>
+        /// <param name="db"></param>
+        /// <param name="serv_id"></param>
+        /// <returns></returns>
+        public static async Task<t_service> GetService(SQLiteHelper db, int serv_id)
+        {
+            string sql = @"SELECT * FROM t_service WHERE id = @serv_id";
+
+            return await db.QueryAsync<t_service>(sql, new { serv_id = serv_id });
+        }
     }
 }

@@ -23,7 +23,7 @@ namespace AutomaticDeployment.api
         /// <param name="data"></param>
         /// <returns></returns>
         [HttpPost("addproject")]
-        public async Task<IActionResult> AddProject([FromBody]AddProjectIn data)
+        public async Task<IActionResult> AddProject([FromBody] AddProjectIn data)
         {
             return await app.AddProject(PackRequest(data));
         }
@@ -44,9 +44,20 @@ namespace AutomaticDeployment.api
         /// <param name="data"></param>
         /// <returns></returns>
         [HttpPost("publish")]
-        public async Task<IActionResult> Publish([FromBody]PublishFlowProject data)
+        public async Task<IActionResult> Publish([FromBody] PublishFlowProject data)
         {
             return await app.Publish(PackRequest(data));
+        }
+
+        /// <summary>
+        /// 获取项目信息
+        /// </summary>
+        /// <param name="project_uid"></param>
+        /// <returns></returns>
+        [HttpGet("getproject")]
+        public async Task<IActionResult> GetProject([FromQuery] string project_uid)
+        {
+            return await app.GetProject(PackRequest(project_uid));
         }
     }
 }
