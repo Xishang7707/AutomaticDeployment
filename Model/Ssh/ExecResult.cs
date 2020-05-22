@@ -11,5 +11,9 @@ namespace Model.Ssh
     /// </summary>
     public class ExecResult : SshResult
     {
+        /// <summary>
+        /// 返回码
+        /// </summary>
+        public int return_code { get; set; }
     }
 }

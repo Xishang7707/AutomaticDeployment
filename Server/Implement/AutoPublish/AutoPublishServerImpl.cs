@@ -631,7 +631,8 @@ namespace Server.Implement.AutoPublish
         /// <returns></returns>
         private Result PublishToService(WorkInfo<t_flow_project> info)
         {
-            Result result = info.osManagerServer.Upload(ServerCommon.GetBuildPath(info.proj_info.proj_guid), $"{info.service_info.work_spacepath}/{info.proj_info.proj_path}", $"{info.proj_info.proj_guid}.zip");
+            string path = Path.GetFullPath(ServerCommon.GetBuildPath(info.proj_info.proj_guid));
+            Result result = info.osManagerServer.Upload($"{path}/{info.proj_info.proj_guid}.zip", $"{info.service_info.work_spacepath}/{info.proj_info.proj_path}", $"{info.proj_info.proj_guid}.zip");
             if (!result.result)
             {
                 return result;
@@ -719,9 +720,11 @@ namespace Server.Implement.AutoPublish
         /// <returns></returns>
         private Result ExecUnZip(WorkInfo<t_flow_project> info)
         {
-            Result result = info.osManagerServer.UnZip($"{info.proj_info.proj_guid}.zip");
+            publishLogServer.LogAsync(info.proj_info.proj_guid, info.flow_id, "解压发布文件");
+            Result result = info.osManagerServer.UnZip($"{info.proj_info.proj_path}/{info.proj_info.proj_guid}.zip -d {info.proj_info.proj_path}");
             if (!result.result)
             {
+                publishLogServer.LogAsync(info.proj_info.proj_guid, info.flow_id, "解压发布文件失败");
                 return result;
             }
             result.result = true;
@@ -793,8 +796,8 @@ namespace Server.Implement.AutoPublish
             {
                 return result;
             }
-            //获取代码、连接服务器、发布前命令、构建前命令、构建、构建后命令、打包上传解压、发布后命令、关闭连接
-            result = DoWorkBuildFlow(info, ConnectService, GetCode, ExecBeforeCommand, ExecBuild, PackageBuildFile, PublishToService, ExecAfterCommand, DoWorkAfterExec);
+            //获取代码、连接服务器、发布前命令、构建前命令、构建、构建后命令、打包、上传、解压、发布后命令、关闭连接
+            result = DoWorkBuildFlow(info, ConnectService, GetCode, ExecBeforeCommand, ExecBuild, PackageBuildFile, PublishToService, ExecUnZip, ExecAfterCommand, DoWorkAfterExec);
 
             return result;
         }
@@ -838,7 +841,42 @@ namespace Server.Implement.AutoPublish
             {
                 return result;
             }
-            result = osLocal.Exec($"git clone {info.proj_info.code_cmd}");
+            //先拉取代码
+            result = osLocal.Exec($"cd {path}&&git pull {info.proj_info.code_cmd}");
+            if (!result.result)
+            {
+                switch (result.Cast<ExecResult>().return_code)
+                {
+                    case 128://仓库不存在
+                        if (Directory.Exists(path))
+                        {
+                            result = osLocal.Exec($"rm -rf {path}");//清理项目目录
+                            if (!result.result)
+                            {
+                                publishLogServer.LogAsync(info.proj_info.proj_guid, info.flow_id, "源代码获取失败[1]");
+                                return result;
+                            }
+                            Directory.CreateDirectory(path);
+                        }
+                        publishLogServer.LogAsync(info.proj_info.proj_guid, info.flow_id, "创建代码仓库");
+                        result = osLocal.Exec($"cd {path}&&git init");//创建仓库
+                        if (!result.result)
+                        {
+                            publishLogServer.LogAsync(info.proj_info.proj_guid, info.flow_id, "源代码获取失败[2]");
+                            return result;
+                        }
+                        publishLogServer.LogAsync(info.proj_info.proj_guid, info.flow_id, "拉取代码");
+                        result = osLocal.Exec($"cd {path}&&git pull {info.proj_info.code_cmd}");
+                        if (!result.result)
+                        {
+                            publishLogServer.LogAsync(info.proj_info.proj_guid, info.flow_id, "源代码获取失败[3]");
+                            return result;
+                        }
+                        break;
+                    default:
+                        break;
+                }
+            }
             return result;
         }
 
@@ -850,7 +888,8 @@ namespace Server.Implement.AutoPublish
         private Result ExecBuild(WorkInfo<t_flow_project> info)
         {
             publishLogServer.LogAsync(info.proj_info.proj_guid, info.flow_id, "构建项目");
-            return osLocal.Exec(info.publish_info.build_cmd);
+            string path = Path.GetFullPath(ServerCommon.GetBuildPath(info.proj_info.proj_guid));
+            return osLocal.Exec($"cd {path}&&{info.publish_info.build_cmd}");
         }
 
         /// <summary>
@@ -860,12 +899,19 @@ namespace Server.Implement.AutoPublish
         /// <returns></returns>
         private Result PackageBuildFile(WorkInfo<t_flow_project> info)
         {
-            publishLogServer.LogAsync(info.proj_info.proj_guid, info.flow_id, "打包");
-            Result result = osLocal.Zip(info.proj_info.proj_guid, info.publish_info.publish_file_path);
+            publishLogServer.LogAsync(info.proj_info.proj_guid, info.flow_id, $"打包发布文件");
+            string path = Path.GetFullPath(ServerCommon.GetBuildPath(info.proj_info.proj_guid));
+            Result result = osLocal.ChangeWorkspace($"{path}/{info.publish_info.publish_file_path}");
             if (!result.result)
             {
                 return result;
             }
+            result = osLocal.Zip($"{path}/{info.proj_info.proj_guid}", $".");
+            if (!result.result)
+            {
+                return result;
+            }
+            osLocal.ChangeWorkspace(path);
             return result;
         }
     }

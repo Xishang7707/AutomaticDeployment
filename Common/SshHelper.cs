@@ -100,10 +100,15 @@ namespace Common
             using (var cmd = sshClient.CreateCommand(shell, Encoding.UTF8))
             {
                 res.msg = cmd.Execute();
+                res.return_code = cmd.ExitStatus;
                 if (cmd.ExitStatus != 0)
                 {
                     res.msg = cmd.Error;
                     return res;
+                }
+                else if (string.IsNullOrWhiteSpace(res.msg))
+                {
+                    res.msg = cmd.Error;
                 }
             }
             res.result = true;
