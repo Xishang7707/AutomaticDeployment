@@ -10,6 +10,7 @@ using Model.In.FlowProject;
 using Model.In.PublishFlow;
 using Model.Out;
 using Model.Out.FlowProject;
+using Model.Variable;
 using Server.Interface;
 using System;
 using System.Collections.Generic;
@@ -22,6 +23,11 @@ namespace Server.Implement.FlowProject
 {
     class FlowProjectServerImpl : IFlowProjectServer
     {
+        /// <summary>
+        /// 页面通知
+        /// </summary>
+        private IPageNoticeServer noticeServer = ServerFactory.Get<IPageNoticeServer>();
+
         /// <summary>
         /// 验证添加项目数据
         /// </summary>
@@ -166,6 +172,9 @@ namespace Server.Implement.FlowProject
                     return result;
                 }
                 await db.CommitAsync();
+
+                //通知页面
+                //noticeServer.Update(DefPagePid.FlowProject);
                 result.msg = Tip.TIP_21;
                 result.result = true;
             }

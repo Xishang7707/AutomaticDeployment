@@ -180,7 +180,7 @@ function check_step(index) {
 
 }
 
-function publish() {
+function publish(call) {
     var data = {
         server: get_step_server(),
         project: get_step_project(),

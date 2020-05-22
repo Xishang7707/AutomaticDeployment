@@ -32,8 +32,26 @@ function open_tab(title, url, id) {
 
     element.tabAdd('main-tab', {
         title: title
-        , content: `<iframe src='${url}' style="width:100%;height:100%;border:none;"></iframe>`
+        , content: `<iframe lay-id=${layid} src='${url}' style="width:100%;height:100%;border:none;"></iframe>`
         , id: layid
     });
     element.tabChange('main-tab', layid);
+}
+
+function init_ws() {
+    let host = '../notice';
+    let hubConnection = new signalR.HubConnectionBuilder()
+        .withUrl(host)
+        .build();
+    recv_publish_log(hubConnection);
+    recv_publish_result(hubConnection, project_uid);
+
+    hubConnection.start();
+}
+
+function recv_update(hub) {
+    hub.on("update", function (data) {
+        var iframe = $(`div.layui-tab-content iframe[lay-id=${data['pid']}]`)[0];
+        iframe && iframe.contentWindow && iframe.contentWindow.global_update && iframe.contentWindow.global_update(data);
+    });
 }

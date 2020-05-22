@@ -4,6 +4,7 @@ using Server.Implement;
 using Server.Implement.AutoPublish;
 using Server.Implement.FlowProject;
 using Server.Implement.OSManage;
+using Server.Implement.PageNotice;
 using Server.Implement.PublishFlow;
 using Server.Implement.PublishLog;
 using Server.Implement.QuickProject;
@@ -58,6 +59,15 @@ namespace Server
                 }
                 return GetPublisLog((IHubContext<PublishLogHub>)v[0]) as T;
             }
+            
+            if (typeof(T) == typeof(IPageNoticeServer))
+            {
+                if (v.Length != 0 && !(v[0] is IHubContext<PageNoticeHub>))
+                {
+                    return null;
+                }
+                return GetPageNotice((IHubContext<PageNoticeHub>)v[0]) as T;
+            }
 
             if (typeof(T) == typeof(ISqlManageServer))
             {
@@ -93,6 +103,15 @@ namespace Server
                 return new PublishLogImpl();
             }
             return new PublishLogImpl(hubContext);
+        }
+        
+        public static IPageNoticeServer GetPageNotice(IHubContext<PageNoticeHub> hubContext = null)
+        {
+            if (hubContext == null)
+            {
+                return new PageNoticeServerImpl();
+            }
+            return new PageNoticeServerImpl(hubContext);
         }
 
         public static ISqlManageServer GetSqlManage(EDatabaseType type)

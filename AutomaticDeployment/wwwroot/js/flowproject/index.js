@@ -84,9 +84,17 @@ function bind_edit_project(o) {
     }
 }
 
-
-function recv_publish_log(conn) {
-    conn.on("log", function (data) {
-        conlole.log(data);
-    });
+function global_update(data) {
+    var w = get_top_window();
+    get({
+        url: '../api/flowproject/getprojectlist',
+        done: o => {
+            render_project_table(o['data']);
+            bind_publish(o['data']);
+            bind_edit_project(o['data']);
+        },
+        err: o => {
+            w.layer.msg(o.msg);
+        }
+    })
 }

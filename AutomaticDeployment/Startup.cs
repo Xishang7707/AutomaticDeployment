@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Server.Implement.PageNotice;
 using Server.Implement.PublishLog;
 using Server.Interface;
 
@@ -64,6 +65,7 @@ namespace AutomaticDeployment
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapHub<PublishLogHub>("/publishlog");
+                endpoints.MapHub<PageNoticeHub>("/notice");
                 endpoints.MapControllers();
                 endpoints.MapRazorPages();
             });

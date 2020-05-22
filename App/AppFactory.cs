@@ -1,12 +1,15 @@
 ﻿using App.Implement;
 using App.Implement.AutoPublishApp;
 using App.Implement.FlowProjectApp;
+using App.Implement.PageNoticeApp;
 using App.Implement.PublishLogApp;
 using App.Implement.QuickProjectApp;
 using App.Implement.ServiceApp;
 using App.Interface;
 using Microsoft.AspNetCore.SignalR;
+using Server.Implement.PageNotice;
 using Server.Implement.PublishLog;
+using Server.Interface;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -40,6 +43,9 @@ namespace App
 
             if (typeof(T) == typeof(IPublishLogApp))
                 return new PublishLogAppImpl(o[0] as IHubContext<PublishLogHub>) as T;
+
+            if (typeof(T) == typeof(IPageNoticeServer))
+                return new PageNoticeAppImpl(o[0] as IHubContext<PageNoticeHub>) as T;
 
             return null;
         }
