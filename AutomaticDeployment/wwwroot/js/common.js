@@ -49,6 +49,7 @@ function get_top_window() {
         p = p.window.parent;
     } return p;
 }
+let tw = get_top_window();
 
 function getQuery(variable) {
     var query = window.location.search.substring(1);
@@ -67,5 +68,24 @@ function open_page(title, path, id) {
         w.open_tab(title, path, id);
     } else {
         w.open(path.substring(path.indexOf('/')), '_blank');
+    }
+}
+
+//关闭页面
+function close_page() {
+    if (tw == window) {
+        setTimeout(() => {
+            location.reload();
+        }, 1500);
+        return
+    }
+    if (tw.element) {
+        var id = $(self.frameElement).attr('lay-id');
+        tw.element.tabDelete('main-tab', id);
+    }
+    else {
+        setTimeout(() => {
+            location.reload();
+        }, 1500);
     }
 }

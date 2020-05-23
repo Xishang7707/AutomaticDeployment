@@ -243,5 +243,20 @@ namespace Model
         /// 构建命令不能为空
         /// </summary>
         public static string TIP_47 { get; } = "构建命令不能为空";
+
+        /// <summary>
+        /// 有项目使用此服务器，请解除关联后再操作
+        /// </summary>
+        public static string TIP_48 { get; } = "有项目使用此服务器，请解除关联后再操作";
+
+        /// <summary>
+        /// 操作失败
+        /// </summary>
+        public static string TIP_49 { get; } = "操作失败";
+
+        /// <summary>
+        /// 删除成功
+        /// </summary>
+        public static string TIP_50 { get; } = "删除成功";
     }
 }

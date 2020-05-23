@@ -1,6 +1,7 @@
 ﻿$(function () {
     layui.use('element', () => {
         element = layui.element;
+        tw.element = element;
         element.on('nav(top-nav)', function (elem) {
             var el = $(elem);
             if (!el.attr('nav-page')) {
@@ -32,7 +33,7 @@ function open_tab(title, url, id) {
 
     element.tabAdd('main-tab', {
         title: title
-        , content: `<iframe lay-id=${layid} src='${url}' style="width:100%;height:100%;border:none;"></iframe>`
+        , content: `<iframe name='${layid}' lay-id='${layid}' src='${url}' style="width:100%;height:100%;border:none;"></iframe>`
         , id: layid
     });
     element.tabChange('main-tab', layid);

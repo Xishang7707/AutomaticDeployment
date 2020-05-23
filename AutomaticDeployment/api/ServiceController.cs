@@ -25,7 +25,7 @@ namespace AutomaticDeployment.api
         /// <param name="model"></param>
         /// <returns></returns>
         [HttpPost("addservice")]
-        public async Task<IActionResult> AddService([FromBody]AddServiceIn model)
+        public async Task<IActionResult> AddService([FromBody] AddServiceIn model)
         {
             return await serviceApp.AddService(PackRequest(model));
         }
@@ -38,6 +38,46 @@ namespace AutomaticDeployment.api
         public async Task<IActionResult> GetDropService()
         {
             return await serviceApp.GetDropService();
+        }
+
+        /// <summary>
+        /// 获取服务器列表
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("getservicelist")]
+        public async Task<IActionResult> GetServiceList()
+        {
+            return await serviceApp.GetServiceList();
+        }
+
+        /// <summary>
+        /// 删除服务器
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost("deleteservice")]
+        public async Task<IActionResult> DeleteService([FromBody] DeleteServiceIn model)
+        {
+            return await serviceApp.DeleteService(PackRequest(model));
+        }
+
+        /// <summary>
+        /// 获取服务器
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("getservice")]
+        public async Task<IActionResult> GetService([FromQuery] string id)
+        {
+            return await serviceApp.GetService(PackRequest(id));
+        }
+
+        /// <summary>
+        /// 修改服务器
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost("editservice")]
+        public async Task<IActionResult> EditService([FromBody] EditServiceIn model)
+        {
+            return await serviceApp.EditService(PackRequest(model));
         }
     }
 }

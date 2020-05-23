@@ -49,7 +49,7 @@ namespace DAO.Service
         /// <returns></returns>
         public static async Task<List<t_service>> GetListAll(SQLiteHelper sqlHelper)
         {
-            string sql = @"SELECT name,conn_ip,conn_port,conn_mode,conn_user,conn_password,ssh_key,secret_key,work_spacepath,platform_type,add_time FROM t_service";
+            string sql = @"SELECT * FROM t_service";
             return await sqlHelper.QueryListAsync<t_service>(sql);
         }
 
@@ -74,6 +74,78 @@ namespace DAO.Service
         {
             string sql = @"SELECT id FROM t_service WHERE id=@id";
             return await sqlHelper.QueryAsync<int>(sql, new { id = id }) > 0;
+        }
+
+        /// <summary>
+        /// 检查服务器是否被使用
+        /// </summary>
+        /// <param name="db"></param>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public static async Task<bool> UsedService(SQLiteHelper db, int id)
+        {
+            string flow_sql = @"SELECT COUNT(1) FROM t_flow_project WHERE serv_id=@serv_id";
+
+            return await db.QueryAsync<int>(flow_sql, new { serv_id = id }) > 0;
+        }
+
+        /// <summary>
+        /// 删除服务器
+        /// </summary>
+        /// <param name="db"></param>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public static async Task<bool> Delete(SQLiteHelper db, int id)
+        {
+            string sql = @"DELETE FROM t_service WHERE id=@id";
+            return await db.ExecAsync(sql, new { id = id }) > 0;
+        }
+
+        /// <summary>
+        /// 获取服务器
+        /// </summary>
+        /// <param name="db"></param>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public static async Task<t_service> GetService(SQLiteHelper db, int id)
+        {
+            string sql = @"SELECT * FROM t_service WHERE id=@id";
+            return await db.QueryAsync<t_service>(sql, new { id = id });
+        }
+
+        /// <summary>
+        /// 更新服务器
+        /// </summary>
+        /// <param name="db"></param>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        public static async Task<bool> Update(SQLiteHelper db, EditServiceIn data)
+        {
+            t_service model = new t_service
+            {
+                id = int.Parse(data.server_id),
+                conn_ip = data.server_ip,
+                conn_password = ConcealCommon.EncryptDES(data.server_password),
+                conn_port = int.Parse(data.server_port),
+                conn_user = data.server_account,
+                name = data.server_name,
+                platform_type = int.Parse(data.server_platform),
+                work_spacepath = data.server_space
+            };
+
+            string sql = $@"UPDATE t_service
+   SET 
+       name = @name,
+       conn_ip = @conn_ip,
+       conn_port = @conn_port,
+       conn_user = @conn_user,
+       {(data.server_password == GetCommon.GetHidePassword() ? "" : "conn_password = @conn_password,")}
+       ssh_key = @ssh_key,
+       secret_salt = @secret_salt,
+       work_spacepath = @work_spacepath,
+       platform_type = @platform_type
+ WHERE id = @id";
+            return await db.ExecAsync(sql, model) > 0;
         }
     }
 }

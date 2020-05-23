@@ -9,6 +9,12 @@
     <script src="~/lib/layui/layui.js"></script>
     <script src="~/js/verify.js"></script>
     <script src="~/js/common.js"></script>
+    <script>
+        var layer;
+        layui.use(['layer'], () => {
+            layer = layui.layer;
+        });
+    </script>
 </head>
 @RenderBody()
 </html>

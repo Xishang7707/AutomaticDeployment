@@ -25,5 +25,32 @@ namespace Server.Interface
         /// </summary>
         /// <returns></returns>
         Task<Result> GetDropService();
+
+        /// <summary>
+        /// 获取服务器
+        /// </summary>
+        /// <returns></returns>
+        Task<Result> GetServiceList();
+
+        /// <summary>
+        /// 删除服务器
+        /// </summary>
+        /// <param name="inData"></param>
+        /// <returns></returns>
+        Task<Result> DeleteService(In<DeleteServiceIn> inData);
+
+        /// <summary>
+        /// 获取服务器
+        /// </summary>
+        /// <param name="inData"></param>
+        /// <returns></returns>
+        Task<Result> GetService(In<string> inData);
+
+        /// <summary>
+        /// 修改服务器
+        /// </summary>
+        /// <param name="inData"></param>
+        /// <returns></returns>
+        Task<Result> EditService(In<EditServiceIn> inData);
     }
 }

@@ -160,6 +160,7 @@ namespace Server.Implement.AutoPublish
                         }
                         catch (Exception ex)
                         {
+                            timer?.Dispose();
                             publishLogServer.LogAsync(publishFlow.proj_guid, publishFlow.id, ex.Message);
                             //发布失败
                             await PublishFailed(publishFlow.proj_guid, publishFlow.id);

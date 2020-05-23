@@ -1,0 +1,59 @@
+﻿@page
+@model AutomaticDeployment.Pages.Service.EditServiceModel
+@{
+    ViewData["Title"] = "修改服务器";
+}
+
+<link href="~/css/service/editservice.css" rel="stylesheet" />
+<script src="~/js/service/editservice.js"></script>
+
+<body class="layui-layout-body">
+    <div class="layui-card">
+        <div class="layui-card-body">
+            <form class="layui-form" action="" id="service_form">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">平台</label>
+                    <div class="layui-input-block">
+                        <input type="hidden" />
+                        <select name="server_platform" lay-verify="required">
+                            <option value="0" selected>Linux</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">IP地址</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="server_ip" maxlength="20" required lay-verify="required" placeholder="服务器ip(必填)" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">端口</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="server_port" maxlength="20" required lay-verify="required" placeholder="服务器端口(必填)" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">账号</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="server_account" maxlength="20" required lay-verify="required" placeholder="服务器账号(必填)" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">密码</label>
+                    <div class="layui-input-block">
+                        <input type="password" name="server_password" maxlength="20" required lay-verify="required" placeholder="服务器密码(必填)" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">工作目录</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="server_space" maxlength="255" required lay-verify="required" placeholder="工作目录" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="layui-btn-container" style="text-align:center;">
+        <button type="button" class="layui-btn" id="btn_service_sub">提交</button>
+    </div>
+</body>
