@@ -109,7 +109,7 @@ namespace Server.Implement.AutoPublish
         /// <returns></returns>
         private async Task StartWorkInternal()
         {
-            TimeSpan taskTimeOut = TimeSpan.FromMinutes(5);//5分钟后取消
+            TimeSpan taskTimeOut = TimeSpan.FromMinutes(15);//15分钟后取消
             await Task.Run(async () =>
             {
                 while (true)
