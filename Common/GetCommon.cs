@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 
 namespace Common
@@ -121,6 +122,24 @@ namespace Common
         public static string GetHidePassword()
         {
             return @"^$\(@#...#@)/$^";
+        }
+
+        /// <summary>
+        /// 获取当前运行平台
+        /// </summary>
+        /// <returns></returns>
+        public static EOSPlatform GetCurrentOS()
+        {
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+            {
+                return EOSPlatform.Linux;
+            }
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+            {
+                return EOSPlatform.Windows;
+            }
+
+            return 0;
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using App.Implement;
 using App.Implement.AutoPublishApp;
+using App.Implement.Environment;
 using App.Implement.FlowProjectApp;
 using App.Implement.PageNoticeApp;
 using App.Implement.PublishLogApp;
@@ -7,6 +8,7 @@ using App.Implement.QuickProjectApp;
 using App.Implement.ServiceApp;
 using App.Interface;
 using Microsoft.AspNetCore.SignalR;
+using Model.Db.Enum;
 using Server.Implement.PageNotice;
 using Server.Implement.PublishLog;
 using Server.Interface;
@@ -46,6 +48,9 @@ namespace App
 
             if (typeof(T) == typeof(IPageNoticeServer))
                 return new PageNoticeAppImpl(o[0] as IHubContext<PageNoticeHub>) as T;
+            
+            if (typeof(T) == typeof(IEnvironmentApp))
+                return new EnvironmentAppImpl((EOSPlatform)o[0]) as T;
 
             return null;
         }

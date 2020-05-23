@@ -1,0 +1,25 @@
+﻿@page
+@model AutomaticDeployment.Pages.Home.HomeModel
+@{
+    ViewData["Title"] = "首页";
+}
+
+<link href="~/css/home/home.css" rel="stylesheet" />
+<script src="~/js/home/home.js"></script>
+
+<body class="layui-layout-body">
+    <div class="layui-row layui-col-space15">
+        <div class="layui-col-md6">
+            <div class="layui-card">
+                <div class="layui-card-header">本地服务器</div>
+                <div class="layui-card-body" id="local-service">
+                    <ul class="local-bashs">
+                        <li>
+                            <i class="layui-icon layui-anim-rotate">&#xe63e;</i>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>

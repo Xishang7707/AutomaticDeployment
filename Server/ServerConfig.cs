@@ -1,10 +1,8 @@
-﻿using Model.Db.Enum;
-using Newtonsoft.Json;
+﻿using Common;
+using Model.Db.Enum;
 using Newtonsoft.Json.Linq;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Runtime.InteropServices;
 using System.Text;
 
 namespace Server
@@ -16,15 +14,12 @@ namespace Server
     {
         static ServerConfig()
         {
-            if (RuntimeInformation.IsOSPlatform(System.Runtime.InteropServices.OSPlatform.Linux))
-            {
-                OSPlatform = EOSPlatform.Linux;
-            }
-            if (RuntimeInformation.IsOSPlatform(System.Runtime.InteropServices.OSPlatform.Windows))
-            {
-                OSPlatform = EOSPlatform.Windows;
-            }
-            OSPlatform = EOSPlatform.Linux;
+            //if (GetCommon.GetCurrentOS() != EOSPlatform.Linux)
+            //{
+            //    Console.WriteLine("本项目目前只能运行在Linux上");
+            //    throw new Exception("本项目目前只能运行在Linux上");
+            //}
+            OSPlatform = EOSPlatform.Linux;//强制 Linux
             using var sr = new StreamReader("appsettings.json", Encoding.UTF8);
             string str = sr.ReadToEnd();
             JObject json = JObject.Parse(str);

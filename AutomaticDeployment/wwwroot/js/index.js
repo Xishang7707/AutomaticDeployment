@@ -10,7 +10,8 @@
             var layid = el.attr('lay-id');
             open_tab(el.html(), el.attr('page-link'), layid);
         });
-
+        $('div.btn-home').click(() => { open_page('首页', 'home/home', 'home'); });
+        open_page('首页', 'home/home', 'home');
     });
 });
 

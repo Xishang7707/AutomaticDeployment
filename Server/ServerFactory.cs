@@ -2,6 +2,7 @@
 using Model.Db.Enum;
 using Server.Implement;
 using Server.Implement.AutoPublish;
+using Server.Implement.Environment;
 using Server.Implement.FlowProject;
 using Server.Implement.OSManage;
 using Server.Implement.PageNotice;
@@ -51,6 +52,15 @@ namespace Server
                 return GetOSPlatform((EOSPlatform)v[0]) as T;
             }
 
+            if (typeof(T) == typeof(IEnvironmentServer))
+            {
+                if (v.Length == 0 || !(v[0] is EOSPlatform))
+                {
+                    return null;
+                }
+                return GetEnvironment((EOSPlatform)v[0]) as T;
+            }
+
             if (typeof(T) == typeof(IPublishLogServer))
             {
                 if (v.Length != 0 && !(v[0] is IHubContext<PublishLogHub>))
@@ -92,6 +102,20 @@ namespace Server
             {
                 EOSPlatform.Linux => new LinuxManageImpl(),
                 EOSPlatform.Windows => new WindowsManageImpl(),
+                _ => null,
+            };
+        }
+
+        /// <summary>
+        /// 获取IEnvironmentServer的实现
+        /// </summary>
+        /// <param name="os">系统类型</param>
+        /// <returns></returns>
+        public static IEnvironmentServer GetEnvironment(EOSPlatform os)
+        {
+            return os switch
+            {
+                EOSPlatform.Linux => new LinuxEnvironmentServerImpl(),
                 _ => null,
             };
         }

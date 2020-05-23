@@ -10,3 +10,7 @@
     z-index: 99999;
     background: #fff;
 }
+
+div.btn-home {
+    cursor: pointer;
+}
