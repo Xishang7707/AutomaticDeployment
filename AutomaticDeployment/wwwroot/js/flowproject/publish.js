@@ -30,7 +30,7 @@ function recv_publish_log(conn) {
 
 function recv_publish_result(conn, id) {
     conn.on("result", function (data) {
-        w.layer.msg(data['publish_info']);
+        tw.layer.msg(data['publish_info']);
         get_project(id);
     });
 }
