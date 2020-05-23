@@ -57,16 +57,16 @@ namespace Server
                 {
                     return null;
                 }
-                return GetPublisLog((IHubContext<PublishLogHub>)v[0]) as T;
+                return (v.Length > 0 ? GetPublisLog((IHubContext<PublishLogHub>)v[0]) : GetPublisLog()) as T;
             }
-            
+
             if (typeof(T) == typeof(IPageNoticeServer))
             {
                 if (v.Length != 0 && !(v[0] is IHubContext<PageNoticeHub>))
                 {
                     return null;
                 }
-                return GetPageNotice((IHubContext<PageNoticeHub>)v[0]) as T;
+                return (v.Length > 0 ? GetPageNotice((IHubContext<PageNoticeHub>)v[0]) : GetPageNotice()) as T;
             }
 
             if (typeof(T) == typeof(ISqlManageServer))
@@ -104,7 +104,7 @@ namespace Server
             }
             return new PublishLogImpl(hubContext);
         }
-        
+
         public static IPageNoticeServer GetPageNotice(IHubContext<PageNoticeHub> hubContext = null)
         {
             if (hubContext == null)

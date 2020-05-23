@@ -116,5 +116,16 @@ namespace DAO.QuickProject
             return await dbHelper.ExecAsync(sql, new { proj_type = (int)EProjectType.Quick, proj_guid = data.project_guid, name = data.project_name, remark = data.project_remark }) > 0;
         }
 
+        /// <summary>
+        /// 删除项目
+        /// </summary>
+        /// <param name="dbHelper"></param>
+        /// <param name="proj_guid">项目guid</param>
+        /// <returns></returns>
+        public static async Task<bool> DeleteProject(SQLiteHelper dbHelper, string proj_guid)
+        {
+            string sql = @"DELETE FROM t_project WHERE proj_guid=@proj_guid AND proj_type=@proj_type";
+            return (await dbHelper.ExecAsync(sql, new { proj_guid = proj_guid, proj_type = (int)EProjectType.Quick })) > 0;
+        }
     }
 }

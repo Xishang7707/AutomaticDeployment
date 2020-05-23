@@ -83,7 +83,6 @@ namespace DAO.FlowProject
             return await dbHelper.QueryListAsync<t_project>(sql, new { proj_type = (int)EProjectType.Flow });
         }
 
-
         /// <summary>
         /// 项目是否存在
         /// </summary>
@@ -106,6 +105,18 @@ namespace DAO.FlowProject
         {
             string sql = @"SELECT name,proj_guid,last_publish_time,last_publish_status,add_time,remark FROM t_project WHERE proj_guid=@proj_guid AND proj_type=@proj_type;";
             return await dbHelper.QueryAsync<t_project>(sql, new { proj_type = (int)EProjectType.Flow, proj_guid = proj_guid });
+        }
+
+        /// <summary>
+        /// 删除项目
+        /// </summary>
+        /// <param name="dbHelper"></param>
+        /// <param name="proj_guid">项目guid</param>
+        /// <returns></returns>
+        public static async Task<bool> DeleteProject(SQLiteHelper dbHelper, string proj_guid)
+        {
+            string sql = @"DELETE FROM t_project WHERE proj_guid=@proj_guid AND proj_type=@proj_type";
+            return (await dbHelper.ExecAsync(sql, new { proj_guid = proj_guid, proj_type = (int)EProjectType.Flow })) > 0;
         }
 
     }

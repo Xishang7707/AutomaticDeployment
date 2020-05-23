@@ -17,32 +17,34 @@ namespace App.Implement.QuickProjectApp
     /// </summary>
     internal class QuickProjectAppImpl : IQuickProjectApp
     {
+        private IQuickProjectServer server = ServerFactory.Get<IQuickProjectServer>();
         public async Task<Result> AddProjectAsync(In<AddQuickProjectIn> inData)
         {
-            IQuickProjectServer server = ServerFactory.Get<IQuickProjectServer>();
             return await server.AddQuickProjectAsync(inData);
+        }
+
+        public async Task<Result> DeleteProject(In<DeleteProjectIn> inData)
+        {
+            return await server.DeleteProject(inData);
         }
 
         public async Task<Result> EditProject(In<EditQuickProjectIn> inData)
         {
-            return await ServerFactory.Get<IQuickProjectServer>().EditProject(inData);
+            return await server.EditProject(inData);
         }
 
         public async Task<Result> GetProjectAsync(In<string> inData)
         {
-            IQuickProjectServer server = ServerFactory.Get<IQuickProjectServer>();
             return await server.GetProjectAsync(inData);
         }
 
         public async Task<Result> GetProjectListAsync(In data)
         {
-            IQuickProjectServer server = ServerFactory.Get<IQuickProjectServer>();
             return await server.QuickProjectListAsync(data);
         }
 
         public async Task<Result> Publish(In<PublishQuickProject> inData)
         {
-            IQuickProjectServer server = ServerFactory.Get<IQuickProjectServer>();
             return await server.Publish(inData);
         }
 

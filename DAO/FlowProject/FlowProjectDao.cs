@@ -100,5 +100,18 @@ namespace DAO.FlowProject
 
             return await db.QueryAsync<t_flow_project>(sql, new { proj_guid = proj_guid });
         }
+
+        /// <summary>
+        /// 删除项目
+        /// </summary>
+        /// <param name="db"></param>
+        /// <param name="proj_guid"></param>
+        /// <returns></returns>
+        public static async Task<bool> DeleteProject(SQLiteHelper db, string proj_guid)
+        {
+            string sql = @"DELETE FROM t_flow_project WHERE proj_guid=@proj_guid";
+
+            return await db.ExecAsync(sql, new { proj_guid = proj_guid }) > 0;
+        }
     }
 }

@@ -202,7 +202,8 @@ function publish(call) {
         data: data,
         done: o => {
             layer.closeAll();
-            layer.msg(o.msg);
+            tw.layer.msg(o.msg);
+            close_page();
         },
         err: o => {
             layer.closeAll();

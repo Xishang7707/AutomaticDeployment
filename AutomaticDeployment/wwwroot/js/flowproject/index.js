@@ -2,19 +2,22 @@
     $('#btn_open_addproject').click(() => { open_page('添加项目', 'flowproject/addproject', 'addflowproject') });
     var w = get_top_window();
     layui.use(['element'], function () {
-        get({
-            url: '../api/flowproject/getprojectlist',
-            done: o => {
-                render_project_table(o['data']);
-                bind_publish(o['data']);
-                bind_edit_project(o['data']);
-            },
-            err: o => {
-                w.layer.msg(o.msg);
-            }
-        })
+        get_projects();
     });
 });
+
+function get_projects() {
+    get({
+        url: '../api/flowproject/getprojectlist',
+        done: o => {
+            render_project_table(o['data']);
+            bind_act(o['data']);
+        },
+        err: o => {
+            w.layer.msg(o.msg);
+        }
+    })
+}
 
 /**
  * 编辑项目
@@ -50,13 +53,18 @@ function render_project_table(o) {
                         <td>
                             <p>${item['project']['project_remark']}</p>
                         </td>
-                        <td>
-                            <button type="button" class="layui-btn btn-publish" id='btn-publish-${item['project']['project_uid']}'>
-                                <i class="layui-icon">&#xe67c;</i>发布
-                            </button>
-                            <button type="button" class="layui-btn btn-edit-project" id='btn-edit-${item['project']['project_uid']}'>
-                                编辑
-                            </button>
+                        <td style="text-align:center;">
+                            <div class="layui-btn-group">
+                                <button type="button" class="layui-btn btn-publish" id='btn-publish-${item['project']['project_uid']}'>
+                                    <i class="layui-icon">&#xe67c;</i>发布
+                                </button>
+                                <button type="button" class="layui-btn btn-edit-project" id='btn-edit-${item['project']['project_uid']}'>
+                                    编辑
+                                </button>
+                                <button type="button" class="layui-btn layui-btn-danger btn-delete-project" id='btn-delete-${item['project']['project_uid']}'>
+                                    删除
+                                </button>
+                            </div>
                         </td>
                     </tr>`;
         dom += temp;
@@ -64,37 +72,45 @@ function render_project_table(o) {
     $('#project-body tbody').html($(dom));
 }
 
-function bind_publish(o) {
+function bind_act(o) {
     for (var k in o) {
         var item = o[k];
         ((id, name) => {
             $(`#btn-publish-${id}`).click(() => { open_page(`发布[${name}]`, 'flowproject/publish?project_uid=' + id, 'flowpublish#' + id); });
+            $(`#btn-edit-${id}`).click(() => { open_page(`修改[${name}]`, 'flowproject/editproject?project_uid=' + id, 'editflowproject#' + id); });
+            $(`#btn-delete-${id}`).click(() => { delete_project(id); });
         })(item['project']['project_uid'], item['project']['project_name']);
     }
 }
 
-function bind_edit_project(o) {
-    for (var k in o) {
-        var item = o[k];
-        ((id, name) => {
-            $(`#btn-edit-${id}`).click(() => {
-                open_page(`修改[${name}]`, 'flowproject/editproject?project_uid=' + id, 'editflowproject#' + id);
-            });
-        })(item['project']['project_uid'], item['project']['project_name']);
-    }
-}
+//function global_update(data) {
+//    var w = get_top_window();
+//    get({
+//        url: '../api/flowproject/getprojectlist',
+//        done: o => {
+//            render_project_table(o['data']);
+//            bind_act(o['data']);
+//        },
+//        err: o => {
+//            w.layer.msg(o.msg);
+//        }
+//    })
+//}
 
-function global_update(data) {
-    var w = get_top_window();
-    get({
-        url: '../api/flowproject/getprojectlist',
-        done: o => {
-            render_project_table(o['data']);
-            bind_publish(o['data']);
-            bind_edit_project(o['data']);
-        },
-        err: o => {
-            w.layer.msg(o.msg);
-        }
-    })
+function delete_project(id) {
+    layer.confirm('确定要删除此项目吗？', { icon: 3, title: '询问' }, function (index) {
+        var w = get_top_window();
+        post({
+            url: '../api/flowproject/deleteproject',
+            data: { project_uid: id },
+            done: o => {
+                w.layer.msg(o.msg);
+                get_projects();
+            },
+            err: o => {
+                w.layer.msg(o.msg);
+            }
+        });
+        layer.close(index);
+    });
 }

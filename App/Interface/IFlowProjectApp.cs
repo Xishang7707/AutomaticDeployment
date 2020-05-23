@@ -51,5 +51,12 @@ namespace App.Interface
         /// <param name="inData"></param>
         /// <returns></returns>
         Task<Result> EditProject(In<EditProjectIn> inData);
+
+        /// <summary>
+        /// 删除项目
+        /// </summary>
+        /// <param name="inData"></param>
+        /// <returns></returns>
+        Task<Result> DeleteProject(In<DeleteProjectIn> inData);
     }
 }

@@ -159,5 +159,18 @@ namespace DAO.QuickProject
             string sql = @"SELECT proj_guid,conn_ip,conn_port,conn_user,conn_password,conn_mode,publish_path,platform_type,publish_before_cmd,publish_after_cmd FROM t_quick_project WHERE proj_guid=@proj_guid;";
             return await dbHelper.QueryAsync<t_quick_project>(sql, new { proj_guid = proj_guid });
         }
+
+        /// <summary>
+        /// 删除项目
+        /// </summary>
+        /// <param name="db"></param>
+        /// <param name="proj_guid"></param>
+        /// <returns></returns>
+        public static async Task<bool> DeleteProject(SQLiteHelper db, string proj_guid)
+        {
+            string sql = @"DELETE FROM t_quick_project WHERE proj_guid=@proj_guid";
+
+            return await db.ExecAsync(sql, new { proj_guid = proj_guid }) > 0;
+        }
     }
 }

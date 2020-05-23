@@ -2,19 +2,22 @@
     $('#btn_open_addproject').click(open_addproject);
     var w = get_top_window();
     layui.use([], function () {
-        get({
-            url: '../api/quickproject/getprojectlist',
-            done: o => {
-                render_project_table(o['data']);
-                bind_publish(o['data']);
-                bind_edit_project(o['data']);
-            },
-            err: o => {
-                w.layer.msg(o.msg);
-            }
-        })
+        get_projects();
     });
 });
+
+function get_projects() {
+    get({
+        url: '../api/quickproject/getprojectlist',
+        done: o => {
+            render_project_table(o['data']);
+            bind_act(o['data']);
+        },
+        err: o => {
+            w.layer.msg(o.msg);
+        }
+    })
+}
 
 /**
  * 打开添加项目
@@ -76,13 +79,18 @@ function render_project_table(o) {
                         <td>
                             <p>${item['project']['project_remark']}</p>
                         </td>
-                        <td>
-                            <button type="button" class="layui-btn btn-publish" id='btn-publish-${item['project']['project_uid']}'>
-                                <i class="layui-icon">&#xe67c;</i>发布
-                            </button>
-                            <button type="button" class="layui-btn btn-edit-project" id='btn-edit-${item['project']['project_uid']}'>
-                                编辑
-                            </button>
+                        <td style="text-align:center;">
+                            <div class="layui-btn-group">
+                                <button type="button" class="layui-btn btn-publish" id='btn-publish-${item['project']['project_uid']}'>
+                                    <i class="layui-icon">&#xe67c;</i>发布
+                                </button>
+                                <button type="button" class="layui-btn btn-edit-project" id='btn-edit-${item['project']['project_uid']}'>
+                                    编辑
+                                </button>
+                                <button type="button" class="layui-btn layui-btn-danger btn-delete-project" id='btn-delete-${item['project']['project_uid']}'>
+                                    删除
+                                </button>
+                            </div>
                         </td>
                     </tr>`;
         dom += temp;
@@ -90,46 +98,37 @@ function render_project_table(o) {
     $('#project-body tbody').html($(dom));
 }
 
-//function bind_publish(upload, o) {
-//    for (var k in o) {
-//        var item = o[k];
-//        bind_publish(item['project']['proj_guid']);
-//        upload.render({
-//            elem: '#' + item['project']['proj_guid']
-//            , url: 'api/quickproject/publish'
-//            , accept: 'file'
-//            , choose: function (obj) {
-
-//            }
-//            , done: function (res) {
-//                //上传完毕回调
-//                layer.msg(res.msg);
-//            }
-//            , error: function () {
-//                layer.msg('发布失败');
-//            }
-//        });
-//    }
-//}
-
-function bind_publish(o) {
+function bind_act(o) {
     for (var k in o) {
         var item = o[k];
         ((id, name) => {
             $(`#btn-publish-${id}`).click(() => {
                 open_publish(id, name);
             });
+            $(`#btn-edit-${id}`).click(() => {
+                open_edit(id, name);
+            });
+            $(`#btn-delete-${id}`).click(() => {
+                delete_project(id);
+            });
         })(item['project']['project_uid'], item['project']['project_name']);
     }
 }
 
-function bind_edit_project(o) {
-    for (var k in o) {
-        var item = o[k];
-        ((id, name) => {
-            $(`#btn-edit-${id}`).click(() => {
-                open_edit(id, name);
-            });
-        })(item['project']['project_uid'], item['project']['project_name']);
-    }
+function delete_project(id) {
+    layer.confirm('确定要删除此项目吗？', { icon: 3, title: '询问' }, function (index) {
+        var w = get_top_window();
+        post({
+            url: '../api/quickproject/deleteproject',
+            data: { project_uid: id },
+            done: o => {
+                w.layer.msg(o.msg);
+                get_projects();
+            },
+            err: o => {
+                w.layer.msg(o.msg);
+            }
+        });
+        layer.close(index);
+    });
 }

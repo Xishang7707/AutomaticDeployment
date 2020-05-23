@@ -40,7 +40,7 @@ namespace AutomaticDeployment
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IHubContext<PublishLogHub> publishLogHub)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IHubContext<PublishLogHub> publishLogHub, IHubContext<PageNoticeHub> pageNoticeHub)
         {
             if (env.IsDevelopment())
             {
@@ -71,6 +71,7 @@ namespace AutomaticDeployment
             });
 
             IPublishLogApp publishLogApp = AppFactory.Get<IPublishLogApp>(publishLogHub);
+            AppFactory.Get<IPageNoticeApp>(pageNoticeHub);
 
             IAutoPublishApp autoPublishApp = AppFactory.Get<IAutoPublishApp>();
             autoPublishApp.Start();

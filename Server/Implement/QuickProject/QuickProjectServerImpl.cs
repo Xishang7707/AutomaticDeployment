@@ -489,5 +489,68 @@ namespace Server.Implement.QuickProject
                 return result;
             }
         }
+
+
+        /// <summary>
+        /// 删除项目验证
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        private Result VerifyDeleteProjectInfo(DeleteProjectIn data)
+        {
+            Result result = new Result();
+            if (data == null)
+            {
+                result.msg = Tip.TIP_1;
+                return result;
+            }
+            if (string.IsNullOrWhiteSpace(data.project_uid))
+            {
+                result.msg = Tip.TIP_24;
+                return result;
+            }
+            result.result = true;
+            return result;
+        }
+
+        public async Task<Result> DeleteProject(In<DeleteProjectIn> inData)
+        {
+            Result result = VerifyDeleteProjectInfo(inData.data);
+            if (!result.result)
+            {
+                return result;
+            }
+            result.result = false;
+
+            SQLiteHelper db = new SQLiteHelper();
+            try
+            {
+                await db.BeginTransactionAsync();
+                result.result = await ProjectDao.DeleteProject(db, inData.data.project_uid);
+                if (!result.result)
+                {
+                    await db.RollbackAsync();
+                    result.msg = Tip.TIP_49;
+                    return result;
+                }
+
+                result.result = await QuickProjectDao.DeleteProject(db, inData.data.project_uid);
+                if (!result.result)
+                {
+                    await db.RollbackAsync();
+                    result.msg = Tip.TIP_49;
+                    return result;
+                }
+                await db.CommitAsync();
+
+                result.msg = Tip.TIP_50;
+            }
+            catch (Exception e)
+            {
+                await db.RollbackAsync();
+                result.msg = Tip.TIP_49;
+            }
+            return result;
+        }
     }
 }

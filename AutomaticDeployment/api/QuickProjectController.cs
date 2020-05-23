@@ -16,6 +16,8 @@ namespace AutomaticDeployment.api
     [Route("api/[controller]")]
     public class QuickProjectController : BaseController
     {
+        IQuickProjectApp app = AppFactory.Get<IQuickProjectApp>();
+
         /// <summary>
         /// 添加项目
         /// </summary>
@@ -24,7 +26,6 @@ namespace AutomaticDeployment.api
         [HttpPost("addproject")]
         public async Task<IActionResult> AddProject([FromBody]AddQuickProjectIn model)
         {
-            IQuickProjectApp app = AppFactory.Get<IQuickProjectApp>();
             return await app.AddProjectAsync(PackRequest(model));
         }
 
@@ -35,7 +36,6 @@ namespace AutomaticDeployment.api
         [HttpGet("getprojectlist")]
         public async Task<IActionResult> GetProjectList()
         {
-            IQuickProjectApp app = AppFactory.Get<IQuickProjectApp>();
             return await app.GetProjectListAsync(PackRequest());
         }
 
@@ -47,7 +47,6 @@ namespace AutomaticDeployment.api
         [HttpPost("publish")]
         public async Task<IActionResult> Publish([FromBody]PublishQuickProject form)
         {
-            IQuickProjectApp app = AppFactory.Get<IQuickProjectApp>();
             return await app.Publish(PackRequest(form));
         }
 
@@ -59,7 +58,6 @@ namespace AutomaticDeployment.api
         [HttpGet("getproject")]
         public async Task<IActionResult> GetProject([FromQuery]string project_uid)
         {
-            IQuickProjectApp app = AppFactory.Get<IQuickProjectApp>();
             return await app.GetProjectAsync(PackRequest(project_uid));
         }
 
@@ -71,8 +69,18 @@ namespace AutomaticDeployment.api
         [HttpPost("editproject")]
         public async Task<IActionResult> EditProject([FromBody]EditQuickProjectIn model)
         {
-            IQuickProjectApp app = AppFactory.Get<IQuickProjectApp>();
             return await app.EditProject(PackRequest(model));
+        }
+
+        /// <summary>
+        /// 删除
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        [HttpPost("deleteproject")]
+        public async Task<IActionResult> DeleteProject([FromBody] DeleteProjectIn data)
+        {
+            return await app.DeleteProject(PackRequest(data));
         }
     }
 }

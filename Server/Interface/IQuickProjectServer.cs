@@ -48,5 +48,12 @@ namespace Server.Interface
         /// <param name="inData"></param>
         /// <returns></returns>
         Task<Result> EditProject(In<EditQuickProjectIn> inData);
+
+        /// <summary>
+        /// 删除项目信息
+        /// </summary>
+        /// <param name="inData"></param>
+        /// <returns></returns>
+        Task<Result> DeleteProject(In<DeleteProjectIn> inData);
     }
 }

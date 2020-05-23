@@ -17,6 +17,11 @@ namespace App.Implement.FlowProjectApp
             return await server.AddProject(inData);
         }
 
+        public async Task<Result> DeleteProject(In<DeleteProjectIn> inData)
+        {
+            return await server.DeleteProject(inData);
+        }
+
         public async Task<Result> EditProject(In<EditProjectIn> inData)
         {
             return await server.EditProject(inData);

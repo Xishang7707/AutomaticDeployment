@@ -81,5 +81,16 @@ namespace AutomaticDeployment.api
         {
             return await app.EditProject(PackRequest(data));
         }
+
+        /// <summary>
+        /// 删除
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        [HttpPost("deleteproject")]
+        public async Task<IActionResult> DeleteProject([FromBody] DeleteProjectIn data)
+        {
+            return await app.DeleteProject(PackRequest(data));
+        }
     }
 }
