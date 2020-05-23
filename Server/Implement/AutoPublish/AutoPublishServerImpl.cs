@@ -907,7 +907,7 @@ namespace Server.Implement.AutoPublish
             {
                 return result;
             }
-            result = osLocal.Zip($"{path}/{info.proj_info.proj_guid}", $".");
+            result = osLocal.Zip($"{path}/{info.proj_info.proj_guid}", $"*");
             if (!result.result)
             {
                 return result;

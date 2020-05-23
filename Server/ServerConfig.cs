@@ -14,11 +14,11 @@ namespace Server
     {
         static ServerConfig()
         {
-            //if (GetCommon.GetCurrentOS() != EOSPlatform.Linux)
-            //{
-            //    Console.WriteLine("本项目目前只能运行在Linux上");
-            //    throw new Exception("本项目目前只能运行在Linux上");
-            //}
+            if (GetCommon.GetCurrentOS() != EOSPlatform.Linux)
+            {
+                Console.WriteLine("本项目目前只能运行在Linux上");
+                throw new Exception("本项目目前只能运行在Linux上");
+            }
             OSPlatform = EOSPlatform.Linux;//强制 Linux
             using var sr = new StreamReader("appsettings.json", Encoding.UTF8);
             string str = sr.ReadToEnd();
