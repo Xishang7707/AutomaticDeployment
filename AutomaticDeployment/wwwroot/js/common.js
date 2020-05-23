@@ -49,7 +49,7 @@ function get_top_window() {
         p = p.window.parent;
     } return p;
 }
-let tw = get_top_window();
+var tw = get_top_window();
 
 function getQuery(variable) {
     var query = window.location.search.substring(1);
