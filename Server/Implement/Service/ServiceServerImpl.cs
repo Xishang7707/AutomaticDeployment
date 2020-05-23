@@ -89,10 +89,10 @@ namespace Server.Implement.Service
                 result.msg = Tip.TIP_18;
                 return result;
             }
-            if (!string.IsNullOrWhiteSpace(data.workspace))
+            if (!string.IsNullOrWhiteSpace(data.server_space))
             {
-                data.workspace = data.workspace.Trim();
-                if (!VerifyCommon.ServiceWorkspaceLength(data.workspace))
+                data.server_space = data.server_space.Trim();
+                if (!VerifyCommon.ServiceWorkspaceLength(data.server_space))
                 {
                     result.msg = Tip.TIP_39;
                     return result;

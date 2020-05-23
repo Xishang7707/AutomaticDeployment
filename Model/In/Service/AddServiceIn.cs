@@ -22,6 +22,6 @@ namespace Model.In.Service
         /// <summary>
         /// 工作目录
         /// </summary>
-        public string workspace { get; set; }
+        public string server_space { get; set; }
     }
 }

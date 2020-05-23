@@ -32,7 +32,7 @@ namespace DAO.Service
                 conn_user = addData.server_account,
                 name = addData.server_name,
                 platform_type = int.Parse(addData.server_platform),
-                work_spacepath = addData.workspace,
+                work_spacepath = addData.server_space,
                 add_time = DateTime.Now.GetSQLTime()
             };
 
