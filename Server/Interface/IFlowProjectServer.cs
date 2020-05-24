@@ -21,8 +21,9 @@ namespace Server.Interface
         /// <summary>
         /// 获取项目列表
         /// </summary>
+        /// <param name="inData"></param>
         /// <returns></returns>
-        Task<Result> GetProjectList();
+        Task<Result> GetProjectList(In<SearchProjectIn> inData);
 
         /// <summary>
         /// 发布
@@ -58,5 +59,12 @@ namespace Server.Interface
         /// <param name="inData"></param>
         /// <returns></returns>
         Task<Result> DeleteProject(In<DeleteProjectIn> inData);
+
+        /// <summary>
+        /// 获取项目归类
+        /// </summary>
+        /// <param name="inData"></param>
+        /// <returns></returns>
+        Task<Result> GetProjectClassify(In inData);
     }
 }

@@ -1,8 +1,9 @@
-﻿$(function () {
-    layui.use(['carousel', 'upload', 'form'], function () {
+﻿var form;
+$(function () {
+    layui.use(['carousel', 'form'], function () {
         var carousel = layui.carousel;
-        var upload = layui.upload;
-        var form = layui.form;
+        form = layui.form;
+        get_classify();
         get_service(form);
         var step_el = init_dev_steps();
 
@@ -69,6 +70,7 @@ function get_step_project() {
     var data = {
         service_id: get_selected('#step_project select[name=project_service_id]'),
         project_name: $('#step_project input[name=project_name]').val(),
+        project_classify: get_select_input('#step_project select[name=project_classify]'),
         code_souce_tool: get_selected('#step_project select[name=code_souce_tool]'),
         code_get_cmd: $('#step_project input[name=code_get_cmd]').val(),
         project_path: $('#step_project input[name=project_path]').val(),
@@ -84,6 +86,10 @@ function verify_step_project(data) {
     }
     if (!data['project_name']) {
         layer.msg('请填写项目名称');
+        return false;
+    }
+    if (data['project_classify'].length > 20) {
+        layer.msg('项目归类最多20个字符');
         return false;
     }
     if (!data['code_souce_tool']) {
@@ -173,4 +179,17 @@ function get_service(form) {
             form.render('select');
         }
     })
+}
+
+function get_classify(sed) {
+    render_select({
+        sor: '#step_project select[name=project_classify]',
+        el: form,
+        sed: sed,
+        def: '项目归属类别',
+        url: '../api/flowproject/getclassify',
+        done: o => {
+            $('#step_project select[name=project_classify]').next().find('div input.layui-input').unbind('blur');
+        }
+    });
 }

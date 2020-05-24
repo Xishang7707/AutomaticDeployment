@@ -30,12 +30,14 @@ namespace DAO.FlowProject
                 name = data.project.project_name,
                 proj_type = (int)EProjectType.Flow,
                 proj_guid = guid,
-                remark = data.project.project_remark?.Trim()
+                remark = data.project.project_remark?.Trim(),
+                classify = data.project.project_classify
             };
             string sql = $@"INSERT INTO t_project (
                           name,
                           proj_guid,
                           proj_type,
+                          classify,
                           add_time,
                           remark
                       )
@@ -43,6 +45,7 @@ namespace DAO.FlowProject
                           @name,
                           @proj_guid,
                           @proj_type,
+                          @classify,
                           @add_time,
                           @remark
                       );select last_insert_rowid();";
@@ -62,10 +65,12 @@ namespace DAO.FlowProject
             {
                 name = data.project.project_name,
                 proj_guid = data.project_uid,
-                remark = data.project.project_remark?.Trim()
+                remark = data.project.project_remark?.Trim(),
+                classify = data.project.project_classify
             };
             string sql = $@"UPDATE t_project SET
                           name=@name,
+                          classify=@classify,
                           remark=@remark
                           WHERE proj_guid=@proj_guid";
 
@@ -77,10 +82,10 @@ namespace DAO.FlowProject
         /// </summary>
         /// <param name="dbHelper"></param>
         /// <returns></returns>
-        public static async Task<List<t_project>> GetProjectList(SQLiteHelper dbHelper)
+        public static async Task<List<t_project>> GetProjectList(SQLiteHelper dbHelper, SearchProjectIn data)
         {
-            string sql = @"SELECT name,proj_guid,last_publish_time,last_publish_status,add_time,remark FROM t_project WHERE proj_type=@proj_type;";
-            return await dbHelper.QueryListAsync<t_project>(sql, new { proj_type = (int)EProjectType.Flow });
+            string sql = $@"SELECT name,classify,proj_guid,last_publish_time,last_publish_status,add_time,remark FROM t_project WHERE proj_type=@proj_type {(string.IsNullOrWhiteSpace(data.project_classify) ? "" : "AND classify=@classify")};";
+            return await dbHelper.QueryListAsync<t_project>(sql, new { proj_type = (int)EProjectType.Flow, classify = data.project_classify });
         }
 
         /// <summary>
@@ -119,5 +124,15 @@ namespace DAO.FlowProject
             return (await dbHelper.ExecAsync(sql, new { proj_guid = proj_guid, proj_type = (int)EProjectType.Flow })) > 0;
         }
 
+        /// <summary>
+        /// 获取项目归类
+        /// </summary>
+        /// <param name="dbHelper"></param>
+        /// <returns></returns>
+        public static async Task<List<string>> GetProjectClassify(SQLiteHelper dbHelper)
+        {
+            string sql = @"SELECT classify FROM t_project WHERE proj_type=@proj_type GROUP BY classify";
+            return await dbHelper.QueryListAsync<string>(sql, new { proj_type = (int)EProjectType.Flow });
+        }
     }
 }

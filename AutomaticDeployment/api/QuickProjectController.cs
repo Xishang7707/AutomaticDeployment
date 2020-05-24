@@ -24,7 +24,7 @@ namespace AutomaticDeployment.api
         /// <param name="model"></param>
         /// <returns></returns>
         [HttpPost("addproject")]
-        public async Task<IActionResult> AddProject([FromBody]AddQuickProjectIn model)
+        public async Task<IActionResult> AddProject([FromBody] AddQuickProjectIn model)
         {
             return await app.AddProjectAsync(PackRequest(model));
         }
@@ -34,9 +34,9 @@ namespace AutomaticDeployment.api
         /// </summary>
         /// <returns></returns>
         [HttpGet("getprojectlist")]
-        public async Task<IActionResult> GetProjectList()
+        public async Task<IActionResult> GetProjectList([FromQuery] SearchProjectIn model)
         {
-            return await app.GetProjectListAsync(PackRequest());
+            return await app.GetProjectListAsync(PackRequest(model));
         }
 
         /// <summary>
@@ -45,7 +45,7 @@ namespace AutomaticDeployment.api
         /// <param name="form"></param>
         /// <returns></returns>
         [HttpPost("publish")]
-        public async Task<IActionResult> Publish([FromBody]PublishQuickProject form)
+        public async Task<IActionResult> Publish([FromBody] PublishQuickProject form)
         {
             return await app.Publish(PackRequest(form));
         }
@@ -56,7 +56,7 @@ namespace AutomaticDeployment.api
         /// <param name="project_uid">项目guid</param>
         /// <returns></returns>
         [HttpGet("getproject")]
-        public async Task<IActionResult> GetProject([FromQuery]string project_uid)
+        public async Task<IActionResult> GetProject([FromQuery] string project_uid)
         {
             return await app.GetProjectAsync(PackRequest(project_uid));
         }
@@ -67,7 +67,7 @@ namespace AutomaticDeployment.api
         /// <param name="model">项目信息</param>
         /// <returns></returns>
         [HttpPost("editproject")]
-        public async Task<IActionResult> EditProject([FromBody]EditQuickProjectIn model)
+        public async Task<IActionResult> EditProject([FromBody] EditQuickProjectIn model)
         {
             return await app.EditProject(PackRequest(model));
         }
@@ -82,5 +82,16 @@ namespace AutomaticDeployment.api
         {
             return await app.DeleteProject(PackRequest(data));
         }
+
+        /// <summary>
+        /// 获取项目归类
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("getclassify")]
+        public async Task<IActionResult> GetClassify()
+        {
+            return await app.GetProjectClassify(PackRequest());
+        }
+
     }
 }

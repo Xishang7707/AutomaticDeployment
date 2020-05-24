@@ -108,6 +108,15 @@ namespace Server.Implement.QuickProject
                 result.msg = Tip.TIP_19;
                 return result;
             }
+            if (!string.IsNullOrWhiteSpace(data.project.project_classify))
+            {
+                if (!VerifyCommon.ProjectNameLength(data.project.project_classify.Trim()))
+                {
+                    result.msg = Tip.TIP_51;
+                    return result;
+                }
+                data.project.project_classify = data.project.project_classify.Trim();
+            }
             //发布信息验证
             if (data.publish == null)
             {
@@ -174,14 +183,14 @@ namespace Server.Implement.QuickProject
             }
         }
 
-        public async Task<Result> QuickProjectListAsync(In data)
+        public async Task<Result> QuickProjectListAsync(In<SearchProjectIn> data)
         {
             List<ProjectInfoResult> resultList = new List<ProjectInfoResult>();
             Result<List<ProjectInfoResult>> result = new Result<List<ProjectInfoResult>> { result = true, data = resultList };
 
             SQLiteHelper dbHelper = new SQLiteHelper();
 
-            List<t_project> projList = await ProjectDao.GetProjectList(dbHelper);
+            List<t_project> projList = await ProjectDao.GetProjectList(dbHelper, data.data);
             List<t_quick_project> quickList = new List<t_quick_project>();
             if (projList.Count > 0)
             {
@@ -199,7 +208,7 @@ namespace Server.Implement.QuickProject
                         project_uid = item.proj_guid,
                         project_name = item.name,
                         project_remark = item.remark,
-
+                        project_classify = item.classify
                     },
                     server = new ServerResult
                     {
@@ -419,6 +428,15 @@ namespace Server.Implement.QuickProject
                 result.msg = Tip.TIP_19;
                 return result;
             }
+            if (!string.IsNullOrWhiteSpace(data.project.project_classify))
+            {
+                if (!VerifyCommon.ProjectNameLength(data.project.project_classify.Trim()))
+                {
+                    result.msg = Tip.TIP_51;
+                    return result;
+                }
+                data.project.project_classify = data.project.project_classify.Trim();
+            }
             //发布信息验证
             if (data.publish == null)
             {
@@ -561,6 +579,25 @@ namespace Server.Implement.QuickProject
                 await db.RollbackAsync();
                 result.msg = Tip.TIP_49;
             }
+            return result;
+        }
+
+        public async Task<Result> GetProjectClassify(In inData)
+        {
+            SQLiteHelper db = new SQLiteHelper();
+            List<string> classify_list = await ProjectDao.GetProjectClassify(db);
+            db.Close();
+            classify_list = classify_list.Where(w => !string.IsNullOrWhiteSpace(w)).ToList();
+            Result<List<StringValue>> result = new Result<List<StringValue>> { result = true, data = new List<StringValue>() };
+            foreach (var item in classify_list)
+            {
+                result.data.Add(new StringValue
+                {
+                    name = item,
+                    value = item
+                });
+            }
+
             return result;
         }
     }

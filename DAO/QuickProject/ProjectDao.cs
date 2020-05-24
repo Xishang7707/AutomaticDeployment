@@ -28,6 +28,7 @@ namespace DAO.QuickProject
                           name,
                           proj_guid,
                           proj_type,
+                          classify,
                           add_time,
                           remark
                       )
@@ -35,6 +36,7 @@ namespace DAO.QuickProject
                           @name,
                           @proj_guid,
                           @proj_type,
+                          @classify,
                           @add_time,
                           @remark
                       );select last_insert_rowid();";
@@ -56,7 +58,8 @@ namespace DAO.QuickProject
                 name = data.project_name,
                 remark = data.project_remark,
                 proj_guid = MakeCommon.MakeGUID("N"),
-                proj_type = (int)EProjectType.Quick
+                proj_type = (int)EProjectType.Quick,
+                classify = data.project_classify
             };
 
             AddProjectDaoResult result = new AddProjectDaoResult();
@@ -74,10 +77,10 @@ namespace DAO.QuickProject
         /// </summary>
         /// <param name="dbHelper"></param>
         /// <returns></returns>
-        public static async Task<List<t_project>> GetProjectList(SQLiteHelper dbHelper)
+        public static async Task<List<t_project>> GetProjectList(SQLiteHelper dbHelper, SearchProjectIn data)
         {
-            string sql = @"SELECT name,proj_guid,last_publish_time,last_publish_status,add_time,remark FROM t_project WHERE proj_type=@proj_type;";
-            return await dbHelper.QueryListAsync<t_project>(sql, new { proj_type = (int)EProjectType.Quick });
+            string sql = $@"SELECT name,proj_guid,classify,last_publish_time,last_publish_status,add_time,remark FROM t_project WHERE proj_type=@proj_type {(string.IsNullOrWhiteSpace(data.project_classify) ? "" : "AND classify=@classify")}";
+            return await dbHelper.QueryListAsync<t_project>(sql, new { proj_type = (int)EProjectType.Quick, classify = data.project_classify });
         }
 
         /// <summary>
@@ -112,8 +115,8 @@ namespace DAO.QuickProject
         /// <returns></returns>
         public static async Task<bool> EditProject(SQLiteHelper dbHelper, QuickProjectIn data)
         {
-            string sql = @"UPDATE t_project set name=@name,remark=@remark WHERE proj_guid=@proj_guid AND proj_type=@proj_type;";
-            return await dbHelper.ExecAsync(sql, new { proj_type = (int)EProjectType.Quick, proj_guid = data.project_guid, name = data.project_name, remark = data.project_remark }) > 0;
+            string sql = @"UPDATE t_project set name=@name,remark=@remark, classify=@classify WHERE proj_guid=@proj_guid AND proj_type=@proj_type;";
+            return await dbHelper.ExecAsync(sql, new { proj_type = (int)EProjectType.Quick, proj_guid = data.project_guid, name = data.project_name, remark = data.project_remark, classify = data.project_classify }) > 0;
         }
 
         /// <summary>
@@ -126,6 +129,17 @@ namespace DAO.QuickProject
         {
             string sql = @"DELETE FROM t_project WHERE proj_guid=@proj_guid AND proj_type=@proj_type";
             return (await dbHelper.ExecAsync(sql, new { proj_guid = proj_guid, proj_type = (int)EProjectType.Quick })) > 0;
+        }
+
+        /// <summary>
+        /// 获取项目归类
+        /// </summary>
+        /// <param name="dbHelper"></param>
+        /// <returns></returns>
+        public static async Task<List<string>> GetProjectClassify(SQLiteHelper dbHelper)
+        {
+            string sql = @"SELECT classify FROM t_project WHERE proj_type=@proj_type GROUP BY classify";
+            return await dbHelper.QueryListAsync<string>(sql, new { proj_type = (int)EProjectType.Quick });
         }
     }
 }

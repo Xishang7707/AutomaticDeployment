@@ -142,10 +142,10 @@ namespace Server.Implement.Service
         {
             SQLiteHelper db = new SQLiteHelper();
             List<t_service> serviceList = await DAO.Service.ServiceDao.GetKvAll(db);
-            Result<List<ServiceKvResult>> result = new Result<List<ServiceKvResult>> { result = true, data = new List<ServiceKvResult>() };
+            Result<List<IntValue>> result = new Result<List<IntValue>> { result = true, data = new List<IntValue>() };
             foreach (var item in serviceList)
             {
-                var service = new ServiceKvResult
+                var service = new IntValue
                 {
                     value = item.id
                 };

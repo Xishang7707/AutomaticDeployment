@@ -30,6 +30,11 @@ namespace Model.Db
         public int proj_type { get; set; }
 
         /// <summary>
+        /// 归类
+        /// </summary>
+        public string classify { get; set; }
+
+        /// <summary>
         /// 最后一次发布时间
         /// </summary>
         public string last_publish_time { get; set; }

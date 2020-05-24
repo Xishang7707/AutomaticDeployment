@@ -1,4 +1,5 @@
-﻿$(function () {
+﻿var form;
+$(function () {
     var project_uid = getQuery('project_uid');
     if (!project_uid)
         return;
@@ -6,26 +7,7 @@
     get_project(project_uid);
     layui.use(['carousel', 'form'], function () {
         var carousel = layui.carousel;
-        var form = layui.form;
-
-        var developer_config = {
-            server: {
-                server_platform: '',
-                server_ip: '',
-                server_port: '',
-                server_account: '',
-                server_password: ''
-            },
-            project: {
-                project_name: '',
-                project_remark: ''
-            },
-            publish: {
-                publish_path: '',
-                publish_before_command: '',
-                publish_after_command: ''
-            }
-        };
+        form = layui.form;
 
         var step_el = init_dev_steps();
 
@@ -138,6 +120,7 @@ function get_step_project() {
     var data = {
         project_guid: $('#step_project input[name=project_uid]').val(),
         project_name: $('#step_project input[name=project_name]').val(),
+        project_classify: get_select_input('#step_project select[name=project_classify]'),
         project_remark: $('#step_project textarea[name=project_remark]').val()
     };
     return data;
@@ -147,6 +130,11 @@ function verify_step_project(data) {
 
     if (!data['project_name']) {
         layer.msg('请填写项目名称');
+        return false;
+    }
+
+    if (data['project_classify'].length > 20) {
+        layer.msg('项目归类最多20个字符');
         return false;
     }
 
@@ -222,6 +210,7 @@ function get_project(id) {
         url: '../api/quickproject/getproject?project_uid=' + id,
         done: o => {
             render_project(o.data);
+            get_classify(o.data['project_classify']);
         },
         err: o => {
             layer.msg(o.msg);
@@ -245,4 +234,16 @@ function render_project(data) {
     $('#step_publish input[name=publish_path]').val(data['publish']['publish_path']);
     $('#step_publish textarea[name=publish_before_command]').val(data['publish']['publish_before_command']);
     $('#step_publish textarea[name=publish_after_command]').val(data['publish']['publish_after_command']);
+}
+
+function get_classify(sed) {
+    render_select({
+        sor: '#step_project select[name=project_classify]',
+        el: form,
+        sed: sed,
+        url: '../api/quickproject/getclassify',
+        done: o => {
+            $('#step_project select[name=project_classify]').next().find('div input.layui-input').unbind('blur');
+        }
+    });
 }

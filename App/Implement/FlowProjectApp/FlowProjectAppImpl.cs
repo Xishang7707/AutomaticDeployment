@@ -32,14 +32,19 @@ namespace App.Implement.FlowProjectApp
             return await server.GetProject(inData);
         }
 
+        public async Task<Result> GetProjectClassify(In inData)
+        {
+            return await server.GetProjectClassify(inData);
+        }
+
         public async Task<Result> GetProjectInfo(In<string> inData)
         {
             return await server.GetProjectInfo(inData);
         }
 
-        public async Task<Result> GetProjectList()
+        public async Task<Result> GetProjectList(In<SearchProjectIn> inData)
         {
-            return await server.GetProjectList();
+            return await server.GetProjectList(inData);
         }
 
         public async Task<Result> Publish(In<PublishFlowProject> inData)

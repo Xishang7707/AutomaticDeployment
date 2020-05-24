@@ -63,6 +63,13 @@ namespace Common
         /// <param name="name"></param>
         /// <returns></returns>
         public static bool ProjectNameLength(string name) => name.Length <= 20;
+        
+        /// <summary>
+        /// 验证项目归类长度
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
+        public static bool ProjectClassifyLength(string name) => name.Length <= 20;
 
         /// <summary>
         /// 验证发布路径长度

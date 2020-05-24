@@ -13,6 +13,16 @@
             <div class="layui-btn-group">
                 <button type="button" class="layui-btn" id="btn_open_addproject">添加项目</button>
             </div>
+            <form class="layui-form" style="float:right;">
+                <div class="layui-form-item">
+                    <div class="layui-inline">
+                        <select name="project_classify" lay-filter="project_classify" lay-search></select>
+                    </div>
+                    <div class="layui-inline">
+                        <button type="button" class="layui-btn" id="btn-search"><i class="layui-icon">&#xe615;</i></button>
+                    </div>
+                </div>
+            </form>
         </div>
         <div class="layui-card-body" id="project-body">
             <table class="layui-table">

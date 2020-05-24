@@ -1,5 +1,6 @@
 ﻿var project_uid;
 var _service_info;
+var form;
 $(function () {
     project_uid = getQuery('project_uid');
     if (!project_uid)
@@ -7,7 +8,7 @@ $(function () {
 
     layui.use(['carousel', 'upload', 'form'], function () {
         var carousel = layui.carousel;
-        var form = layui.form;
+        form = layui.form;
 
         get_project(project_uid, form);
 
@@ -76,6 +77,7 @@ function get_step_project() {
     var data = {
         service_id: get_selected('#step_project select[name=project_service_id]'),
         project_name: $('#step_project input[name=project_name]').val(),
+        project_classify: get_select_input('#step_project select[name=project_classify]'),
         code_souce_tool: get_selected('#step_project select[name=code_souce_tool]'),
         code_get_cmd: $('#step_project input[name=code_get_cmd]').val(),
         project_path: $('#step_project input[name=project_path]').val(),
@@ -91,6 +93,10 @@ function verify_step_project(data) {
     }
     if (!data['project_name']) {
         layer.msg('请填写项目名称');
+        return false;
+    }
+    if (data['project_classify'].length > 20) {
+        layer.msg('项目归类最多20个字符');
         return false;
     }
     if (!data['code_souce_tool']) {
@@ -190,6 +196,7 @@ function get_project(id, form) {
         done: o => {
             render_project(o.data);
             get_service(form, o.data['project']['service_id']);
+            get_classify(o.data['project']['project_classify']);
         },
         err: o => {
             layer.msg(o.msg);
@@ -209,4 +216,16 @@ function render_project(data) {
     $('#step_publish input[name=publish_file_path]').val(data['publish']['publish_file_path']);
     $('#step_publish input[name=publish_before_command]').val(data['publish']['publish_before_command']);
     $('#step_publish input[name=publish_after_command]').val(data['publish']['publish_after_command']);
+}
+
+function get_classify(sed) {
+    render_select({
+        sor: '#step_project select[name=project_classify]',
+        el: form,
+        sed: sed,
+        url: '../api/flowproject/getclassify',
+        done: o => {
+            $('#step_project select[name=project_classify]').next().find('div input.layui-input').unbind('blur')
+        }
+    });
 }

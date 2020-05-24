@@ -1,27 +1,10 @@
-﻿$(function () {
+﻿var form;
+$(function () {
     layui.use(['carousel', 'upload', 'form'], function () {
         var carousel = layui.carousel;
         var upload = layui.upload;
-        var form = layui.form;
-
-        var developer_config = {
-            server: {
-                server_platform: '',
-                server_ip: '',
-                server_port: '',
-                server_account: '',
-                server_password: ''
-            },
-            project: {
-                project_name: '',
-                project_remark: ''
-            },
-            publish: {
-                publish_path: '',
-                publish_before_command: '',
-                publish_after_command: ''
-            }
-        };
+        form = layui.form;
+        get_classify();
 
         var step_el = init_dev_steps();
 
@@ -133,6 +116,7 @@ function verify_step_server(data) {
 function get_step_project() {
     var data = {
         project_name: $('#step_project input[name=project_name]').val(),
+        project_classify: get_select_input('#step_project select[name=project_classify]'),
         project_remark: $('#step_project textarea[name=project_remark]').val()
     };
     return data;
@@ -142,6 +126,11 @@ function verify_step_project(data) {
 
     if (!data['project_name']) {
         layer.msg('请填写项目名称');
+        return false;
+    }
+
+    if (data['project_classify'].length > 20) {
+        layer.msg('项目归类最多20个字符');
         return false;
     }
 
@@ -208,6 +197,19 @@ function publish(call) {
         err: o => {
             layer.closeAll();
             layer.msg(o.msg);
+        }
+    });
+}
+
+function get_classify(sed) {
+    render_select({
+        sor: '#step_project select[name=project_classify]',
+        el: form,
+        def: '项目归属类别',
+        sed: sed,
+        url: '../api/quickproject/getclassify',
+        done: o => {
+            $('#step_project select[name=project_classify]').next().find('div input.layui-input').unbind('blur')
         }
     });
 }

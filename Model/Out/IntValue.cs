@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Model.Out.Service
+namespace Model.Out
 {
     /// <summary>
-    /// 服务器下拉列表
+    /// int Value
     /// </summary>
-    public class ServiceKvResult
+    public class IntValue
     {
         /// <summary>
         /// 值

@@ -73,6 +73,15 @@ namespace Server.Implement.FlowProject
                 result.msg = Tip.TIP_19;
                 return result;
             }
+            if (!string.IsNullOrWhiteSpace(data.project.project_classify))
+            {
+                if (!VerifyCommon.ProjectNameLength(data.project.project_classify.Trim()))
+                {
+                    result.msg = Tip.TIP_51;
+                    return result;
+                }
+                data.project.project_classify = data.project.project_classify.Trim();
+            }
             if (string.IsNullOrWhiteSpace(data.project.code_souce_tool) || !int.TryParse(data.project.code_souce_tool, out int code_mode))
             {
                 result.msg = Tip.TIP_42;
@@ -186,14 +195,14 @@ namespace Server.Implement.FlowProject
             return result;
         }
 
-        public async Task<Result> GetProjectList()
+        public async Task<Result> GetProjectList(In<SearchProjectIn> inData)
         {
             List<ProjectInfoResult> resultList = new List<ProjectInfoResult>();
             Result<List<ProjectInfoResult>> result = new Result<List<ProjectInfoResult>> { result = true, data = resultList };
 
             SQLiteHelper dbHelper = new SQLiteHelper();
 
-            List<t_project> projList = await ProjectDao.GetProjectList(dbHelper);
+            List<t_project> projList = await ProjectDao.GetProjectList(dbHelper, inData.data);
             List<t_flow_project> flowList = new List<t_flow_project>();
             List<t_publish> publishList = new List<t_publish>();
             List<t_service> serviceList = new List<t_service>();
@@ -218,7 +227,8 @@ namespace Server.Implement.FlowProject
                         project_name = item.name,
                         project_remark = item.remark,
                         code_souce_tool = ((ECodeTools)flowItem.code_source).GetDesc(),
-                        project_path = flowItem.proj_path
+                        project_path = flowItem.proj_path,
+                        project_classify = item.classify
                     },
                     server = new ServiceResult
                     {
@@ -468,6 +478,15 @@ namespace Server.Implement.FlowProject
                 result.msg = Tip.TIP_19;
                 return result;
             }
+            if (!string.IsNullOrWhiteSpace(data.project.project_classify))
+            {
+                if (!VerifyCommon.ProjectNameLength(data.project.project_classify.Trim()))
+                {
+                    result.msg = Tip.TIP_51;
+                    return result;
+                }
+                data.project.project_classify = data.project.project_classify.Trim();
+            }
             if (string.IsNullOrWhiteSpace(data.project.code_souce_tool) || !int.TryParse(data.project.code_souce_tool, out int code_mode))
             {
                 result.msg = Tip.TIP_42;
@@ -641,6 +660,25 @@ namespace Server.Implement.FlowProject
                 await db.RollbackAsync();
                 result.msg = Tip.TIP_49;
             }
+            return result;
+        }
+
+        public async Task<Result> GetProjectClassify(In inData)
+        {
+            SQLiteHelper db = new SQLiteHelper();
+            List<string> classify_list = await ProjectDao.GetProjectClassify(db);
+            db.Close();
+            classify_list = classify_list.Where(w => !string.IsNullOrWhiteSpace(w)).ToList();
+            Result<List<StringValue>> result = new Result<List<StringValue>> { result = true, data = new List<StringValue>() };
+            foreach (var item in classify_list)
+            {
+                result.data.Add(new StringValue
+                {
+                    name = item,
+                    value = item
+                });
+            }
+
             return result;
         }
     }

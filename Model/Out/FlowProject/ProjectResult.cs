@@ -18,6 +18,11 @@ namespace Model.Out.FlowProject
         /// 项目名称
         /// </summary>
         public string project_name { get; set; }
+        
+        /// <summary>
+        /// 项目归类
+        /// </summary>
+        public string project_classify { get; set; }
 
         /// <summary>
         /// 备注

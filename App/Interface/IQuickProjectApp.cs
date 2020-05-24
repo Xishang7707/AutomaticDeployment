@@ -26,7 +26,7 @@ namespace App.Interface
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>
-        Task<Result> GetProjectListAsync(In data);
+        Task<Result> GetProjectListAsync(In<SearchProjectIn> data);
 
         /// <summary>
         /// 发布
@@ -55,5 +55,12 @@ namespace App.Interface
         /// <param name="inData"></param>
         /// <returns></returns>
         Task<Result> DeleteProject(In<DeleteProjectIn> inData);
+
+        /// <summary>
+        /// 获取项目归类
+        /// </summary>
+        /// <param name="inData"></param>
+        /// <returns></returns>
+        Task<Result> GetProjectClassify(In inData);
     }
 }

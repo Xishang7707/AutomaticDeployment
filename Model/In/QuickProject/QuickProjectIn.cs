@@ -18,5 +18,10 @@ namespace Model.In.QuickProject
         /// 项目描述
         /// </summary>
         public string project_remark { get; set; }
+
+        /// <summary>
+        /// 项目归类
+        /// </summary>
+        public string project_classify { get; set; }
     }
 }

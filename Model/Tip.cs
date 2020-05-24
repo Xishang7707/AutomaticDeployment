@@ -258,5 +258,11 @@ namespace Model
         /// 删除成功
         /// </summary>
         public static string TIP_50 { get; } = "删除成功";
+
+        /// <summary>
+        /// 项目归类最多20个字符
+        /// </summary>
+        public static string TIP_51 { get; } = "项目归类最多20个字符";
+
     }
 }

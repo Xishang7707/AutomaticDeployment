@@ -38,7 +38,12 @@ namespace App.Implement.QuickProjectApp
             return await server.GetProjectAsync(inData);
         }
 
-        public async Task<Result> GetProjectListAsync(In data)
+        public async Task<Result> GetProjectClassify(In inData)
+        {
+            return await server.GetProjectClassify(inData);
+        }
+
+        public async Task<Result> GetProjectListAsync(In<SearchProjectIn> data)
         {
             return await server.QuickProjectListAsync(data);
         }

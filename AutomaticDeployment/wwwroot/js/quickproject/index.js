@@ -1,13 +1,20 @@
-﻿$(function () {
+﻿var form;
+$(function () {
     $('#btn_open_addproject').click(open_addproject);
-    layui.use([], function () {
+    $('#btn-search').click(() => { get_projects(); });
+    layui.use(['form'], function () {
+        form = layui.form;
+        form.on('select(project_classify)', function (data) {
+            get_projects();
+        });
+        get_classify();
         get_projects();
     });
 });
 
 function get_projects() {
     get({
-        url: '../api/quickproject/getprojectlist',
+        url: `../api/quickproject/getprojectlist?project_classify=${get_select_input('form select[name=project_classify]')}`,
         done: o => {
             render_project_table(o['data']);
             bind_act(o['data']);
@@ -56,10 +63,18 @@ function render_project_table(o) {
     var dom = ``;
     for (var k in o) {
         var item = o[k];
+
+        var proj_item = ``;
+        if (item['project']['project_classify']) {
+            proj_item = `<p>名称：${item['project']['project_name']}</p>
+                         <p>归类：${item['project']['project_classify']}</p>`;
+        } else {
+            proj_item = `<p>${item['project']['project_name']}</p>`;
+        }
         var temp = `
                     <tr>
                         <td>
-                            <p>${item['project']['project_name']}</p>
+                            ${proj_item}
                         </td>
                         <td>
                             <p>IP：${item['server']['server_ip']}</p>
@@ -129,13 +144,29 @@ function delete_project(id) {
 }
 
 function notice_add(data) {
+    get_classify(get_selected('form select[name=project_classify]'));
     get_projects();
 }
 
 function notice_update(data) {
+    get_classify(get_selected('form select[name=project_classify]'));
     get_projects();
 }
 
 function notice_delete(data) {
+    get_classify(get_selected('form select[name=project_classify]'));
     get_projects();
+}
+
+function get_classify(sed) {
+    render_select({
+        sor: 'form select[name=project_classify]',
+        el: form,
+        def: '项目归属类别',
+        sed: sed,
+        url: '../api/quickproject/getclassify',
+        done: o => {
+            $('form select[name=project_classify]').next().find('div input.layui-input').unbind('blur');
+        }
+    });
 }

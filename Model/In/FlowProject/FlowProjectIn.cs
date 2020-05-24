@@ -15,6 +15,11 @@ namespace Model.In.FlowProject
         public string project_name { get; set; }
 
         /// <summary>
+        /// 归类
+        /// </summary>
+        public string project_classify { get; set; }
+
+        /// <summary>
         /// 备注
         /// </summary>
         public string project_remark { get; set; }

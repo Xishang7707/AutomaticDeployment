@@ -95,8 +95,42 @@ function close_page() {
  */
 async function hub_reconnection(hub) {
     let index = setInterval(() => {
-        hub.start().then(() => {
-            clearInterval(index);
-        });
+        try {
+            hub.start().then(() => {
+                clearInterval(index);
+            });
+        } catch (e) {
+
+        }
     }, 3000);
+}
+
+/**
+ * 加载下拉框
+ * @param {any} param0
+ */
+function render_select({ sor, el, url, def = '', sed = '', done = null }) {
+    var dom = $(sor);
+    var options = def ? `<option value=''>${def}</option>` : '';
+    get({
+        url: url,
+        done: o => {
+            var data = o['data'];
+            for (var i = 0; i < data.length; i++) {
+                var it = data[i];
+                options += `<option value='${it['value']}' ${(sed && sed == it['value'] ? 'selected' : '')}>${it['name']}</option>`;
+            }
+            dom.html(options);
+            el.render('select');
+
+            done && done(data);
+        },
+        err: o => {
+            tw.layer.msg(o.msg);
+        }
+    })
+}
+
+function get_select_input(sor) {
+    return $(sor).next().find('div input.layui-input').val();
 }

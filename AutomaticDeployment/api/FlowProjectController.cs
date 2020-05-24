@@ -33,9 +33,9 @@ namespace AutomaticDeployment.api
         /// </summary>
         /// <returns></returns>
         [HttpGet("getprojectlist")]
-        public async Task<IActionResult> GetProjectList()
+        public async Task<IActionResult> GetProjectList([FromQuery] SearchProjectIn model)
         {
-            return await app.GetProjectList();
+            return await app.GetProjectList(PackRequest(model));
         }
 
         /// <summary>
@@ -91,6 +91,16 @@ namespace AutomaticDeployment.api
         public async Task<IActionResult> DeleteProject([FromBody] DeleteProjectIn data)
         {
             return await app.DeleteProject(PackRequest(data));
+        }
+
+        /// <summary>
+        /// 获取项目归类
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("getclassify")]
+        public async Task<IActionResult> GetClassify()
+        {
+            return await app.GetProjectClassify(PackRequest());
         }
     }
 }
