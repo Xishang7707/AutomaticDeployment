@@ -64,13 +64,17 @@ namespace Server.Implement.AutoPublish
             manualResetEvent = new ManualResetEvent(true);
             publishLogServer = ServerFactory.GetPublisLog();
             osLocal = ServerFactory.GetOSPlatform(ServerConfig.OSPlatform);
-            osLocal.Connect(new Model.In.OSManage.UserConnectIn
+            Result result = osLocal.Connect(new Model.In.OSManage.UserConnectIn
             {
                 host = "127.0.0.1",
                 password = ServerConfig.OSPassword,
                 user = ServerConfig.OSUser,
                 port = ServerConfig.OSPort
             });
+            if (!result.result)
+            {
+                throw new Exception(result.msg);
+            }
         }
 
         public void Notice()
@@ -732,6 +736,8 @@ namespace Server.Implement.AutoPublish
                 publishLogServer.LogAsync(info.proj_info.proj_guid, info.flow_id, "解压文件失败");
                 return result;
             }
+
+            result.msg = "";
             result.result = true;
             return result;
         }
@@ -819,7 +825,10 @@ namespace Server.Implement.AutoPublish
             foreach (var item in flows)
             {
                 result = item(info);
-                publishLogServer.LogAsync(info.proj_info.proj_guid, info.flow_id, result.msg);
+                if (string.IsNullOrWhiteSpace(result.msg))
+                {
+                    publishLogServer.LogAsync(info.proj_info.proj_guid, info.flow_id, result.msg);
+                }
                 if (!result.result)
                 {
                     return result;
@@ -899,6 +908,7 @@ namespace Server.Implement.AutoPublish
             {
                 publishLogServer.LogAsync(info.proj_info.proj_guid, info.flow_id, $"项目构建失败");
             }
+            result.msg = "";
             return result;
         }
 
@@ -923,6 +933,8 @@ namespace Server.Implement.AutoPublish
                 return result;
             }
             osLocal.ChangeWorkspace(path);
+
+            result.msg = "";
             return result;
         }
     }
