@@ -93,11 +93,12 @@ function close_page() {
  * 重连 signalR
  * @param {any} hub
  */
-async function hub_reconnection(hub) {
+async function hub_reconnection(hub, event) {
     let index = setInterval(() => {
         try {
             hub.start().then(() => {
                 clearInterval(index);
+                event && event();
             });
         } catch (e) {
 
