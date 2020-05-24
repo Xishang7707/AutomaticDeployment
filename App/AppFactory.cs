@@ -46,9 +46,9 @@ namespace App
             if (typeof(T) == typeof(IPublishLogApp))
                 return new PublishLogAppImpl(o[0] as IHubContext<PublishLogHub>) as T;
 
-            if (typeof(T) == typeof(IPageNoticeServer))
+            if (typeof(T) == typeof(IPageNoticeApp))
                 return new PageNoticeAppImpl(o[0] as IHubContext<PageNoticeHub>) as T;
-            
+
             if (typeof(T) == typeof(IEnvironmentApp))
                 return new EnvironmentAppImpl((EOSPlatform)o[0]) as T;
 

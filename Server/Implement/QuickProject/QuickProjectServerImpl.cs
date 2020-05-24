@@ -11,6 +11,7 @@ using Model.In.PublishFlow;
 using Model.In.QuickProject;
 using Model.Out;
 using Model.Out.QuickProject;
+using Model.Variable;
 using Server.Interface;
 using System;
 using System.Collections.Generic;
@@ -25,6 +26,8 @@ namespace Server.Implement.QuickProject
     /// </summary>
     internal class QuickProjectServerImpl : IQuickProjectServer
     {
+        private IPageNoticeServer noticeServer = ServerFactory.Get<IPageNoticeServer>();
+
         /// <summary>
         /// 验证添加数据
         /// </summary>
@@ -156,6 +159,9 @@ namespace Server.Implement.QuickProject
 
                 await dbHelper.CommitAsync();
                 dbHelper.Close();
+
+                //通知页面
+                noticeServer.Add(DefPagePid.QuickProject);
                 result.msg = Tip.TIP_21;
                 return result;
             }
@@ -478,6 +484,9 @@ namespace Server.Implement.QuickProject
 
                 await dbHelper.CommitAsync();
                 dbHelper.Close();
+
+                //通知页面
+                noticeServer.Update(DefPagePid.QuickProject);
                 result.msg = Tip.TIP_34;
                 return result;
             }
@@ -543,6 +552,8 @@ namespace Server.Implement.QuickProject
                 }
                 await db.CommitAsync();
 
+                //通知页面
+                noticeServer.Delete(DefPagePid.QuickProject, inData.data.project_uid);
                 result.msg = Tip.TIP_50;
             }
             catch (Exception e)

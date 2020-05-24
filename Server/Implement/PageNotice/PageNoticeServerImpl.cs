@@ -41,5 +41,15 @@ namespace Server.Implement.PageNotice
         {
             Instance.hubContext.Clients.All.SendAsync("update", new PageNoticeIn { act = "update", pid = pid, data = data });
         }
+
+        public void Delete(string pid, string data = null)
+        {
+            Instance.hubContext.Clients.All.SendAsync("delete", new PageNoticeIn { act = "delete", pid = pid, data = data });
+        }
+
+        public void Add(string pid, string data = null)
+        {
+            Instance.hubContext.Clients.All.SendAsync("add", new PageNoticeIn { act = "add", pid = pid, data = data });
+        }
     }
 }

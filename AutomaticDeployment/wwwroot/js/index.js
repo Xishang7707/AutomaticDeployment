@@ -1,4 +1,5 @@
 ﻿$(function () {
+    init_ws();
     layui.use('element', () => {
         element = layui.element;
         tw.element = element;
@@ -45,15 +46,31 @@ function init_ws() {
     let hubConnection = new signalR.HubConnectionBuilder()
         .withUrl(host)
         .build();
-    recv_publish_log(hubConnection);
-    recv_publish_result(hubConnection, project_uid);
+
+    recv_add(hubConnection);
+    recv_update(hubConnection);
+    recv_delete(hubConnection);
 
     hubConnection.start();
+}
+
+function recv_add(hub) {
+    hub.on("add", function (data) {
+        var iframe = $(`div.layui-tab-content iframe[lay-id=${data['pid']}]`)[0];
+        iframe && iframe.contentWindow && iframe.contentWindow.notice_add && iframe.contentWindow.notice_add(data);
+    });
 }
 
 function recv_update(hub) {
     hub.on("update", function (data) {
         var iframe = $(`div.layui-tab-content iframe[lay-id=${data['pid']}]`)[0];
-        iframe && iframe.contentWindow && iframe.contentWindow.global_update && iframe.contentWindow.global_update(data);
+        iframe && iframe.contentWindow && iframe.contentWindow.notice_update && iframe.contentWindow.notice_update(data);
+    });
+}
+
+function recv_delete(hub) {
+    hub.on("delete", function (data) {
+        var iframe = $(`div.layui-tab-content iframe[lay-id=${data['pid']}]`)[0];
+        iframe && iframe.contentWindow && iframe.contentWindow.notice_delete && iframe.contentWindow.notice_delete(data);
     });
 }

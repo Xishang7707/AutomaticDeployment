@@ -1,6 +1,6 @@
 ﻿$(function () {
     $('#btn_open_addproject').click(() => { open_page('添加项目', 'flowproject/addproject', 'addflowproject') });
-    var w = get_top_window();
+
     layui.use(['element'], function () {
         get_projects();
     });
@@ -14,7 +14,7 @@ function get_projects() {
             bind_act(o['data']);
         },
         err: o => {
-            w.layer.msg(o.msg);
+            tw.layer.msg(o.msg);
         }
     })
 }
@@ -23,11 +23,10 @@ function get_projects() {
  * 编辑项目
  * */
 function open_edit(id, name) {
-    var w = get_top_window();
-    if (w.open_tab) {
-        w.open_tab(`修改[${name}]`, 'flowproject/editflowproject?project_uid=' + id, 'editflowproject#' + id);
+    if (tw.open_tab) {
+        tw.open_tab(`修改[${name}]`, 'flowproject/editflowproject?project_uid=' + id, 'editflowproject#' + id);
     } else {
-        w.open('editflowproject?project_uid=' + id, '_blank');
+        tw.open('editflowproject?project_uid=' + id, '_blank');
     }
 }
 
@@ -83,32 +82,28 @@ function bind_act(o) {
     }
 }
 
-//function global_update(data) {
-//    var w = get_top_window();
-//    get({
-//        url: '../api/flowproject/getprojectlist',
-//        done: o => {
-//            render_project_table(o['data']);
-//            bind_act(o['data']);
-//        },
-//        err: o => {
-//            w.layer.msg(o.msg);
-//        }
-//    })
-//}
+function notice_add(data) {
+    get_projects();
+}
+
+function notice_update(data) {
+    get_projects();
+}
+
+function notice_delete(data) {
+    get_projects();
+}
 
 function delete_project(id) {
     layer.confirm('确定要删除此项目吗？', { icon: 3, title: '询问' }, function (index) {
-        var w = get_top_window();
         post({
             url: '../api/flowproject/deleteproject',
             data: { project_uid: id },
             done: o => {
-                w.layer.msg(o.msg);
-                get_projects();
+                tw.layer.msg(o.msg);
             },
             err: o => {
-                w.layer.msg(o.msg);
+                tw.layer.msg(o.msg);
             }
         });
         layer.close(index);

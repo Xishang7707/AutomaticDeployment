@@ -174,7 +174,7 @@ namespace Server.Implement.FlowProject
                 await db.CommitAsync();
 
                 //通知页面
-                //noticeServer.Update(DefPagePid.FlowProject);
+                noticeServer.Add(DefPagePid.FlowProject);
                 result.msg = Tip.TIP_21;
                 result.result = true;
             }
@@ -337,7 +337,7 @@ namespace Server.Implement.FlowProject
                     publish_before_command = publish_model.publish_before_cmd,
                     publish_after_command = publish_model.publish_after_cmd,
                     publish_time = !GetCommon.GetCastTime(proj_model.last_publish_time, out DateTime publishVal) ? "暂未发布" : publishVal.ToString("yyyy-MM-dd HH:mm:dd"),
-                    publish_status = !GetCommon.GetCastTime(proj_model.last_publish_time, out DateTime publishVal2) ? "暂未发布" : ((EPublishStatus)proj_model.last_publish_status).GetDesc()
+                    publish_status = !GetCommon.GetCastTime(proj_model.last_publish_time, out _) ? "暂未发布" : ((EPublishStatus)proj_model.last_publish_status).GetDesc()
                 }
             };
 
@@ -566,6 +566,9 @@ namespace Server.Implement.FlowProject
                     return result;
                 }
                 await db.CommitAsync();
+
+                //通知页面
+                noticeServer.Update(DefPagePid.FlowProject);
                 result.msg = Tip.TIP_34;
                 result.result = true;
             }
@@ -619,7 +622,7 @@ namespace Server.Implement.FlowProject
                     result.msg = Tip.TIP_49;
                     return result;
                 }
-                
+
                 result.result = await FlowProjectDao.DeleteProject(db, inData.data.project_uid);
                 if (!result.result)
                 {
@@ -629,6 +632,8 @@ namespace Server.Implement.FlowProject
                 }
                 await db.CommitAsync();
 
+                //通知页面
+                noticeServer.Delete(DefPagePid.FlowProject, inData.data.project_uid);
                 result.msg = Tip.TIP_50;
             }
             catch (Exception e)

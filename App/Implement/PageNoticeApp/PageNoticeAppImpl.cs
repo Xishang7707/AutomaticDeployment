@@ -11,11 +11,22 @@ namespace App.Implement.PageNoticeApp
 {
     class PageNoticeAppImpl : IPageNoticeApp
     {
-        private IPageNoticeServer server = ServerFactory.Get<IPageNoticeServer>();
+        private IPageNoticeServer server;
         public PageNoticeAppImpl(IHubContext<PageNoticeHub> hubContext)
         {
-            ServerFactory.Get<IPageNoticeServer>(hubContext);
+            server = ServerFactory.Get<IPageNoticeServer>(hubContext);
         }
+
+        public void Add(string pid, string data = null)
+        {
+            server.Add(pid, data);
+        }
+
+        public void Delete(string pid, string data = null)
+        {
+            server.Delete(pid, data);
+        }
+
         public void Update(string pid, string data = null)
         {
             server.Update(pid, data);

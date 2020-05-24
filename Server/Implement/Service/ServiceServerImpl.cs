@@ -9,6 +9,7 @@ using Model.In;
 using Model.In.Service;
 using Model.Out;
 using Model.Out.Service;
+using Model.Variable;
 using Server.Interface;
 using System;
 using System.Collections.Generic;
@@ -21,6 +22,8 @@ namespace Server.Implement.Service
     /// </summary>
     class ServiceServerImpl : IServiceServer
     {
+        private IPageNoticeServer noticeServer = ServerFactory.Get<IPageNoticeServer>();
+
         /// <summary>
         /// 验证添加数据
         /// </summary>
@@ -121,6 +124,9 @@ namespace Server.Implement.Service
                     return result;
                 }
                 db.Close();
+
+                //通知页面
+                noticeServer.Add(DefPagePid.Service);
                 result.result = true;
                 result.msg = Tip.TIP_37;
             }
@@ -238,13 +244,16 @@ namespace Server.Implement.Service
                 return result;
             }
 
+            //通知页面
+            noticeServer.Delete(DefPagePid.Service, id.ToString());
+
             result.result = true;
             result.msg = Tip.TIP_50;
             return result;
         }
 
         /// <summary>
-        /// 验证删除数据
+        /// 验证获取数据
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>
@@ -400,6 +409,9 @@ namespace Server.Implement.Service
                 result.msg = Tip.TIP_35;
                 return result;
             }
+
+            //通知页面
+            noticeServer.Update(DefPagePid.Service);
 
             result.msg = Tip.TIP_34;
             return result;

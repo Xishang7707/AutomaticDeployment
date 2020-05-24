@@ -3,18 +3,6 @@
     get_service();
 });
 
-/**
- * 打开添加服务器
- * */
-function open_addservice() {
-    var w = get_top_window();
-    if (w.open_tab) {
-        w.open_tab('添加服务器', 'service/addservice', 'addservice');
-    } else {
-        w.open('addservice', '_blank');
-    }
-}
-
 function get_service() {
     get({
         url: '../api/service/getservicelist',
@@ -22,7 +10,7 @@ function get_service() {
             render_table(o['data']);
         },
         err: o => {
-            layer.msg(o.msg);
+            tw.layer.msg(o.msg);
         }
     })
 }
@@ -63,18 +51,28 @@ function open_edit(id) {
 
 function delete_service(id) {
     layer.confirm('确定要删除此服务器吗？', { icon: 3, title: '询问' }, function (index) {
-        var w = get_top_window();
         post({
             url: '../api/service/deleteservice',
             data: { service_id: id },
             done: o => {
-                w.layer.msg(o.msg);
-                get_service();
+                tw.layer.msg(o.msg);
             },
             err: o => {
-                w.layer.msg(o.msg);
+                tw.layer.msg(o.msg);
             }
         });
         layer.close(index);
     });
+}
+
+function notice_add(data) {
+    get_service();
+}
+
+function notice_update(data) {
+    get_service();
+}
+
+function notice_delete(data) {
+    get_service();
 }
