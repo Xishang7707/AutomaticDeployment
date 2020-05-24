@@ -43,6 +43,7 @@ function publish(project_uid) {
         url: '../api/flowproject/publish',
         data: { project_uid: project_uid },
         done: o => {
+            $('#publish_log').children().remove();
             w.layer.msg(o.msg);
         },
         err: o => {
