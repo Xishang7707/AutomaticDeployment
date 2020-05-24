@@ -825,7 +825,7 @@ namespace Server.Implement.AutoPublish
             foreach (var item in flows)
             {
                 result = item(info);
-                if (string.IsNullOrWhiteSpace(result.msg))
+                if (!string.IsNullOrWhiteSpace(result.msg))
                 {
                     publishLogServer.LogAsync(info.proj_info.proj_guid, info.flow_id, result.msg);
                 }
