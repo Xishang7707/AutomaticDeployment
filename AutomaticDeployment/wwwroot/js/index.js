@@ -52,6 +52,9 @@ function init_ws() {
     recv_delete(hubConnection);
 
     hubConnection.start();
+    hubConnection.onclose(() => {
+        hub_reconnection(hubConnection);
+    });
 }
 
 function recv_add(hub) {

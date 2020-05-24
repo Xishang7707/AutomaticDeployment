@@ -17,7 +17,9 @@
         hubConnection.start().then(() => {
             hubConnection.send("publish", project_uid);
         });
-
+        hubConnection.onclose(() => {
+            hub_reconnection(hubConnection);
+        });
         get_project(project_uid);
     })
 });

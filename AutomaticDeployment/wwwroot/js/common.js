@@ -88,3 +88,15 @@ function close_page() {
         }, 1500);
     }
 }
+
+/**
+ * 重连 signalR
+ * @param {any} hub
+ */
+async function hub_reconnection(hub) {
+    let index = setInterval(() => {
+        hub.start().then(() => {
+            clearInterval(index);
+        });
+    }, 3000);
+}
