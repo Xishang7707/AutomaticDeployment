@@ -4,10 +4,10 @@ $(function () {
     if (!project_uid)
         return;
 
-    get_project(project_uid);
     layui.use(['carousel', 'form'], function () {
         var carousel = layui.carousel;
         form = layui.form;
+        get_project(project_uid);
 
         var step_el = init_dev_steps();
 

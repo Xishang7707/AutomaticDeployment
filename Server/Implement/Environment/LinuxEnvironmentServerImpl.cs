@@ -19,7 +19,7 @@ namespace Server.Implement.Environment
         public async Task<Result> CheckLocalBashes()
         {
             IOSManageServer osServer = ServerFactory.Get<IOSManageServer>(EOSPlatform.Linux);
-            Result res = osServer.Connect(new Model.In.OSManage.UserConnectIn { host = "8.129.167.212", password = ServerConfig.OSPassword, port = ServerConfig.OSPort, user = ServerConfig.OSUser });
+            Result res = osServer.Connect(new Model.In.OSManage.UserConnectIn { host = "127.0.0.1", password = ServerConfig.OSPassword, port = ServerConfig.OSPort, user = ServerConfig.OSUser });
             if (!res.result)
             {
                 return res;
