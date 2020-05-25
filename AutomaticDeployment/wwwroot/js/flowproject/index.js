@@ -133,9 +133,8 @@ function get_classify(sed) {
         el: form,
         def: '项目归属类别',
         sed: sed,
+        filter: 'project_classify',
         url: '../api/flowproject/getclassify',
-        done: o => {
-            $('form select[name=project_classify]').next().find('div input.layui-input').unbind('blur');
-        }
+        type: 'input_search'
     });
 }

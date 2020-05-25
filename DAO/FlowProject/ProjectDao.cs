@@ -108,7 +108,7 @@ namespace DAO.FlowProject
         /// <returns></returns>
         public static async Task<t_project> GetProject(SQLiteHelper dbHelper, string proj_guid)
         {
-            string sql = @"SELECT name,proj_guid,last_publish_time,last_publish_status,add_time,remark FROM t_project WHERE proj_guid=@proj_guid AND proj_type=@proj_type;";
+            string sql = @"SELECT name,proj_guid,classify,last_publish_time,last_publish_status,add_time,remark FROM t_project WHERE proj_guid=@proj_guid AND proj_type=@proj_type;";
             return await dbHelper.QueryAsync<t_project>(sql, new { proj_type = (int)EProjectType.Flow, proj_guid = proj_guid });
         }
 

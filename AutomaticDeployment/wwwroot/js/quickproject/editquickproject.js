@@ -210,7 +210,7 @@ function get_project(id) {
         url: '../api/quickproject/getproject?project_uid=' + id,
         done: o => {
             render_project(o.data);
-            get_classify(o.data['project_classify']);
+            get_classify(o.data['project']['project_classify']);
         },
         err: o => {
             layer.msg(o.msg);
@@ -242,9 +242,8 @@ function get_classify(sed) {
         el: form,
         def: '项目归属类别',
         sed: sed,
+        filter: 'project_classify',
         url: '../api/quickproject/getclassify',
-        done: o => {
-            $('#step_project select[name=project_classify]').next().find('div input.layui-input').unbind('blur');
-        }
+        type: 'input_search'
     });
 }

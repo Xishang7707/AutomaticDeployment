@@ -321,7 +321,8 @@ namespace Server.Implement.QuickProject
                 {
                     project_uid = proj.proj_guid,
                     project_name = proj.name,
-                    project_remark = proj.remark
+                    project_remark = proj.remark,
+                    project_classify = proj.classify
                 },
                 server = new ServerResult
                 {

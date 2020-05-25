@@ -110,7 +110,7 @@ async function hub_reconnection(hub, event) {
  * 加载下拉框
  * @param {any} param0
  */
-function render_select({ sor, el, url, def = '', sed = '', done = null }) {
+function render_select({ sor, el, filter, url, def = '', sed = '', type = '', done = null }) {
     var dom = $(sor);
     var options = def ? `<option value=''>${def}</option>` : '';
     get({
@@ -122,8 +122,15 @@ function render_select({ sor, el, url, def = '', sed = '', done = null }) {
                 options += `<option value='${it['value']}' ${(sed && sed == it['value'] ? 'selected' : '')}>${it['name']}</option>`;
             }
             dom.html(options);
-            el.render('select');
 
+            el && el.render('select', filter);
+            if (type == 'input_search') {
+                dom.next().find('div input.layui-input').unbind('blur');
+                dom.next().find('div input.layui-input').unbind('keydown');
+                //dom.next().find('div input.layui-input').blur(() => {
+                //    dom.next().removeClass('layui-form-selected');
+                //});
+            }
             done && done(data);
         },
         err: o => {

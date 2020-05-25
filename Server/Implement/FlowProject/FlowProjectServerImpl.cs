@@ -402,6 +402,7 @@ namespace Server.Implement.FlowProject
                     project_path = flow_model.proj_path,
                     project_remark = proj_model.remark,
                     service_id = flow_model.serv_id.ToString(),
+                    project_classify = proj_model.classify
                 },
                 publish = new FlowPublishIn
                 {

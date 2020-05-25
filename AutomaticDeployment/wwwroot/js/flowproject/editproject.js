@@ -173,21 +173,13 @@ function publish() {
 }
 
 function get_service(form, id) {
-    get({
-        url: '../api/service/getdropservice',
-        done: o => {
-            var data = o['data'];
-            _service_info = data;
-            var dom = ``;
-            for (var i = 0; i < data.length; i++) {
-                var tmp = `<option value="${data[i]['value']}" ${data[i]['value'] == id ? 'selected' : ''}>${data[i]['name']}</option>`;
-                dom += tmp;
-            }
-
-            $('#step_project select[name=project_service_id]').html(dom);
-            form.render('select');
-        }
-    })
+    render_select({
+        sor: '#step_project select[name=project_service_id]',
+        el: form,
+        sed: id,
+        filter: 'project_service_id',
+        url: '../api/service/getdropservice'
+    });
 }
 
 function get_project(id, form) {
@@ -224,9 +216,8 @@ function get_classify(sed) {
         el: form,
         def: '项目归属类别',
         sed: sed,
+        filter: 'project_classify',
         url: '../api/flowproject/getclassify',
-        done: o => {
-            $('#step_project select[name=project_classify]').next().find('div input.layui-input').unbind('blur')
-        }
+        type: 'input_search'
     });
 }
