@@ -222,6 +222,7 @@ function get_classify(sed) {
     render_select({
         sor: '#step_project select[name=project_classify]',
         el: form,
+        def: '项目归属类别',
         sed: sed,
         url: '../api/flowproject/getclassify',
         done: o => {
